@@ -11,11 +11,12 @@ class LexerImplementationTest {
 
     @Test
     fun lexerLexGiven_FileContent_ShouldReturnCorrectTokens() {
-        val file = File("/Users/catamendizabal/projects/ing-sis/prinscript/app/src/main/kotlin/PrintScript/ideas")
+        val file = File("/Users/catamendizabal/projects/ing-sis/PrintScript/app/src/main/kotlin/PrintScript/ideas")
         val list = LexerImplementation().lex(FileContent(file))
         //  val str = StringContent(list)
-        println(list)
-        assertEquals(16, list.size)
+        println("TEST 001")
+        list.forEach(::println)
+        assertEquals(17, list.size)
     }
 
     @Test
@@ -23,7 +24,8 @@ class LexerImplementationTest {
         val myString = "let a = 3;\n" +
                         "let b = 4;"
         val list = LexerImplementation().lex(StringContent(myString))
-        println(list)
-        assertEquals(16, list.size)
+        println("TEST 002")
+        list.forEach(::println)
+        assertEquals(17, list.size)
     }
 }

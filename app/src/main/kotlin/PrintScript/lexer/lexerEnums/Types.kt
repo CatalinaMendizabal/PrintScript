@@ -12,7 +12,9 @@ enum class Types(override val type: String): TokenType {
     MULTIPLY("[*]"),
     DIVIDE("[/]"),
     EQUAL("[=]"),
-    EOF("[;]"),
+    SEMICOLON("[;]"),
+    COLON("[:]"),
+    EOF("[^\\S\\n]*$"),
     LITERAL("[0-9]{1,9}(\\\\.[0-9]*)?"),
     WHITESPACE(" "),
     ENTER("\n");

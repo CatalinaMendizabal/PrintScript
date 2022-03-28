@@ -14,8 +14,8 @@ class LexerImplementation() : Lexer {
 
     private val patterns = HashMap<Types, String>()
     private var line = 0
-    private var position = 0
     private var column = 0
+    private var currentPos = 0
 
     init {
         for (i in Types.values()) {
@@ -28,20 +28,21 @@ class LexerImplementation() : Lexer {
         // input.convertContent().iterator().forEachRemaining
         val matcher: Matcher = generateMatcher(input.convertContent())
 
-        outerLoop@ while (matcher.find()) {
+        while (matcher.find()) {
             val length = matcher.group().length
 
             if (checkNextRow(matcher)) {
                 line++
                 column = 0
-                continue@outerLoop
+                continue
             }
             val matched: Token = generateToken(matcher, length)
 
             tokens.add(matched)
             column += length
-            position += length
+            currentPos += length
         }
+
         return tokens
     }
 
@@ -54,8 +55,8 @@ class LexerImplementation() : Lexer {
             .findFirst().map { element ->
                 Token(
                     element,
-                    position,
-                    position + length,
+                    currentPos,
+                    currentPos + length,
                     LexicalRange(column, line, column + length, line)
                 )
             }
