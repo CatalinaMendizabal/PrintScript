@@ -1,7 +1,6 @@
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id 'org.jetbrains.kotlin.jvm'
-    //     id 'org.jetbrains.kotlin.jvm' version '1.6.10'
 }
 
 repositories {
@@ -16,18 +15,8 @@ repositories {
 }
 
 dependencies {
-    // Align versions of all Kotlin components
-    // implementation platform('org.jetbrains.kotlin:kotlin-bom')
-
-    // Use the Kotlin JDK 8 standard library.
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
-
-    // Align versions of all Kotlin components
-   // implementation platform('org.jetbrains.kotlin:kotlin-bom')
-
-    // Use JUnit Jupiter for testing.
     testImplementation("junit:junit:4.13.2")
-
     implementation ("org.austral.ingsis.printscript:printscript-parser-common:0.1.0")
 }
 
