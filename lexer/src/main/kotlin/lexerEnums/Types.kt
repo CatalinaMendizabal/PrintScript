@@ -2,11 +2,11 @@ package PrintScript.lexer.lexerEnums
 
 import org.austral.ingsis.printscript.common.TokenType
 
-enum class Types(override val type: String): TokenType {
+enum class Types(override val type: String) : TokenType {
     LET("let"),
     PRINT("print"),
     STRING("string"),
-    NUMBER( "number"),
+    NUMBER("number"),
     LEFTPARENTHESIS("[(]"),
     RIGHTPARENTHESIS("[)]"),
     IDENTIFIER("[_a-zA-Z][_a-zA-Z0-9]*"),

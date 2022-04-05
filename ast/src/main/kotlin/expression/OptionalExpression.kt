@@ -3,7 +3,7 @@ package expression
 import node.Node
 import node.NodeVisitor
 
-class OptionalExpression(val value: String, val operand: Operand): Node {
+class OptionalExpression(val value: String, val operand: Operand) : Node {
 
     /* fun accept(visitor: org.gradle.internal.snapshot.ReadOnlyFileSystemNode.NodeVisitor?) {}
 
