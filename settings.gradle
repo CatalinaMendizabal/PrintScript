@@ -8,7 +8,4 @@
  */
 
 rootProject.name = 'PrintScript'
-include'lexer'
-include 'parser'
-include 'interpreter'
-
+include('lexer', 'parser', 'interpreter', 'ast')
