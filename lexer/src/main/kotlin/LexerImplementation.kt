@@ -4,7 +4,6 @@ import PrintScript.lexer.inputContent.Content
 import PrintScript.lexer.lexerEnums.Types
 import org.austral.ingsis.printscript.common.LexicalRange
 import org.austral.ingsis.printscript.common.Token
-import java.util.*
 import java.util.Arrays.stream
 import java.util.regex.Matcher
 import java.util.regex.Pattern
