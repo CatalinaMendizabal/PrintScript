@@ -7,7 +7,7 @@ import java.io.File
 import kotlin.test.assertEquals
 
 class LexerImplTest {
-
+/*
         @Test
         fun lexerLexGiven_FileContent_ShouldReturnCorrectTokens() {
             val file = File("/Users/catamendizabal/projects/ing-sis/PrintScript/ideas")
@@ -16,6 +16,8 @@ class LexerImplTest {
             println("TEST 001")
             assertEquals(17, list.size)
         }
+
+ */
 
         @Test
         fun lexerLexGiven_StringContent_ShouldReturnCorrectTokens() {
