@@ -4,6 +4,7 @@ import PrintScript.lexer.inputContent.StringContent
 import junit.framework.TestCase
 import org.junit.Test
 import java.io.File
+import kotlin.test.assertEquals
 
 class LexerImplTest {
 
@@ -13,7 +14,7 @@ class LexerImplTest {
             val list = LexerImplementation().lex(FileContent(file))
             // val str = StringContent(list)
             println("TEST 001")
-            TestCase.assertEquals(17, list.size)
+            assertEquals(17, list.size)
         }
 
         @Test
@@ -23,7 +24,7 @@ class LexerImplTest {
             val list = LexerImplementation().lex(StringContent(myString))
             println("TEST 002")
             list.forEach(::println)
-            TestCase.assertEquals(17, list.size)
+            assertEquals(17, list.size)
         }
 
 }
