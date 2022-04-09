@@ -19,7 +19,7 @@ class ExpressionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), 
 
     private fun exprOpts(): List<OptionalExpression> {
         val result: MutableList<OptionalExpression> = ArrayList()
-        while (peek(Types.SUM) != null) { //TODO TIENE QUE ADAPTARSE A TOODS :(
+        while (peek(Types.SUM) != null) { // TODO TIENE QUE ADAPTARSE A TOODS :(
             if (peek(Types.LITERAL) != null) {
                 val literal = consume(Types.LITERAL).content
                 result.add(OptionalExpression(literal, Operand.getOperand("+")))

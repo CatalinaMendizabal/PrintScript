@@ -1,10 +1,9 @@
 package PrintScript.lexer
 
-import PrintScript.lexer.lexerEnums.Types
 import PrintScript.lexer.inputContent.Content
+import PrintScript.lexer.lexerEnums.Types
 import org.austral.ingsis.printscript.common.LexicalRange
 import org.austral.ingsis.printscript.common.Token
-import java.util.*
 import java.util.Arrays.stream
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -45,7 +44,7 @@ class LexerImplementation() : Lexer {
         return tokens
     }
 
-    private fun checkNextRow(matcher: Matcher) = matcher.group().equals(Types.ENTER.type)
+    private fun checkNextRow(matcher: Matcher) = matcher.group().equals(Types.EOL.type)
 
     private fun generateToken(matcher: Matcher, length: Int): Token {
         val matched: Token = patterns.keys.stream().filter { type ->
@@ -68,7 +67,8 @@ class LexerImplementation() : Lexer {
         return Pattern.compile(
             stream(Types.values())
                 .map { key -> String.format("(?<%s>%s)", key.name, key.type) }
-                .collect(Collectors.joining("|")))
+                .collect(Collectors.joining("|"))
+        )
             .matcher(line)
     }
 }
