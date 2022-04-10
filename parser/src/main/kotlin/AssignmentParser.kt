@@ -9,19 +9,20 @@ class AssignmentParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), 
     private val expressionParser: FunctionParser = FunctionParser(stream)
 
     override fun parse(): Assignment {
-        if (peek(IDENTIFIER) == null) throw ParserException(
-            "Expected an identifier",
-            current().range.startCol,
-            current().range.startLine
-        )
+        if (peek(IDENTIFIER) == null) throwParserException("identifier")
         val variable = consume(IDENTIFIER).content
-        if (peek(EQUAL) == null) throw ParserException(
-            "Expected =",
-            current().range.startCol,
-            current().range.startLine
-        )
+        if (peek(EQUAL) == null) throwParserException("=")
         consume(EQUAL)
         val function: Function = expressionParser.parse()
         return Assignment(variable, function)
     }
+
+    private fun throwParserException(value: String) {
+        throw ParserException(
+            "Expected an $value",
+            current().range.startCol,
+            current().range.startLine
+        )
+    }
+
 }

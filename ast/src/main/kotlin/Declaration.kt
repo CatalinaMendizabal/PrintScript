@@ -3,6 +3,7 @@ import node.Node
 import node.NodeVisitor
 
 class Declaration : Node {
+
     private var varName: String
     private var type: String
     private lateinit var value: Function
@@ -18,16 +19,15 @@ class Declaration : Node {
         this.type = type
     }
 
-    //@Throws(NodeException::class)
     override fun accept(visitor: NodeVisitor) {
         visitor.visit(this)
     }
 
     override fun toString(): String {
         return if (this::value.isInitialized) {
-            "var $varName: $type = ${value.toString()}"
+            "let $varName: $type = ${value.toString()}"
         } else {
-            "var $varName: $type"
+            "let $varName: $type"
         }
     }
 }

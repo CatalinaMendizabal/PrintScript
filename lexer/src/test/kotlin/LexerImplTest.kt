@@ -54,7 +54,7 @@ class LexerImplTest {
    fun test047_exceptionTest() {
        assertFailsWith<LexerException>(
            block = {
-               lexer.lex(StringContent(src_047))
+               lexer.lex(StringContent(src_04))
            }
        )
    }

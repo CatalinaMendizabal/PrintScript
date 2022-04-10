@@ -1,6 +1,5 @@
 import PrintScript.lexer.lexerEnums.Types.*
 import node.Node
-import org.austral.ingsis.printscript.common.CoreTokenTypes
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.Content
 import org.austral.ingsis.printscript.parser.TokenIterator
@@ -13,28 +12,35 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
 
     override fun parse(): Node {
         val program = CodeBlock()
-        var next: Content<String>?
-        while (peek(EOF) == null) {
-            next = peekAny(LET, NUMBERTYPE, STRINGTYPE, PRINT)
-            if (next != null) {
-                when (next.content) {
+        var nextContent: Content<String>?
+
+        while (isNotAtEndOfFile()) {
+            nextContent = peekAny(LET, PRINT, STRINGTYPE, NUMBERTYPE)
+            if (nextContent != null) {
+                when (nextContent.content) {
                     "let" -> {
                         program.addChild(declarationParser.parse())
                     }
                     "println" -> {
                         program.addChild(printParser.parse())
                     }
-                    else -> throw ParserException(
-                        next.content,
-                        next.token.range.startCol,
-                        next.token.range.startLine
-                    )
+                    else -> throwParserException(nextContent)
                 }
-            } else {
-                program.addChild(assignmentParser.parse())
-            }
-            consume(SEMICOLON, ";")
+            } else program.addChild(assignmentParser.parse())
+
+            consume(SEMICOLON)
         }
         return program
     }
+
+    private fun isNotAtEndOfFile() = peek(EOF) == null
+
+    private fun throwParserException(nextContent: Content<String>) {
+        throw ParserException(
+            nextContent.content,
+            nextContent.token.range.startCol,
+            nextContent.token.range.startLine
+        )
+    }
+
 }

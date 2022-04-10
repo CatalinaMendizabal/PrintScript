@@ -7,22 +7,22 @@ class PrintParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Print> 
 
     private val expressionParser = FunctionParser(stream)
 
-    @Throws(ParserException::class)
     override fun parse(): Print {
-        consume(PRINT, "println")
-        if (peek(LEFTPARENTHESIS, "(") == null) throw ParserException(
-            "Expected (",
-            current().range.startCol,
-            current().range.startLine
-        )
-        consume(LEFTPARENTHESIS, "(")
+
+        consume(PRINT)
+
+        if (peek(LEFTPARENTHESIS) == null) throwParserException("(")
+        consume(LEFTPARENTHESIS)
+
         val content: Function = expressionParser.parse()
-        if (peek(RIGHTPARENTHESIS, ")") == null) throw ParserException(
-            "Expected )",
-            current().range.startCol,
-            current().range.startLine
-        )
-        consume(RIGHTPARENTHESIS, ")")
+
+        if (peek(RIGHTPARENTHESIS) == null) throwParserException(")")
+        consume(RIGHTPARENTHESIS)
+
         return Print(content)
+    }
+
+    private fun throwParserException(value: String) {
+        throw ParserException("Expected $value", current().range.startCol, current().range.startLine)
     }
 }

@@ -35,7 +35,6 @@ class Expression : Function {
         }
     }
 
-    // toString
     override fun toString(): String {
         return ("($left)$operand($right)")
         // return ("(" + left.toString() + ")" + operand + "(" + right + ")")
