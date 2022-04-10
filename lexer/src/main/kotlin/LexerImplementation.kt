@@ -52,6 +52,9 @@ class LexerImplementation() : Lexer {
             matcher.group(type.toString()) != null
         }
             .findFirst().map { element ->
+                if (element == Types.ERROR) {
+                    throw LexerException("Lexical Error", column, line)
+                }
                 Token(
                     element,
                     currentPos,

@@ -1,9 +1,6 @@
 import PrintScript.lexer.Lexer
 import PrintScript.lexer.LexerImplementation
 import PrintScript.lexer.inputContent.StringContent
-import PrintScript.lexer.lexerEnums.Types
-import org.austral.ingsis.printscript.common.LexicalRange
-import org.austral.ingsis.printscript.common.Token
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -48,5 +45,18 @@ class LexerImplTest {
         assertEquals(expected, tokens.toString())
     }
 
+    @Test
+    fun lexingAnUnknownTokenShouldThrowException() {
+       assertFailsWith<LexerException> { lexer.lex(StringContent("@")) }
+      //  assertThrows(UnknownTokenException::class.java) { lexer.lex(StringContentProvider("@")) }
+    }
+   @Test
+   fun test047_exceptionTest() {
+       assertFailsWith<LexerException>(
+           block = {
+               lexer.lex(StringContent(src_047))
+           }
+       )
+   }
 
 }

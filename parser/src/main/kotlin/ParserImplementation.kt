@@ -1,4 +1,3 @@
-import PrintScript.lexer.lexerEnums.Types
 import PrintScript.lexer.lexerEnums.Types.*
 import node.Node
 import org.austral.ingsis.printscript.common.CoreTokenTypes
@@ -12,11 +11,10 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
     private val printParser = PrintParser(stream)
     private val assignmentParser = AssignmentParser(stream)
 
-    @Throws( ParserException::class)
     override fun parse(): Node {
         val program = CodeBlock()
         var next: Content<String>?
-        while (peek(CoreTokenTypes.EOF) == null) {
+        while (peek(EOF) == null) {
             next = peekAny(LET, NUMBERTYPE, STRINGTYPE, PRINT)
             if (next != null) {
                 when (next.content) {
@@ -35,7 +33,7 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
             } else {
                 program.addChild(assignmentParser.parse())
             }
-            consume(Types.SEMICOLON, ";")
+            consume(SEMICOLON, ";")
         }
         return program
     }
