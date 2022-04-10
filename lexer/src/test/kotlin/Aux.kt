@@ -8,6 +8,8 @@ const val src_002 = "let a: String = \"This is a test!\";"
 
 const val src_003 = "let a: Number = 2.123;"
 
+const val src_047 = "\'Hello"
+
 val tokens_001 = listOf(
     Token(type = Types.LET, from = 0, to = 3, range = LexicalRange(startCol = 0, startLine = 0, endCol = 3, endLine = 0)),
     Token(type = Types.WHITESPACE, from = 3, to = 4, range = LexicalRange(startCol = 3, startLine = 0, endCol = 4, endLine = 0)),

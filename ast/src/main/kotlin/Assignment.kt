@@ -1,9 +1,14 @@
-import expression.Expression
 import node.Node
 import node.NodeVisitor
+import expression.Function
 
-class Assignment(val name: String, val value: Expression) : Node {
+class Assignment(var name: String, var value: Function) : Node {
+
     override fun accept(visitor: NodeVisitor) {
-        TODO("Not yet implemented")
+        visitor.visit(this)
+    }
+
+    override fun toString(): String {
+        return "Assignment(name='$name', value=$value)"
     }
 }
