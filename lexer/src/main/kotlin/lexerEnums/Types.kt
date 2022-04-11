@@ -6,7 +6,7 @@ enum class Types(override val type: String) : TokenType {
     LET("let"),
     PRINT("println"),
     STRINGTYPE("String"),
-    STRING( "\".*\"|\'.*\'"),
+    STRING("\".*\"|\'.*\'"),
     NUMBERTYPE("Number"),
     NUMBER("-?\\d+\\.?\\d*"),
     LEFTPARENTHESIS("[(]"),
@@ -22,5 +22,6 @@ enum class Types(override val type: String) : TokenType {
     EOF("[^\\S\\n]*$"),
     LITERAL("[0-9]{1,9}(\\\\.[0-9]*)?"),
     WHITESPACE(" "),
-    EOL("\n");
+    EOL("\n"),
+    ERROR(".+");
 }

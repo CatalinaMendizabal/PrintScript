@@ -1,0 +1,7 @@
+plugins {
+    id "ingsis.kotlin-common-conventions"
+}
+
+dependencies {
+    implementation project(':ast')
+}

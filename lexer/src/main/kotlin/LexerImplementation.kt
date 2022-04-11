@@ -1,5 +1,6 @@
 package PrintScript.lexer
 
+import LexerException
 import PrintScript.lexer.inputContent.Content
 import PrintScript.lexer.lexerEnums.Types
 import org.austral.ingsis.printscript.common.LexicalRange
@@ -51,6 +52,9 @@ class LexerImplementation() : Lexer {
             matcher.group(type.toString()) != null
         }
             .findFirst().map { element ->
+                if (element == Types.ERROR) {
+                    throw LexerException("Lexical Error", column, line)
+                }
                 Token(
                     element,
                     currentPos,
@@ -58,7 +62,7 @@ class LexerImplementation() : Lexer {
                     LexicalRange(column, line, column + length, line)
                 )
             }
-            .orElseThrow { throw IllegalStateException("Invalid Token") }
+            .orElseThrow { throw LexerException("Invalid Token", column, line) }
 
         return matched
     }

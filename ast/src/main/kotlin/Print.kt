@@ -1,9 +1,13 @@
-import expression.Expression
+import expression.Function
 import node.Node
 import node.NodeVisitor
 
-class Print(val expr: Expression) : Node {
+class Print(var content: Function) : Node {
+
     override fun accept(visitor: NodeVisitor) {
-        TODO("Not yet implemented")
+        visitor.visit(this)
+    }
+    override fun toString(): String {
+        return "Print(content=$content)"
     }
 }

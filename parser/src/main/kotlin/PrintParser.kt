@@ -1,16 +1,28 @@
 import PrintScript.lexer.lexerEnums.Types
-import expression.Expression
+import expression.Function
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
-import org.jetbrains.annotations.NotNull
 
-class PrintParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Parser<Print> {
-    private val expressionParser: ExpressionParser = ExpressionParser(stream)
+class PrintParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Print> {
+
+    private val expressionParser = FunctionParser(stream)
+
     override fun parse(): Print {
-        consume(Types.PRINT, "println")
-        consume(Types.LEFTPARENTHESIS, "(")
-        val content: Expression = expressionParser.parse()
-        consume(Types.RIGHTPARENTHESIS, ")")
+
+        consume(Types.PRINT)
+
+        if (peek(Types.LEFTPARENTHESIS) == null) throwParserException("(")
+        consume(Types.LEFTPARENTHESIS)
+
+        val content: Function = expressionParser.parse()
+
+        if (peek(Types.RIGHTPARENTHESIS) == null) throwParserException(")")
+        consume(Types.RIGHTPARENTHESIS)
+
         return Print(content)
+    }
+
+    private fun throwParserException(value: String) {
+        throw ParserException("Expected $value", current().range.startCol, current().range.startLine)
     }
 }
