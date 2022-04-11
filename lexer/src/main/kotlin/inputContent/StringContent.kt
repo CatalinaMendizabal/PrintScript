@@ -1,6 +1,6 @@
 package PrintScript.lexer.inputContent
 
-class StringContent(inputString: String): Content {
+class StringContent(inputString: String) : Content {
 
     private val inputString = inputString
 

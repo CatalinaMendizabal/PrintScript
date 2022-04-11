@@ -1,28 +1,41 @@
 import PrintScript.lexer.lexerEnums.Types
-import expression.Expression
+import expression.Function
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
-import org.jetbrains.annotations.NotNull
-import java.lang.reflect.Type
 
+class DeclarationParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Declaration> {
+    private val functionParser: FunctionParser = FunctionParser(stream)
 
-class DeclarationParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Parser<Declaration> {
-    private val expressionParser = ExpressionParser(stream)
-
-    // Declaration -> Keyword Identifier Separator Keyword Separator | Keyword Identifier Separator
-    // Keyword Operator Expr Separator
     override fun parse(): Declaration {
         consume(Types.LET, "let")
+        if (peek(Types.IDENTIFIER) == null) throw ParserException(
+            "Expected identifier",
+            current().range.startCol,
+            current().range.startLine
+        )
         val variable = consume(Types.IDENTIFIER).content
+        if (peek(Types.COLON) == null) throw ParserException(
+            "Expected :",
+            current().range.startCol,
+            current().range.startLine
+        )
         consume(Types.COLON, ":")
-       // val type = consume(DefaultTokenTypes.KEYWORD).content
+        if (peekAny(Types.STRINGTYPE, Types.LET, Types.NUMBERTYPE, Types.PRINT) == null) throw ParserException(
+            "Expected type",
+            current().range.startCol,
+            current().range.startLine
+        )
+        val type = consumeAny(Types.STRINGTYPE, Types.LET, Types.NUMBERTYPE, Types.PRINT).content
         if (peek(Types.SEMICOLON, ";") != null) {
-          //  consume(DefaultTokenTypes.SEPARATOR)
-         //   return Declaration(variable, type)
+            return Declaration(variable, type)
         }
+        if (peek(Types.EQUAL, "=") == null) throw ParserException(
+            "Expected =",
+            current().range.startCol,
+            current().range.startLine
+        )
         consume(Types.EQUAL, "=")
-        val expr: Expression = expressionParser.parse()
-        //return Declaration(variable, type, expr)
-        return Declaration(variable, "hola", expr) // BORRAR
+        val function: Function = functionParser.parse()
+        return Declaration(variable, type, function)
     }
 }
