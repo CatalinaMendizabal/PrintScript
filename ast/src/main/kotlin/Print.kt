@@ -1,10 +1,9 @@
+import expression.Function
 import node.Node
 import node.NodeVisitor
-import expression.Function
 
 class Print(var content: Function) : Node {
 
-   // @Throws(NodeException::class)
     override fun accept(visitor: NodeVisitor) {
         visitor.visit(this)
     }

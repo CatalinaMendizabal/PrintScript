@@ -8,7 +8,6 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-
 class ParserTestImpl {
     @Test
     fun assignmentParserTestForSingleLiteral() {
@@ -44,7 +43,10 @@ class ParserTestImpl {
         val expression = Expression(
             Expression(Variable("2"), Operand.SUM, Expression(Variable("3"), Operand.MUL, Variable("4"))),
             Operand.SUB,
-            Expression(Variable("10"), Operand.DIV, Variable("5")))
+            Expression(
+                Variable("10"), Operand.DIV, Variable("5")
+            )
+        )
         assertEquals(expression.toString(), parser.parse().toString())
     }
 
@@ -104,13 +106,13 @@ class ParserTestImpl {
         assertEquals(declaration.toString(), parser.parse().toString())
     }
 
-        @Test
-        fun declarationParserWithMissingTypeSeparatorShouldThrowExceptions() {
-            val parser: Parser<Declaration> = DeclarationParser(TokenIterator.create("let x Number", token_011))
-            assertFailsWith<ParserException> {
-                parser.parse()
-            }
+    @Test
+    fun declarationParserWithMissingTypeSeparatorShouldThrowExceptions() {
+        val parser: Parser<Declaration> = DeclarationParser(TokenIterator.create("let x Number", token_011))
+        assertFailsWith<ParserException> {
+            parser.parse()
         }
+    }
 
     @Test
     fun defaultParserTestForNonValidBlockShouldThrowException() {

@@ -8,7 +8,6 @@ class Expression : Function {
     lateinit var operand: Operand
     lateinit var right: Function
 
-
     constructor(value: String) {
         this.left = Variable(value)
     }
@@ -21,7 +20,6 @@ class Expression : Function {
 
     override fun accept(visitor: NodeVisitor) {}
 
-   // @Throws(NodeException::class)
     override fun accept(visitor: ExpressionVisitor) {
         visitor.visitExpression(this)
     }
@@ -37,6 +35,5 @@ class Expression : Function {
 
     override fun toString(): String {
         return ("($left)$operand($right)")
-        // return ("(" + left.toString() + ")" + operand + "(" + right + ")")
     }
 }

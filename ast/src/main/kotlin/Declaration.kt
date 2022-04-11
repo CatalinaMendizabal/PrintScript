@@ -25,7 +25,7 @@ class Declaration : Node {
 
     override fun toString(): String {
         return if (this::value.isInitialized) {
-            "let $varName: $type = ${value.toString()}"
+            "let $varName: $type = $value"
         } else {
             "let $varName: $type"
         }

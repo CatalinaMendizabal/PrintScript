@@ -4,7 +4,6 @@ import node.NodeVisitor
 
 class Variable(private val value: String) : Function {
 
-
     override fun accept(visitor: ExpressionVisitor) {
         visitor.visitVariable(this)
     }

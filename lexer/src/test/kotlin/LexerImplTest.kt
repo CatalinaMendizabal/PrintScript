@@ -16,16 +16,16 @@ class LexerImplTest {
 //        assertEquals(17, list.size)
 //    }
 
-   private val lexer: Lexer = LexerImplementation()
+    private val lexer: Lexer = LexerImplementation()
 
     @Test
-   fun test001_stringDeclarationTest() {
-       val tokens = lexer.lex(StringContent(src_001))
-       val expected = tokens_001.toString()
+    fun test001_stringDeclarationTest() {
+        val tokens = lexer.lex(StringContent(src_001))
+        val expected = tokens_001.toString()
 
-       assertEquals(8, tokens.size)
-       assertEquals(expected, tokens.toString())
-   }
+        assertEquals(8, tokens.size)
+        assertEquals(expected, tokens.toString())
+    }
 
     @Test
     fun test002_stringDeclarationAssignationTest() {
@@ -47,16 +47,16 @@ class LexerImplTest {
 
     @Test
     fun lexingAnUnknownTokenShouldThrowException() {
-       assertFailsWith<LexerException> { lexer.lex(StringContent("@")) }
-      //  assertThrows(UnknownTokenException::class.java) { lexer.lex(StringContentProvider("@")) }
+        assertFailsWith<LexerException> { lexer.lex(StringContent("@")) }
+        //  assertThrows(UnknownTokenException::class.java) { lexer.lex(StringContentProvider("@")) }
     }
-   @Test
-   fun test047_exceptionTest() {
-       assertFailsWith<LexerException>(
-           block = {
-               lexer.lex(StringContent(src_04))
-           }
-       )
-   }
 
+    @Test
+    fun test047_exceptionTest() {
+        assertFailsWith<LexerException>(
+            block = {
+                lexer.lex(StringContent(src_04))
+            }
+        )
+    }
 }

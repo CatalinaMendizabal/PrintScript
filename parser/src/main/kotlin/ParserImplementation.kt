@@ -1,4 +1,4 @@
-import PrintScript.lexer.lexerEnums.Types.*
+import PrintScript.lexer.lexerEnums.Types
 import node.Node
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.Content
@@ -15,7 +15,7 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
         var nextContent: Content<String>?
 
         while (isNotAtEndOfFile()) {
-            nextContent = peekAny(LET, PRINT, STRINGTYPE, NUMBERTYPE)
+            nextContent = peekAny(Types.LET, Types.PRINT, Types.STRINGTYPE, Types.NUMBERTYPE)
             if (nextContent != null) {
                 when (nextContent.content) {
                     "let" -> {
@@ -28,12 +28,12 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
                 }
             } else program.addChild(assignmentParser.parse())
 
-            consume(SEMICOLON)
+            consume(Types.SEMICOLON)
         }
         return program
     }
 
-    private fun isNotAtEndOfFile() = peek(EOF) == null
+    private fun isNotAtEndOfFile() = peek(Types.EOF) == null
 
     private fun throwParserException(nextContent: Content<String>) {
         throw ParserException(
@@ -42,5 +42,4 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
             nextContent.token.range.startLine
         )
     }
-
 }

@@ -1,40 +1,40 @@
-import PrintScript.lexer.lexerEnums.Types.*
+import PrintScript.lexer.lexerEnums.Types
+import expression.Function
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
-import expression.Function
 
 class DeclarationParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Declaration> {
     private val functionParser: FunctionParser = FunctionParser(stream)
 
     override fun parse(): Declaration {
-        consume(LET, "let")
-        if (peek(IDENTIFIER) == null) throw ParserException(
+        consume(Types.LET, "let")
+        if (peek(Types.IDENTIFIER) == null) throw ParserException(
             "Expected identifier",
             current().range.startCol,
             current().range.startLine
         )
-        val variable = consume(IDENTIFIER).content
-        if (peek(COLON) == null) throw ParserException(
+        val variable = consume(Types.IDENTIFIER).content
+        if (peek(Types.COLON) == null) throw ParserException(
             "Expected :",
             current().range.startCol,
             current().range.startLine
         )
-        consume(COLON, ":")
-        if (peekAny(STRINGTYPE, LET, NUMBERTYPE, PRINT) == null) throw ParserException(
+        consume(Types.COLON, ":")
+        if (peekAny(Types.STRINGTYPE, Types.LET, Types.NUMBERTYPE, Types.PRINT) == null) throw ParserException(
             "Expected type",
             current().range.startCol,
             current().range.startLine
         )
-        val type = consumeAny(STRINGTYPE, LET, NUMBERTYPE, PRINT).content
-        if (peek(SEMICOLON, ";") != null) {
+        val type = consumeAny(Types.STRINGTYPE, Types.LET, Types.NUMBERTYPE, Types.PRINT).content
+        if (peek(Types.SEMICOLON, ";") != null) {
             return Declaration(variable, type)
         }
-        if (peek(EQUAL, "=") == null) throw ParserException(
+        if (peek(Types.EQUAL, "=") == null) throw ParserException(
             "Expected =",
             current().range.startCol,
             current().range.startLine
         )
-        consume(EQUAL, "=")
+        consume(Types.EQUAL, "=")
         val function: Function = functionParser.parse()
         return Declaration(variable, type, function)
     }

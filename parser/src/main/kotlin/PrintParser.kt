@@ -1,7 +1,7 @@
-import PrintScript.lexer.lexerEnums.Types.*
+import PrintScript.lexer.lexerEnums.Types
+import expression.Function
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
-import expression.Function
 
 class PrintParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Print> {
 
@@ -9,15 +9,15 @@ class PrintParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Print> 
 
     override fun parse(): Print {
 
-        consume(PRINT)
+        consume(Types.PRINT)
 
-        if (peek(LEFTPARENTHESIS) == null) throwParserException("(")
-        consume(LEFTPARENTHESIS)
+        if (peek(Types.LEFTPARENTHESIS) == null) throwParserException("(")
+        consume(Types.LEFTPARENTHESIS)
 
         val content: Function = expressionParser.parse()
 
-        if (peek(RIGHTPARENTHESIS) == null) throwParserException(")")
-        consume(RIGHTPARENTHESIS)
+        if (peek(Types.RIGHTPARENTHESIS) == null) throwParserException(")")
+        consume(Types.RIGHTPARENTHESIS)
 
         return Print(content)
     }

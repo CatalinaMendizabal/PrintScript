@@ -1,6 +1,6 @@
+import expression.Function
 import node.Node
 import node.NodeVisitor
-import expression.Function
 
 class Assignment(var name: String, var value: Function) : Node {
 
