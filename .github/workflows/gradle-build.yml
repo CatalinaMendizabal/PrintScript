@@ -37,5 +37,5 @@ jobs:
         with:
           arguments: build
         env:
-          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+          GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_PASSWORD: ${{ secrets.GITHUB_PASSWORD }}
