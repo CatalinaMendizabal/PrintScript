@@ -19,4 +19,8 @@ class Variable(private val value: String) : Function {
     override fun toString(): String {
         return value
     }
+
+    fun getValue(): String {
+        return value
+    }
 }

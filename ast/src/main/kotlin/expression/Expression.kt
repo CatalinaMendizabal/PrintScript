@@ -4,7 +4,7 @@ import node.NodeVisitor
 
 class Expression : Function {
 
-    private var left: Function
+    lateinit var left: Function
     lateinit var operand: Operand
     lateinit var right: Function
 

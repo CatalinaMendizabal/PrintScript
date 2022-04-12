@@ -1,4 +1,5 @@
+import expression.Function
 
 interface Interpreter {
-    fun interpret(ast: Expression)
+    fun interpret(ast: Function)
 }
