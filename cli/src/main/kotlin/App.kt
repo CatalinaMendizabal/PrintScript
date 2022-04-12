@@ -6,61 +6,34 @@ import node.Node
 import org.austral.ingsis.printscript.common.Token
 import org.austral.ingsis.printscript.parser.TokenIterator
 import java.io.File
-import java.io.IOException
-import java.util.Scanner
 
 class CLI : CliktCommand() {
 
-    override fun run() {
-        val src = "let a: Number = 0;"
-        var file = File("")
-        var isValid = false
+    private val src = "let a: Number = 0;"
+    var file = File("/Users/catamendizabal/projects.ing-sis/PrintScript/ideas")
 
-        while (!isValid) {
-            try {
-                val filename: String = askForString()
-                file = getFile(filename)
-                println("File found: " + file.absolutePath)
-                isValid = true
-            } catch (e: IOException) {
-                println("Error: " + e.message)
-            }
-        }
+    override fun run() {
 
         try {
             println("Lexing...")
-            val tokens = executeLexerTask(src)
-            println(tokens)
+            val tokens = executeLexerTask()
             println("Parsing...")
-            val root = executeParserTask(src, tokens)
+            val root = executeParserTask(tokens)
             println(root)
             //  TODO interpreter
         } catch (e: Throwable) {
             println("Error: " + e.message)
         }
-        // val result = interpreter.interpret(ast)
-        // print(result)
     }
 
-    private fun executeLexerTask(aContentProvider: String): List<Token> {
+    private fun executeLexerTask(): List<Token> {
         val lexer: Lexer = LexerImplementation()
-        return lexer.lex(StringContent(aContentProvider))
+        return lexer.lex(StringContent(src))
     }
 
-    private fun executeParserTask(aContentProvider: String, tokens: List<Token>): Node {
-        val parser: Parser<Node> = ParserImplementation(TokenIterator.create(aContentProvider, tokens))
+    private fun executeParserTask(tokens: List<Token>): Node {
+        val parser: Parser<Node> = ParserImplementation(TokenIterator.create(src, tokens))
         return parser.parse()
-    }
-
-    private fun askForString(): String {
-        println("Insert file name: ")
-        val scanner = Scanner(System.`in`)
-        return scanner.nextLine().trim()
-    }
-
-    private fun getFile(filename: String): File {
-        val file = File(filename)
-        return if (!file.exists()) throw IOException("File not found") else file
     }
 }
 

@@ -23,7 +23,7 @@ class LexerImplTest {
         val tokens = lexer.lex(StringContent(src_001))
         val expected = tokens_001.toString()
 
-        assertEquals(8, tokens.size)
+        assertEquals(6, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -32,7 +32,7 @@ class LexerImplTest {
         val tokens = lexer.lex(StringContent(src_002))
         val expected = tokens_002.toString()
 
-        assertEquals(12, tokens.size)
+        assertEquals(8, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -41,7 +41,7 @@ class LexerImplTest {
         val tokens = lexer.lex(StringContent(src_003))
         val expected = tokens_003.toString()
 
-        assertEquals(12, tokens.size)
+        assertEquals(8, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
