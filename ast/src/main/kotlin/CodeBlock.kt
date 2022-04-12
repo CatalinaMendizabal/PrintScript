@@ -18,4 +18,8 @@ class CodeBlock : Node {
         }
         return builder.toString()
     }
+
+    fun getChildren(): List<Node> {
+        return children
+    }
 }

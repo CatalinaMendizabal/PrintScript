@@ -30,4 +30,17 @@ class Declaration : Node {
             "let $varName: $type"
         }
     }
+
+    // Getters
+    fun getVarName(): String {
+        return varName
+    }
+
+    fun getType(): String {
+        return type
+    }
+
+    fun getValue(): Function {
+        return value
+    }
 }
