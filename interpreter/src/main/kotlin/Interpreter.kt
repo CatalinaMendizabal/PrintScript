@@ -1,4 +1,3 @@
-import expression.Function
 import node.Node
 
 class Interpreter {
@@ -8,5 +7,4 @@ class Interpreter {
         node.accept(interpreter)
         return interpreter.terminalPrinter
     }
-
 }

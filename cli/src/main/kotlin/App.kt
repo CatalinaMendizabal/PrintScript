@@ -7,8 +7,7 @@ import org.austral.ingsis.printscript.common.Token
 import org.austral.ingsis.printscript.parser.TokenIterator
 import java.io.File
 import java.io.IOException
-import java.util.*
-
+import java.util.Scanner
 
 class CLI : CliktCommand() {
 
@@ -35,11 +34,11 @@ class CLI : CliktCommand() {
             println("Parsing...")
             val root = executeParserTask(src, tokens)
             println(root)
-          //  TODO interpreter
+            //  TODO interpreter
         } catch (e: Throwable) {
             println("Error: " + e.message)
         }
-      //  val result = interpreter.interpret(ast)
+        // val result = interpreter.interpret(ast)
         // print(result)
     }
 
@@ -63,7 +62,6 @@ class CLI : CliktCommand() {
         val file = File(filename)
         return if (!file.exists()) throw IOException("File not found") else file
     }
-
 }
 
 fun main(args: Array<String>) = CLI().main(args)
