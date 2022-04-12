@@ -13,35 +13,29 @@ import java.util.*
 class CLI : CliktCommand() {
 
     override fun run() {
-        val src = "let a: Number = 0;\n" + "println(a);\n" + "a = 20;\n" + "println(a);\n" +
-                "a = a + 50;\n" + "println(a);\n" + "let b: String = \"Hello World\";\n" + "print(b);"
-
-        var mode = ""
-        var file: File = File("")
+        val src = "let a: Number = 0;"
+        var file = File("")
         var isValid = false
 
         while (!isValid) {
             try {
-                val filename: String = askForString("Insert file name: ")
+                val filename: String = askForString()
                 file = getFile(filename)
                 println("File found: " + file.absolutePath)
-                mode = askForString("Insert execution mode (interpretation or validation): ")
                 isValid = true
             } catch (e: IOException) {
                 println("Error: " + e.message)
             }
         }
 
-
         try {
             println("Lexing...")
             val tokens = executeLexerTask(src)
+            println(tokens)
             println("Parsing...")
             val root = executeParserTask(src, tokens)
-            /*if (mode.equals(Mode.Interpretation.getMode())) executeInterpretationTask(timer, root) else if (mode.equals(
-                    Mode.Validation.getMode()
-                )
-            ) executeValidationTask(timer, root)*/
+            println(root)
+          //  TODO interpreter
         } catch (e: Throwable) {
             println("Error: " + e.message)
         }
@@ -59,8 +53,8 @@ class CLI : CliktCommand() {
         return parser.parse()
     }
 
-    private fun askForString(question: String): String {
-        println(question)
+    private fun askForString(): String {
+        println("Insert file name: ")
         val scanner = Scanner(System.`in`)
         return scanner.nextLine().trim()
     }
@@ -70,25 +64,6 @@ class CLI : CliktCommand() {
         return if (!file.exists()) throw IOException("File not found") else file
     }
 
-    /*private fun executeInterpretationTask( root: Node) {
-        val interpreter = Interpreter
-        TaskProgressPrinter.printStart(Task.Interpretation)
-        timer.start()
-        val writer: Writer = interpreter.run(root)
-        System.out.println(writer.read())
-        timer.stop()
-        TaskProgressPrinter.printEnd(Task.Interpretation, timer)
-    }*/
-
-    /*@Throws(NodeException::class)
-    private fun executeValidationTask(timer: Timer, root: Node) {
-        val interpreter = Interpreter
-        TaskProgressPrinter.printStart(Task.Validation)
-        timer.start()
-        interpreter.run(root)
-        timer.stop()
-        TaskProgressPrinter.printEnd(Task.Validation, timer)
-    }*/
 }
 
 fun main(args: Array<String>) = CLI().main(args)

@@ -1,2 +1,1 @@
-let a: Number = 3;
-let b: Number = 4;
+let a: Number = 0;
