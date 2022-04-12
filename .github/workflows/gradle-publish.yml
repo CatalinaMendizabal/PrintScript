@@ -40,7 +40,7 @@ jobs:
           arguments: build
         env:
           GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_PASSWORD: ${{ secrets.GITHUB_PASSWORD }}
+          GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
       # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
       # the publishing section of your build.gradle
@@ -50,4 +50,4 @@ jobs:
           arguments: publish
         env:
           GITHUB_USERNAME: ${{ github.actor }}
-          GITHUB_PASSWORD: ${{ secrets.GITHUB_PASSWORD }}
+          GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,13 @@
+plugins {
+    id "ingsis.kotlin-common-conventions"
+}
+
+dependencies {
+    implementation 'com.github.ajalt.clikt:clikt:3.4.0'
+    implementation project(':ast')
+    implementation project(':lexer')
+    implementation project(':parser')
+    implementation project(':interpreter')
+}
+
+version "1.0.0-SNAPSHOT"

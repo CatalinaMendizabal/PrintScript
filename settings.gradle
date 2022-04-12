@@ -9,3 +9,5 @@
 
 rootProject.name = 'PrintScript'
 include('lexer', 'parser', 'interpreter', 'ast', 'intepreter')
+include 'cli'
+
