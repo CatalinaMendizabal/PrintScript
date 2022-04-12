@@ -45,7 +45,8 @@ class LexerImplementation() : Lexer {
         return tokens
     }
 
-    private fun checkNextRow(matcher: Matcher) = matcher.group().equals(Types.EOL.type) || matcher.group().equals(Types.WHITESPACE.type)
+    private fun checkNextRow(matcher: Matcher) = matcher.group().equals(Types.EOL.type)
+    private fun checkWhiteSpace(matcher: Matcher) = matcher.group().equals(Types.WHITESPACE.type)
 
     private fun generateToken(matcher: Matcher, length: Int): Token {
         val matched: Token = patterns.keys.stream().filter { type ->
