@@ -10,7 +10,7 @@ interface NodeVisitor {
 
     fun visit(declaration: Declaration)
 
-    fun visit(assignment: Assignment?)
+    fun visit(assignment: Assignment)
 
     fun visit(print: Print)
 }
