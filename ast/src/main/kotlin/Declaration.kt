@@ -4,8 +4,8 @@ import node.NodeVisitor
 
 class Declaration : Node {
 
-    private var varName: String
-    private var type: String
+    private val varName: String
+    private val type: String
     private lateinit var value: Function
 
     constructor(varName: String, type: String, value: Function) {
