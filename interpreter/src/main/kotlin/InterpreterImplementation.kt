@@ -4,7 +4,7 @@ class InterpreterImplementation : NodeVisitor {
 
     private val finalValue: Value = Value()
     private var variables: MutableMap<String, String> = mutableMapOf()
-    private var terminalPrinter: TerminalPrinter = TerminalPrinter()
+    var terminalPrinter: TerminalPrinter = TerminalPrinter()
 
     private fun checkType(name: String, type: String) {
         if (type == "string") {
