@@ -5,3 +5,5 @@ plugins {
 dependencies {
     implementation project(':ast')
 }
+
+version "1.0.0-SNAPSHOT"

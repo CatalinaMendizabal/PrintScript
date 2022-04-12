@@ -1,20 +1,19 @@
-import expression.Function
 import node.NodeVisitor
 
-class InterpreterImplementation: NodeVisitor {
+class InterpreterImplementation : NodeVisitor {
 
     private val finalValue: Value = Value()
     private var variables: MutableMap<String, String> = mutableMapOf()
     private var terminalPrinter: TerminalPrinter = TerminalPrinter()
 
     fun checkType(name: String, type: String) {
-        if(type.equals("string")){
-            if(!finalValue.getStringRegex().equals(name)){
+        if (type.equals("string")) {
+            if (!finalValue.getStringRegex().equals(name)) {
                 throw Exception("Type mismatch")
             }
         }
-        if(type.equals("int")){
-            if(!finalValue.getNumberRegex().equals(name)){
+        if (type.equals("int")) {
+            if (!finalValue.getNumberRegex().equals(name)) {
                 throw Exception("Type mismatch")
             }
         }
@@ -46,7 +45,7 @@ class InterpreterImplementation: NodeVisitor {
         finalValue.assigation(varName)
     }
 
-    override fun visit(print: Print){
+    override fun visit(print: Print) {
         val cotent = print.content
         cotent.accept(finalValue)
         terminalPrinter.print(finalValue.getExpressionResult())
