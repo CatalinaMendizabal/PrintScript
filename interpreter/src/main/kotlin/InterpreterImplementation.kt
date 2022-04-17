@@ -4,7 +4,7 @@ class InterpreterImplementation : NodeVisitor {
 
     private val finalValue: Value = Value()
     private var variables: MutableMap<String, String> = mutableMapOf()
-    val terminalPrinter: TerminalPrinter = TerminalPrinter()
+    val interpreterConsole: InterpreterConsole = InterpreterConsole()
 
     private fun checkType(name: String, type: String) {
         if (type == "string") {
@@ -31,7 +31,7 @@ class InterpreterImplementation : NodeVisitor {
         val valueType = declaration.getType()
         finalValue.declaration(varName)
         value.accept(finalValue)
-        finalValue.assigation(varName)
+        finalValue.assignation(varName)
         checkType(varName, valueType)
         variables[varName] = valueType
     }
@@ -42,12 +42,12 @@ class InterpreterImplementation : NodeVisitor {
         value.accept(finalValue)
         val type: String = variables[varName] ?: throw IllegalArgumentException("Variable $varName is not declared")
         checkType(varName, type)
-        finalValue.assigation(varName)
+        finalValue.assignation(varName)
     }
 
     override fun visit(print: Print) {
-        val cotent = print.content
-        cotent.accept(finalValue)
-        terminalPrinter.print(finalValue.getExpressionResult())
+        val content = print.content
+        content.accept(finalValue)
+        interpreterConsole.print(finalValue.getExpressionResult())
     }
 }

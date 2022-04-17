@@ -1,4 +1,4 @@
-class TerminalPrinter {
+class InterpreterConsole {
 
     var builder: StringBuilder = StringBuilder()
 
