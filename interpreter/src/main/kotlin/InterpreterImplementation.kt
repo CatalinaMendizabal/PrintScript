@@ -4,15 +4,15 @@ class InterpreterImplementation : NodeVisitor {
 
     private val finalValue: Value = Value()
     private var variables: MutableMap<String, String> = mutableMapOf()
-    private var terminalPrinter: TerminalPrinter = TerminalPrinter()
+    val interpreterConsole: InterpreterConsole = InterpreterConsole()
 
-    fun checkType(name: String, type: String) {
-        if (type.equals("string")) {
+    private fun checkType(name: String, type: String) {
+        if (type == "string") {
             if (!finalValue.getStringRegex().equals(name)) {
                 throw Exception("Type mismatch")
             }
         }
-        if (type.equals("int")) {
+        if (type == "int") {
             if (!finalValue.getNumberRegex().equals(name)) {
                 throw Exception("Type mismatch")
             }
@@ -26,28 +26,28 @@ class InterpreterImplementation : NodeVisitor {
     }
 
     override fun visit(declaration: Declaration) {
-        var varName = declaration.getVarName()
-        var value = declaration.getValue()
-        var valueType = declaration.getType()
+        val varName = declaration.getVarName()
+        val value = declaration.getValue()
+        val valueType = declaration.getType()
         finalValue.declaration(varName)
         value.accept(finalValue)
-        finalValue.assigation(varName)
+        finalValue.assignation(varName)
         checkType(varName, valueType)
-        variables.put(varName, valueType)
+        variables[varName] = valueType
     }
 
     override fun visit(assignment: Assignment) {
         val varName = assignment.name
         val value = assignment.value
         value.accept(finalValue)
-        val type: String = variables.get(varName) ?: throw IllegalArgumentException("Variable $varName is not declared")
+        val type: String = variables[varName] ?: throw IllegalArgumentException("Variable $varName is not declared")
         checkType(varName, type)
-        finalValue.assigation(varName)
+        finalValue.assignation(varName)
     }
 
     override fun visit(print: Print) {
-        val cotent = print.content
-        cotent.accept(finalValue)
-        terminalPrinter.print(finalValue.getExpressionResult())
+        val content = print.content
+        content.accept(finalValue)
+        interpreterConsole.print(finalValue.getExpressionResult())
     }
 }

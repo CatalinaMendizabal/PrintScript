@@ -1,5 +1,10 @@
-import expression.Function
+import node.Node
 
-interface Interpreter {
-    fun interpret(ast: Function)
+class Interpreter {
+
+    fun interpret(node: Node): InterpreterConsole {
+        val interpreter = InterpreterImplementation()
+        node.accept(interpreter)
+        return interpreter.interpreterConsole
+    }
 }

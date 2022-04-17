@@ -10,8 +10,8 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
 
     override fun parse(): Function {
 
-        if (isNeitherLiteralNorIdentifier()) throwParserException()
-        val value = consumeLiteralOrIdentifier()
+        if (isNotAKeyWord()) throwParserException()
+        val value = consumeKeyWord()
 
         if (isNotOperand()) return Variable(value)
         var result: Function = Variable(value)
@@ -20,21 +20,21 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
             val operand: Operand? =
                 Operand.getOperand(consumeAny(Types.SUM, Types.SUBSTRACT, Types.MULTIPLY, Types.DIVIDE).content)
 
-            if (isNeitherLiteralNorIdentifier()) throwParserException()
-            val next = consumeLiteralOrIdentifier()
+            if (isNotAKeyWord()) throwParserException()
+            val next = consumeKeyWord()
             result = operand?.let { result.addVariable(it, Variable(next)) }!!
         }
 
         return result
     }
 
-    private fun consumeLiteralOrIdentifier() = consumeAny(Types.IDENTIFIER, Types.LITERAL).content
+    private fun consumeKeyWord() = consumeAny(Types.IDENTIFIER, Types.LITERAL, Types.NUMBER, Types.STRING).content
 
     private fun isAnOperand() = peekAny(Types.SUM, Types.SUBSTRACT, Types.MULTIPLY, Types.DIVIDE) != null
 
     private fun isNotOperand() = peekAny(Types.SUM, Types.SUBSTRACT, Types.MULTIPLY, Types.DIVIDE) == null
 
-    private fun isNeitherLiteralNorIdentifier() = peekAny(Types.IDENTIFIER, Types.LITERAL) == null
+    private fun isNotAKeyWord() = peekAny(Types.IDENTIFIER, Types.LITERAL, Types.NUMBER, Types.STRING) == null
 
     private fun throwParserException() {
         throw ParserException("Expected an identifier or literal", current().range.startCol, current().range.startLine)

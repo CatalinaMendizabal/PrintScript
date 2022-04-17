@@ -10,7 +10,19 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 import java.util.stream.Collectors
 
-class LexerImplementation() : Lexer {
+/*
+TODO cosas que corrigio tomi :)
+data class LexResult(val token: Token?, val nextColumn: Int, val nextLine: Int, val nextOffset: Int)
+
+interface LexerRule {
+    fun lex(content: Content): LexResult
+}
+
+data class RegexLexerRule(val patterns: Map<Types, String>) : LexerRule {
+
+}*/
+
+class RegexLexer : Lexer {
 
     private val patterns = HashMap<Types, String>()
     private var line = 0
@@ -33,19 +45,27 @@ class LexerImplementation() : Lexer {
             if (checkNextRow(matcher)) {
                 line++
                 column = 0
+                currentPos += length
                 continue
             }
+
+            if (checkWhiteSpace(matcher)) {
+                column += length
+                currentPos += length
+                continue
+            }
+
             val matched: Token = generateToken(matcher, length)
 
             tokens.add(matched)
             column += length
             currentPos += length
         }
-
         return tokens
     }
 
     private fun checkNextRow(matcher: Matcher) = matcher.group().equals(Types.EOL.type)
+    private fun checkWhiteSpace(matcher: Matcher) = matcher.group().equals(Types.WHITESPACE.type)
 
     private fun generateToken(matcher: Matcher, length: Int): Token {
         val matched: Token = patterns.keys.stream().filter { type ->

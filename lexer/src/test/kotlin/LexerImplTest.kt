@@ -1,5 +1,5 @@
 import PrintScript.lexer.Lexer
-import PrintScript.lexer.LexerImplementation
+import PrintScript.lexer.RegexLexer
 import PrintScript.lexer.inputContent.StringContent
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -16,14 +16,14 @@ class LexerImplTest {
 //        assertEquals(17, list.size)
 //    }
 
-    private val lexer: Lexer = LexerImplementation()
+    private val lexer: Lexer = RegexLexer()
 
     @Test
     fun test001_stringDeclarationTest() {
         val tokens = lexer.lex(StringContent(src_001))
         val expected = tokens_001.toString()
 
-        assertEquals(8, tokens.size)
+        assertEquals(6, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -32,7 +32,7 @@ class LexerImplTest {
         val tokens = lexer.lex(StringContent(src_002))
         val expected = tokens_002.toString()
 
-        assertEquals(12, tokens.size)
+        assertEquals(8, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -41,7 +41,7 @@ class LexerImplTest {
         val tokens = lexer.lex(StringContent(src_003))
         val expected = tokens_003.toString()
 
-        assertEquals(12, tokens.size)
+        assertEquals(8, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
