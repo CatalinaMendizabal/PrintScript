@@ -6,10 +6,10 @@ import expression.Variable
 class Value() : ExpressionVisitor {
 
     private var expressionResult: String = ""
-    private lateinit var variables: MutableMap<String, String>
+    private var variables: MutableMap<String, String> = mutableMapOf()
 
-    // string regex with numbers and letters
-    private var stringRegex = Regex("^[a-zA-Z0-9]+$")
+    // string regex with numbers and letters and double quotation marks
+    private val stringRegex = Regex("[a-zA-Z0-9\"]+")
 
     // string regex with numbers points and numbers
     private var numberRegex = Regex("^[0-9]+[.][0-9]+$")
@@ -18,7 +18,7 @@ class Value() : ExpressionVisitor {
         this.variables = variables
     }
 
-    fun evaluateExpression(expression: Expression) {
+    private fun evaluateExpression(expression: Expression) {
         var operand: Operand = expression.operand
         var leftValue: String = expression.left.toString()
         var rightValue: String = expression.right.toString()
@@ -30,7 +30,7 @@ class Value() : ExpressionVisitor {
             rightValue = variables.getValue(rightValue)
         }
 
-        var result: String = ""
+        val result: String = ""
 
         if (isString(leftValue, rightValue)) {
             expressionResult = operateOverString(operand, leftValue, rightValue)
@@ -45,7 +45,7 @@ class Value() : ExpressionVisitor {
         this.expressionResult = result
     }
 
-    fun isString(leftValue: String, rightValue: String): Boolean {
+    private fun isString(leftValue: String, rightValue: String): Boolean {
         if (stringRegex.matches(leftValue) && stringRegex.matches(rightValue)) {
             return true
         }
@@ -58,17 +58,18 @@ class Value() : ExpressionVisitor {
         return false
     }
 
-    fun isNumber(leftValue: String, rightValue: String): Boolean {
+    private fun isNumber(leftValue: String, rightValue: String): Boolean {
         return numberRegex.matches(leftValue) && numberRegex.matches(rightValue)
     }
 
-    fun isNotDefined(variable: String): Boolean {
-        return !stringRegex.matches(variable) && !numberRegex.matches(variable)
+    private fun isNotDefined(variable: String): Boolean {
+        if (!stringRegex.containsMatchIn(variable)) return true
+        if (!numberRegex.containsMatchIn(variable)) return true
+        return false
     }
 
-    fun operateOverNumber(operand: Operand, leftValue: String, rightValue: String): String {
-        var result = ""
-        result = when (operand) {
+    private fun operateOverNumber(operand: Operand, leftValue: String, rightValue: String): String {
+        val result: String = when (operand) {
             Operand.SUM -> (leftValue.toDouble() + rightValue.toDouble()).toString()
             Operand.SUB -> (leftValue.toDouble() - rightValue.toDouble()).toString()
             Operand.MUL -> (leftValue.toDouble() * rightValue.toDouble()).toString()
@@ -77,7 +78,7 @@ class Value() : ExpressionVisitor {
         return result
     }
 
-    fun operateOverString(operand: Operand, leftValue: String, rightValue: String): String {
+    private fun operateOverString(operand: Operand, leftValue: String, rightValue: String): String {
         if (operand != Operand.SUM) {
             throw IllegalArgumentException("Operand $operand is not supported for value type String")
         } else {
@@ -85,11 +86,11 @@ class Value() : ExpressionVisitor {
         }
     }
 
-    public fun declaration(variable: String) {
+    fun declaration(variable: String) {
         variables[variable] = ""
     }
 
-    fun assigation(variable: String) {
+    fun assignation(variable: String) {
         variables[variable] = expressionResult
     }
 
@@ -99,9 +100,9 @@ class Value() : ExpressionVisitor {
 
     override fun visitVariable(variable: Variable) {
         expressionResult = variables.getOrDefault(variable.getValue(), variable.getValue())
-        if (isNotDefined(expressionResult)) {
+      /*  if (isNotDefined(expressionResult)) {
             throw IllegalArgumentException("Variable $expressionResult is not defined!")
-        }
+        }*/
     }
 
     // getter

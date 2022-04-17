@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     implementation project(':ast')
+    implementation project(':lexer')
 }
 
 version "1.0.2"

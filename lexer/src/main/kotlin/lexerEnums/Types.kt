@@ -24,4 +24,10 @@ enum class Types(override val type: String) : TokenType {
     WHITESPACE(" "),
     EOL("\n"),
     ERROR(".+");
+//    BOOLEANTYPE("boolean"),
+//    BOOLEAN("true|false"),
+//    IF("if"),
+//    ELSE("else"),
+//    RIGTHBRACKET("[}]"),
+//    LEFTBRACKET("[{]");
 }

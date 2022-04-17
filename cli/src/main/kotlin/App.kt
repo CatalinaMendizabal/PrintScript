@@ -1,6 +1,6 @@
 import PrintScript.lexer.Lexer
-import PrintScript.lexer.LexerImplementation
-import PrintScript.lexer.inputContent.StringContent
+import PrintScript.lexer.RegexLexer
+import PrintScript.lexer.inputContent.FileContent
 import com.github.ajalt.clikt.core.CliktCommand
 import node.Node
 import org.austral.ingsis.printscript.common.Token
@@ -9,8 +9,8 @@ import java.io.File
 
 class CLI : CliktCommand() {
 
-    private val src = "let a: Number = 0;"
-    var file = File("/Users/catamendizabal/projects.ing-sis/PrintScript/ideas")
+    private val src = "let a: String = \"Hola\";" + "println(a);" + "let b: Number = 1;"
+    var file = File("ideas")
 
     override fun run() {
 
@@ -19,21 +19,27 @@ class CLI : CliktCommand() {
             val tokens = executeLexerTask()
             println("Parsing...")
             val root = executeParserTask(tokens)
-            println(root)
-            //  TODO interpreter
+            val consoleInt = executeInterpreterTask(root)
+            println("Interpreting...")
+            println(consoleInt.readLine())
         } catch (e: Throwable) {
             println("Error: " + e.message)
         }
     }
 
     private fun executeLexerTask(): List<Token> {
-        val lexer: Lexer = LexerImplementation()
-        return lexer.lex(StringContent(src))
+        val lexer: Lexer = RegexLexer()
+        return lexer.lex(FileContent(file))
     }
 
     private fun executeParserTask(tokens: List<Token>): Node {
-        val parser: Parser<Node> = ParserImplementation(TokenIterator.create(src, tokens))
+        val parser: Parser<Node> = ParserImplementation(TokenIterator.create(FileContent(file).convertContent(), tokens))
         return parser.parse()
+    }
+
+    private fun executeInterpreterTask(ast: Node): InterpreterConsole {
+        val interpreter = Interpreter()
+        return interpreter.interpret(ast)
     }
 }
 

@@ -22,7 +22,7 @@ data class RegexLexerRule(val patterns: Map<Types, String>) : LexerRule {
 
 }*/
 
-class LexerImplementation : Lexer {
+class RegexLexer : Lexer {
 
     private val patterns = HashMap<Types, String>()
     private var line = 0
@@ -45,6 +45,7 @@ class LexerImplementation : Lexer {
             if (checkNextRow(matcher)) {
                 line++
                 column = 0
+                currentPos += length
                 continue
             }
 
