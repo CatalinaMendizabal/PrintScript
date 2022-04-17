@@ -22,7 +22,7 @@ data class RegexLexerRule(val patterns: Map<Types, String>) : LexerRule {
 
 }*/
 
-class LexerImplementation : Lexer {
+class RegexLexer : Lexer {
 
     private val patterns = HashMap<Types, String>()
     private var line = 0

@@ -1,5 +1,5 @@
 import PrintScript.lexer.Lexer
-import PrintScript.lexer.LexerImplementation
+import PrintScript.lexer.RegexLexer
 import PrintScript.lexer.inputContent.StringContent
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -16,7 +16,7 @@ class LexerImplTest {
 //        assertEquals(17, list.size)
 //    }
 
-    private val lexer: Lexer = LexerImplementation()
+    private val lexer: Lexer = RegexLexer()
 
     @Test
     fun test001_stringDeclarationTest() {

@@ -1,5 +1,5 @@
 import PrintScript.lexer.Lexer
-import PrintScript.lexer.LexerImplementation
+import PrintScript.lexer.RegexLexer
 import PrintScript.lexer.inputContent.StringContent
 import com.github.ajalt.clikt.core.CliktCommand
 import node.Node
@@ -9,7 +9,7 @@ import java.io.File
 
 class CLI : CliktCommand() {
 
-    private val src = "let a: Number = 0;"
+    private val src = "let a: String = \"Hola\";"
     var file = File("/Users/catamendizabal/projects.ing-sis/PrintScript/ideas")
 
     override fun run() {
@@ -19,7 +19,6 @@ class CLI : CliktCommand() {
             val tokens = executeLexerTask()
             println("Parsing...")
             val root = executeParserTask(tokens)
-            println(root)
             //  TODO interpreter
         } catch (e: Throwable) {
             println("Error: " + e.message)
@@ -27,7 +26,7 @@ class CLI : CliktCommand() {
     }
 
     private fun executeLexerTask(): List<Token> {
-        val lexer: Lexer = LexerImplementation()
+        val lexer: Lexer = RegexLexer()
         return lexer.lex(StringContent(src))
     }
 
