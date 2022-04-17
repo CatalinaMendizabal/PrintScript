@@ -1,13 +1,10 @@
 import PrintScript.lexer.Lexer
 import PrintScript.lexer.RegexLexer
 import PrintScript.lexer.inputContent.FileContent
-import PrintScript.lexer.inputContent.StringContent
 import com.github.ajalt.clikt.core.CliktCommand
 import node.Node
-import node.NodeVisitor
 import org.austral.ingsis.printscript.common.Token
 import org.austral.ingsis.printscript.parser.TokenIterator
-import java.io.BufferedReader
 import java.io.File
 
 class CLI : CliktCommand() {

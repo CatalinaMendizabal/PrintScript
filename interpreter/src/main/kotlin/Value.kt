@@ -18,7 +18,6 @@ class Value() : ExpressionVisitor {
         this.variables = variables
     }
 
-
     private fun evaluateExpression(expression: Expression) {
         var operand: Operand = expression.operand
         var leftValue: String = expression.left.toString()
