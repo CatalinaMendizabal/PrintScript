@@ -45,6 +45,7 @@ class RegexLexer : Lexer {
             if (checkNextRow(matcher)) {
                 line++
                 column = 0
+                currentPos += length
                 continue
             }
 

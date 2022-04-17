@@ -9,9 +9,8 @@ import java.io.File
 
 class CLI : CliktCommand() {
 
-/*    private val src = "let a: String = \"Hola\";" + "println(a);" +
-            "let b: Number = 1;"*/
-    var file = File("/Users/catamendizabal/projects/ing-sis/PrintScript/ideas")
+    private val src = "let a: String = \"Hola\";" + "println(a);" + "let b: Number = 1;"
+    var file = File("ideas")
 
     override fun run() {
 
