@@ -6,8 +6,8 @@ plugins {
     id 'maven-publish'
 }
 
-group 'com.edu.austral.ingsis.printscript'
-version "1.0.2"
+group 'com.g3.austral.ingsis.printscript'
+version "1.0.4"
 
 repositories {
     mavenCentral()
