@@ -1,12 +1,9 @@
-import expression.Expression
-import expression.ExpressionVisitor
-import expression.Operand
-import expression.Variable
+import expression.*
 
 class Value() : ExpressionVisitor {
 
     private var expressionResult: String = ""
-    private var variables: MutableMap<String, String> = mutableMapOf()
+    private var variables = HashMap<String, String>()
 
     // string regex with numbers and letters and double quotation marks
     private val stringRegex = Regex("[a-zA-Z0-9\"]+")
@@ -14,14 +11,20 @@ class Value() : ExpressionVisitor {
     // string regex with numbers points and numbers
     private var numberRegex = Regex("^[0-9]+[.][0-9]+$")
 
-    constructor(variables: MutableMap<String, String>) : this() {
+    constructor(variables: HashMap<String, String>) : this() {
         this.variables = variables
     }
 
-    private fun evaluateExpression(expression: Expression) {
-        var operand: Operand = expression.operand
-        var leftValue: String = expression.left.toString()
-        var rightValue: String = expression.right.toString()
+    private fun evaluateExpression(operation: Operation) {
+        var operand: Operand = operation.operand
+        var leftValue: String = operation.left.accept(this).toString()
+        var rightValue: String = operation.right.accept(this).toString()
+//        if(expression.left.accept(this) != null) {
+//            leftValue = expression.left.accept(this).toString()
+//        }
+//        if (expression.right.accept(this) != null){
+//            rightValue = expression.right.accept(this).toString()
+//        }
 
         if (variables.containsKey(leftValue)) {
             leftValue = variables.getValue(leftValue)
@@ -30,14 +33,14 @@ class Value() : ExpressionVisitor {
             rightValue = variables.getValue(rightValue)
         }
 
-        val result: String = ""
+        var result: String = ""
 
         if (isString(leftValue, rightValue)) {
-            expressionResult = operateOverString(operand, leftValue, rightValue)
+            result = operateOverString(operand, leftValue, rightValue)
         }
 
         if (isNumber(leftValue, rightValue)) {
-            expressionResult = operateOverNumber(operand, leftValue, rightValue)
+            result = operateOverNumber(operand, leftValue, rightValue)
         } else {
             throw IllegalArgumentException("Invalid expression")
         }
@@ -87,22 +90,22 @@ class Value() : ExpressionVisitor {
     }
 
     fun declaration(variable: String) {
-        variables[variable] = ""
+        variables[variable]
     }
 
     fun assignation(variable: String) {
         variables[variable] = expressionResult
     }
 
-    override fun visitExpression(expression: Expression) {
-        evaluateExpression(expression)
+    override fun visitExpression(operation: Operation) {
+        evaluateExpression(operation)
     }
 
     override fun visitVariable(variable: Variable) {
         expressionResult = variables.getOrDefault(variable.getValue(), variable.getValue())
-      /*  if (isNotDefined(expressionResult)) {
+        if (isNotDefined(expressionResult)) {
             throw IllegalArgumentException("Variable $expressionResult is not defined!")
-        }*/
+        }
     }
 
     // getter

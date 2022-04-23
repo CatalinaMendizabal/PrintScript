@@ -1,5 +1,5 @@
+import expression.Operation
 import expression.Expression
-import expression.Function
 import expression.Operand
 import expression.Variable
 import node.Node
@@ -32,9 +32,9 @@ class ParserTestImpl {
 
     @Test
     fun expressionParserTestForSimpleSum() {
-        val parser: Parser<Function> = FunctionParser(TokenIterator.create("2 + 3", token_004))
-        val expression = Expression(Variable("2"), Operand.SUM, Variable("3"))
-        assertEquals(expression.toString(), parser.parse().toString())
+        val parser: Parser<Expression> = FunctionParser(TokenIterator.create("2 + 3", token_004))
+        val operation = Operation(Variable("2"), Operand.SUM, Variable("3"))
+        assertEquals(operation.toString(), parser.parse().toString())
     }
 
     @Test
@@ -47,21 +47,21 @@ class ParserTestImpl {
                 Variable("10"), Operand.DIV, Variable("5")
             )
         )
-        assertEquals(expression.toString(), parser.parse().toString())
+        assertEquals(operation.toString(), parser.parse().toString())
     }
 
     @Test
     fun expressionParserTestForNumberAndVariableOperation() {
-        val parser: Parser<Function> = FunctionParser(TokenIterator.create("2 + a", token_006))
-        val expression = Expression(Variable("2"), Operand.SUM, Variable("a"))
-        assertEquals(expression.toString(), parser.parse().toString())
+        val parser: Parser<Expression> = FunctionParser(TokenIterator.create("2 + a", token_006))
+        val operation = Operation(Variable("2"), Operand.SUM, Variable("a"))
+        assertEquals(operation.toString(), parser.parse().toString())
     }
 
     @Test
     fun expressionParserTestForMixedOperation() {
-        val parser: Parser<Function> = FunctionParser(TokenIterator.create("2 + a * 'hola' - 8", token_007))
-        val expression = Expression(
-            Expression(
+        val parser: Parser<Expression> = FunctionParser(TokenIterator.create("2 + a * 'hola' - 8", token_007))
+        val operation = Operation(
+            Operation(
                 Variable("2"),
                 Operand.SUM,
                 Expression(Variable("a"), Operand.MUL, Variable("'hola'"))
@@ -69,7 +69,7 @@ class ParserTestImpl {
             Operand.SUB,
             Variable("8")
         )
-        assertEquals(expression.toString(), parser.parse().toString())
+        assertEquals(operation.toString(), parser.parse().toString())
     }
 
     @Test
@@ -87,28 +87,28 @@ class ParserTestImpl {
 
     @Test
     fun declarationParserTestForInitialization() {
-        val parser: Parser<Declaration> = DeclarationParser(TokenIterator.create("let a:Number;", token_009))
-        val declaration = Declaration("a", "Number")
+        val parser: Parser<Declaration> = DeclarationParser(TokenIterator.create("let a:number;", token_009))
+        val declaration = Declaration("a", "number")
         assertEquals(declaration.toString(), parser.parse().toString())
     }
 
     @Test
     fun declarationParserTestForInitializationAndAssignment() {
-        val parser: Parser<Declaration> = DeclarationParser(TokenIterator.create("let a:Number = 8;", token_010))
-        val declaration = Declaration("a", "Number", Variable("8"))
+        val parser: Parser<Declaration> = DeclarationParser(TokenIterator.create("let a:number = 8;", token_010))
+        val declaration = Declaration("a", "number", Variable("8"))
         assertEquals(declaration.toString(), parser.parse().toString())
     }
 
     @Test
     fun testNumberAssignation() {
-        val parser: Parser<Declaration> = DeclarationParser(TokenIterator.create("let a: Number = 2.123;", token_6))
-        val declaration = Declaration("a", "Number", Variable("2.123"))
+        val parser: Parser<Declaration> = DeclarationParser(TokenIterator.create("let a: number = 2.123;", token_6))
+        val declaration = Declaration("a", "number", Variable("2.123"))
         assertEquals(declaration.toString(), parser.parse().toString())
     }
 
     @Test
     fun declarationParserWithMissingTypeSeparatorShouldThrowExceptions() {
-        val parser: Parser<Declaration> = DeclarationParser(TokenIterator.create("let x Number", token_011))
+        val parser: Parser<Declaration> = DeclarationParser(TokenIterator.create("let x number", token_011))
         assertFailsWith<ParserException> {
             parser.parse()
         }

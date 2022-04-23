@@ -6,7 +6,7 @@ const val src_001 = "let a: String;"
 
 const val src_002 = "let a: String = \"This is a test!\";"
 
-const val src_003 = "let a: Number = 2.123;"
+const val src_003 = "let a: number = 2.123;"
 
 const val src_04 = "\'Hello"
 

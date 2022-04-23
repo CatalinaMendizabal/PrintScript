@@ -7,7 +7,7 @@ enum class Types(override val type: String) : TokenType {
     PRINT("println"),
     STRINGTYPE("String"),
     STRING("\".*\"|\'.*\'"),
-    NUMBERTYPE("Number"),
+    NUMBERTYPE("number"),
     NUMBER("-?\\d+\\.?\\d*"),
     LEFTPARENTHESIS("[(]"),
     RIGHTPARENTHESIS("[)]"),
@@ -23,11 +23,9 @@ enum class Types(override val type: String) : TokenType {
     LITERAL("[0-9]{1,9}(\\\\.[0-9]*)?"),
     WHITESPACE(" "),
     EOL("\n"),
-    ERROR(".+");
-//    BOOLEANTYPE("boolean"),
-//    BOOLEAN("true|false"),
-//    IF("if"),
-//    ELSE("else"),
-//    RIGTHBRACKET("[}]"),
-//    LEFTBRACKET("[{]");
+    ERROR(".+"),
+    IF("if"),
+    ELSE("else"),
+    RIGTHBRACKET("[}]"),
+    LEFTBRACKET("[{]");
 }

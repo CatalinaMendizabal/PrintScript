@@ -29,9 +29,11 @@ class InterpreterImplementation : NodeVisitor {
         val varName = declaration.getVarName()
         val value = declaration.getValue()
         val valueType = declaration.getType()
+
         finalValue.declaration(varName)
         value.accept(finalValue)
         finalValue.assignation(varName)
+
         checkType(varName, valueType)
         variables[varName] = valueType
     }
