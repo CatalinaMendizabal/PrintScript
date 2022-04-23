@@ -8,9 +8,7 @@ class Variable(private val value: String, private val type: VariableType) : Expr
         visitor.visitVariable(this)
     }
 
-    override fun accept(visitor: NodeVisitor) {
-        TODO("Not yet implemented")
-    }
+    override fun accept(visitor: NodeVisitor) {}
 
     override fun addVariable(operand: Operand, variable: Variable): Expression {
         return Operation(this, operand, variable)

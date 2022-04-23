@@ -3,7 +3,7 @@ import node.NodeVisitor
 class InterpreterImplementation : NodeVisitor {
 
     private val finalValue: Value = Value()
-    private var variables: MutableMap<String, String> = mutableMapOf()
+    private var variables = HashMap<String, String>()
     val interpreterConsole: InterpreterConsole = InterpreterConsole()
 
     private fun checkType(name: String, type: String) {

@@ -19,8 +19,8 @@ class CLI : CliktCommand() {
             val tokens = executeLexerTask()
             println("Parsing...")
             val root = executeParserTask(tokens)
-            val consoleInt = executeInterpreterTask(root)
             println("Interpreting...")
+            val consoleInt = executeInterpreterTask(root)
             println(consoleInt.readLine())
         } catch (e: Throwable) {
             println("Error: " + e.message)

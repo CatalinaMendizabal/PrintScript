@@ -6,10 +6,10 @@ class Value() : ExpressionVisitor {
     private var variables = HashMap<String, String>()
 
     // string regex with numbers and letters and double quotation marks
-    private val stringRegex = Regex("[a-zA-Z0-9\"]+")
+    private val stringRegex = Regex("\".*\"|'.*'")
 
     // string regex with numbers points and numbers
-    private var numberRegex = Regex("^[0-9]+[.][0-9]+$")
+    private var numberRegex = Regex("-?\\d+\\.?\\d*")
 
     constructor(variables: HashMap<String, String>) : this() {
         this.variables = variables
@@ -74,9 +74,9 @@ class Value() : ExpressionVisitor {
     private fun operateOverNumber(operand: Operand, leftValue: String, rightValue: String): String {
         val result: String = when (operand) {
             Operand.SUM -> (leftValue.toDouble() + rightValue.toDouble()).toString()
-            Operand.SUB -> (leftValue.toDouble() - rightValue.toDouble()).toString()
-            Operand.MUL -> (leftValue.toDouble() * rightValue.toDouble()).toString()
-            Operand.DIV -> (leftValue.toDouble() / rightValue.toDouble()).toString()
+            Operand.SUBSTRACT -> (leftValue.toDouble() - rightValue.toDouble()).toString()
+            Operand.MULTIPLY -> (leftValue.toDouble() * rightValue.toDouble()).toString()
+            Operand.DIVIDE -> (leftValue.toDouble() / rightValue.toDouble()).toString()
         }
         return result
     }

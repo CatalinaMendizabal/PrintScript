@@ -39,12 +39,12 @@ class ParserTestImpl {
 
     @Test
     fun expressionParserTestForNumberOperation() {
-        val parser: Parser<Function> = FunctionParser(TokenIterator.create("2 + 3 * 4 - 10 / 5", token_005))
-        val expression = Expression(
-            Expression(Variable("2"), Operand.SUM, Expression(Variable("3"), Operand.MUL, Variable("4"))),
-            Operand.SUB,
-            Expression(
-                Variable("10"), Operand.DIV, Variable("5")
+        val parser: Parser<Expression> = FunctionParser(TokenIterator.create("2 + 3 * 4 - 10 / 5", token_005))
+        val operation = Operation(
+            Operation(Variable("2"), Operand.SUM, Operation(Variable("3"), Operand.MULTIPLY, Variable("4"))),
+            Operand.SUBSTRACT,
+            Operation(
+                Variable("10"), Operand.DIVIDE, Variable("5")
             )
         )
         assertEquals(operation.toString(), parser.parse().toString())
@@ -64,9 +64,9 @@ class ParserTestImpl {
             Operation(
                 Variable("2"),
                 Operand.SUM,
-                Expression(Variable("a"), Operand.MUL, Variable("'hola'"))
+                Operation(Variable("a"), Operand.MULTIPLY, Variable("'hola'"))
             ),
-            Operand.SUB,
+            Operand.SUBSTRACT,
             Variable("8")
         )
         assertEquals(operation.toString(), parser.parse().toString())
