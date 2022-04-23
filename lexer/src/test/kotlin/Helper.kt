@@ -2,9 +2,9 @@ import PrintScript.lexer.lexerEnums.Types
 import org.austral.ingsis.printscript.common.LexicalRange
 import org.austral.ingsis.printscript.common.Token
 
-const val src_001 = "let a: String;"
+const val src_001 = "let a: string;"
 
-const val src_002 = "let a: String = \"This is a test!\";"
+const val src_002 = "let a: string = \"This is a test!\";"
 
 const val src_003 = "let a: number = 2.123;"
 

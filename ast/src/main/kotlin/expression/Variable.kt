@@ -2,7 +2,7 @@ package expression
 
 import node.NodeVisitor
 
-class Variable(private val value: String, private val type: VariableType) : Expression {
+class Variable(private val value: String) : Expression {
 
     override fun accept(visitor: ExpressionVisitor) {
         visitor.visitVariable(this)
@@ -22,7 +22,7 @@ class Variable(private val value: String, private val type: VariableType) : Expr
         return value
     }
 
-    fun getType(): VariableType {
+   /* fun getType(): VariableType {
         return type
-    }
+    }*/
 }

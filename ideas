@@ -1,3 +1,4 @@
-let a: number = 2;
-let b: number = a + 2;
-println(b);
+let a: string = "h";
+let c: number = 1;
+let d: string =  a + c;
+println(d);

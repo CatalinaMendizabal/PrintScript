@@ -1,4 +1,8 @@
-import expression.*
+import expression.Expression
+import expression.ExpressionVisitor
+import expression.Operand
+import expression.Operation
+import expression.Variable
 
 class Value() : ExpressionVisitor {
 
@@ -69,8 +73,8 @@ class Value() : ExpressionVisitor {
     }
 
     private fun isNotDefined(variable: String): Boolean {
-        if (!stringRegex.containsMatchIn(variable)) return true
-        if (!numberRegex.containsMatchIn(variable)) return true
+        if (stringRegex.containsMatchIn(variable)) return true
+        if (numberRegex.containsMatchIn(variable)) return true
         return false
     }
 
@@ -93,7 +97,7 @@ class Value() : ExpressionVisitor {
     }
 
     fun declaration(variable: String) {
-        variables[variable]
+        variables[variable] = ""
     }
 
     fun assignation(variable: String) {
