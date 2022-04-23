@@ -4,11 +4,18 @@ import org.austral.ingsis.printscript.common.TokenType
 
 enum class Types(override val type: String) : TokenType {
     LET("let"),
+/*
+    CONST("const"),
+*/
     PRINT("println"),
-    STRINGTYPE("String"),
+    STRINGTYPE("string"),
     STRING("\".*\"|\'.*\'"),
-    NUMBERTYPE("Number"),
+    NUMBERTYPE("number"),
     NUMBER("-?\\d+\\.?\\d*"),
+    /*
+    BOOLEANTYPE("boolean"),
+    BOOLEAN("true|false"),
+    */
     LEFTPARENTHESIS("[(]"),
     RIGHTPARENTHESIS("[)]"),
     IDENTIFIER("[_a-zA-Z][_a-zA-Z0-9]*"),
@@ -23,11 +30,9 @@ enum class Types(override val type: String) : TokenType {
     LITERAL("[0-9]{1,9}(\\\\.[0-9]*)?"),
     WHITESPACE(" "),
     EOL("\n"),
-    ERROR(".+");
-//    BOOLEANTYPE("boolean"),
-//    BOOLEAN("true|false"),
-//    IF("if"),
-//    ELSE("else"),
-//    RIGTHBRACKET("[}]"),
-//    LEFTBRACKET("[{]");
+    ERROR(".+"),
+    IF("if"),
+    ELSE("else"),
+/*    RIGTHBRACKET("[}]"),
+    LEFTBRACKET("[{]");*/
 }

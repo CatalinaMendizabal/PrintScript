@@ -1,5 +1,5 @@
 import PrintScript.lexer.lexerEnums.Types
-import expression.Function
+import expression.Expression
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 
@@ -14,7 +14,7 @@ class PrintParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Print> 
         if (peek(Types.LEFTPARENTHESIS) == null) throwParserException("(")
         consume(Types.LEFTPARENTHESIS)
 
-        val content: Function = expressionParser.parse()
+        val content: Expression = expressionParser.parse()
 
         if (peek(Types.RIGHTPARENTHESIS) == null) throwParserException(")")
         consume(Types.RIGHTPARENTHESIS)

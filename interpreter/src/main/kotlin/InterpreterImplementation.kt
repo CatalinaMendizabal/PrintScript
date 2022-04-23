@@ -3,18 +3,18 @@ import node.NodeVisitor
 class InterpreterImplementation : NodeVisitor {
 
     private val finalValue: Value = Value()
-    private var variables: MutableMap<String, String> = mutableMapOf()
+    private var variables = HashMap<String, String>()
     val interpreterConsole: InterpreterConsole = InterpreterConsole()
 
     private fun checkType(name: String, type: String) {
         if (type == "string") {
-            if (!finalValue.getStringRegex().equals(name)) {
+            if (finalValue.getStringRegex().equals(name)) {
                 throw Exception("Type mismatch")
             }
         }
-        if (type == "int") {
-            if (!finalValue.getNumberRegex().equals(name)) {
-                throw Exception("Type mismatch")
+        if (type == "number") {
+            if (`finalValue`.getExpressionResult().contains(Regex("\".*\"|'.*'"))) {
+                throw Exception("Type mismatch. Variable $name must be a number")
             }
         }
     }
@@ -29,9 +29,11 @@ class InterpreterImplementation : NodeVisitor {
         val varName = declaration.getVarName()
         val value = declaration.getValue()
         val valueType = declaration.getType()
+
         finalValue.declaration(varName)
         value.accept(finalValue)
         finalValue.assignation(varName)
+
         checkType(varName, valueType)
         variables[varName] = valueType
     }
