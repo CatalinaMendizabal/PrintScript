@@ -8,13 +8,13 @@ class InterpreterImplementation : NodeVisitor {
 
     private fun checkType(name: String, type: String) {
         if (type == "string") {
-            if (!finalValue.getStringRegex().equals(name)) {
+            if (finalValue.getStringRegex().equals(name)) {
                 throw Exception("Type mismatch")
             }
         }
-        if (type == "int") {
-            if (!finalValue.getNumberRegex().equals(name)) {
-                throw Exception("Type mismatch")
+        if (type == "number") {
+            if (`finalValue`.getExpressionResult().contains(Regex("\".*\"|'.*'"))) {
+                throw Exception("Type mismatch. Variable $name must be a number")
             }
         }
     }

@@ -1,6 +1,6 @@
-import expression.Operation
 import expression.Expression
 import expression.Operand
+import expression.Operation
 import expression.Variable
 import node.Node
 import org.austral.ingsis.printscript.parser.TokenIterator

@@ -17,8 +17,8 @@ class Value() : ExpressionVisitor {
 
     private fun evaluateExpression(operation: Operation) {
         var operand: Operand = operation.operand
-        var leftValue: String = operation.left.accept(this).toString()
-        var rightValue: String = operation.right.accept(this).toString()
+        var leftValue: String = getExpression(operation.left)
+        var rightValue: String = getExpression(operation.right)
 //        if(expression.left.accept(this) != null) {
 //            leftValue = expression.left.accept(this).toString()
 //        }
@@ -37,15 +37,18 @@ class Value() : ExpressionVisitor {
 
         if (isString(leftValue, rightValue)) {
             result = operateOverString(operand, leftValue, rightValue)
-        }
-
-        if (isNumber(leftValue, rightValue)) {
+        } else if (isNumber(leftValue, rightValue)) {
             result = operateOverNumber(operand, leftValue, rightValue)
         } else {
             throw IllegalArgumentException("Invalid expression")
         }
 
         this.expressionResult = result
+    }
+
+    private fun getExpression(expression: Expression): String {
+        expression.accept(this)
+        return expressionResult
     }
 
     private fun isString(leftValue: String, rightValue: String): Boolean {
@@ -85,7 +88,7 @@ class Value() : ExpressionVisitor {
         if (operand != Operand.SUM) {
             throw IllegalArgumentException("Operand $operand is not supported for value type String")
         } else {
-            return leftValue + rightValue
+            return leftValue.replace(Regex("^\"|\"$"), "") + rightValue.replace(Regex("^\"|\"$"), "")
         }
     }
 
@@ -102,8 +105,12 @@ class Value() : ExpressionVisitor {
     }
 
     override fun visitVariable(variable: Variable) {
-        expressionResult = variables.getOrDefault(variable.getValue(), variable.getValue())
-        if (isNotDefined(expressionResult)) {
+        if (variables.containsKey(variable.getValue())) {
+            this.expressionResult = variables.get(variable.getValue()).toString()
+        } else {
+            expressionResult = variable.getValue()
+        }
+        if (!isNotDefined(expressionResult)) {
             throw IllegalArgumentException("Variable $expressionResult is not defined!")
         }
     }

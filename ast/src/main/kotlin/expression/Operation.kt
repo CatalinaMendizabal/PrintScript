@@ -9,7 +9,7 @@ class Operation : Expression {
     lateinit var right: Expression
 
     constructor(value: String, type: VariableType) {
-        this.left = Variable(value, type)
+        this.left = Variable(value)
     }
 
     constructor(left: Expression, operand: Operand, right: Expression) {
