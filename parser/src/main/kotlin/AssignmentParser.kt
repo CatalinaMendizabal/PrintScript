@@ -1,5 +1,5 @@
 import PrintScript.lexer.lexerEnums.Types
-import expression.Function
+import expression.Expression
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull
@@ -12,8 +12,8 @@ class AssignmentParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), 
         val variable = consume(Types.IDENTIFIER).content
         if (peek(Types.EQUAL) == null) throwParserException("=")
         consume(Types.EQUAL)
-        val function: Function = expressionParser.parse()
-        return Assignment(variable, function)
+        val expression: Expression = expressionParser.parse()
+        return Assignment(variable, expression)
     }
 
     private fun throwParserException(value: String) {

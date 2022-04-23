@@ -2,18 +2,16 @@ package expression
 
 import node.NodeVisitor
 
-class Variable(private val value: String) : Function {
+class Variable(private val value: String) : Expression {
 
     override fun accept(visitor: ExpressionVisitor) {
         visitor.visitVariable(this)
     }
 
-    override fun accept(visitor: NodeVisitor) {
-        TODO("Not yet implemented")
-    }
+    override fun accept(visitor: NodeVisitor) {}
 
-    override fun addVariable(operand: Operand, variable: Variable): Function {
-        return Expression(this, operand, variable)
+    override fun addVariable(operand: Operand, variable: Variable): Expression {
+        return Operation(this, operand, variable)
     }
 
     override fun toString(): String {
@@ -23,4 +21,8 @@ class Variable(private val value: String) : Function {
     fun getValue(): String {
         return value
     }
+
+   /* fun getType(): VariableType {
+        return type
+    }*/
 }

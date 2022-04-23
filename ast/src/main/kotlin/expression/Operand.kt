@@ -1,7 +1,7 @@
 package expression
 
 enum class Operand(val string: String) {
-    SUM("+"), SUB("-"), MUL("*"), DIV("/");
+    SUM("+"), SUBSTRACT("-"), MULTIPLY("*"), DIVIDE("/");
 
     companion object {
         fun getOperand(string: String): Operand? {

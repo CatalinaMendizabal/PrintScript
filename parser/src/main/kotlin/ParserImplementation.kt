@@ -15,10 +15,12 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
         var nextContent: Content<String>?
 
         while (isNotAtEndOfFile()) {
+            // TODO VERSION 1.1    nextContent = peekAny(Types.LET, Types.PRINT, Types.STRINGTYPE, Types.NUMBERTYPE, Types.BOOLEANTYPE, Types.CONST)
             nextContent = peekAny(Types.LET, Types.PRINT, Types.STRINGTYPE, Types.NUMBERTYPE)
+
             if (nextContent != null) {
                 when (nextContent.content) {
-                    "let" -> {
+                    "let", "const" -> {
                         program.addChild(declarationParser.parse())
                     }
                     "println" -> {

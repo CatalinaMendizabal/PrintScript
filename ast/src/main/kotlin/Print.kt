@@ -1,8 +1,8 @@
-import expression.Function
+import expression.Expression
 import node.Node
 import node.NodeVisitor
 
-class Print(var content: Function) : Node {
+class Print(var content: Expression) : Node {
 
     override fun accept(visitor: NodeVisitor) {
         visitor.visit(this)

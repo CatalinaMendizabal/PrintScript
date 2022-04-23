@@ -1,4 +1,4 @@
-import expression.Function
+import expression.Expression
 import node.Node
 import node.NodeVisitor
 
@@ -6,9 +6,9 @@ class Declaration : Node {
 
     private val varName: String
     private val type: String
-    private lateinit var value: Function
+    private lateinit var value: Expression
 
-    constructor(varName: String, type: String, value: Function) {
+    constructor(varName: String, type: String, value: Expression) {
         this.varName = varName
         this.type = type
         this.value = value
@@ -40,7 +40,7 @@ class Declaration : Node {
         return type
     }
 
-    fun getValue(): Function {
+    fun getValue(): Expression {
         return value
     }
 }
