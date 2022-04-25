@@ -4,14 +4,16 @@ import org.austral.ingsis.printscript.common.TokenType
 
 enum class Types(override val type: String) : TokenType {
     LET("let"),
-/*
-    CONST("const"),
-*/
+
+    /*
+        CONST("const"),
+    */
     PRINT("println"),
     STRINGTYPE("string"),
     STRING("\".*\"|\'.*\'"),
     NUMBERTYPE("number"),
     NUMBER("-?\\d+\\.?\\d*"),
+
     /*
     BOOLEANTYPE("boolean"),
     BOOLEAN("true|false"),
