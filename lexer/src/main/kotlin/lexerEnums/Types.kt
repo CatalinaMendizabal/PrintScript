@@ -31,8 +31,8 @@ enum class Types(override val type: String) : TokenType {
     WHITESPACE(" "),
     EOL("\n"),
     ERROR(".+"),
-    IF("if"),
-    ELSE("else"),
-/*    RIGTHBRACKET("[}]"),
-    LEFTBRACKET("[{]");*/
+    /* IF("if"),
+     ELSE("else"),
+     RIGTHBRACKET("[}]"),
+     LEFTBRACKET("[{]");*/
 }
