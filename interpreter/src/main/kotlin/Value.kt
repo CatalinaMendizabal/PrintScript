@@ -37,7 +37,7 @@ class Value() : ExpressionVisitor {
             rightValue = variables.getValue(rightValue)
         }
 
-        var result: String = ""
+        var result = ""
 
         if (isString(leftValue, rightValue)) {
             result = operateOverString(operand, leftValue, rightValue)

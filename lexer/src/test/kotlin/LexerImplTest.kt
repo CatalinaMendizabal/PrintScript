@@ -16,7 +16,7 @@ class LexerImplTest {
 //        assertEquals(17, list.size)
 //    }
 
-    private val lexer: Lexer = RegexLexer()
+    private val lexer: Lexer = RegexLexer("1.0")
 
     @Test
     fun test001_stringDeclarationTest() {

@@ -1,6 +1,7 @@
 import expression.Expression
 import expression.Operand
 import expression.Variable
+import lexerEnums.Type
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull

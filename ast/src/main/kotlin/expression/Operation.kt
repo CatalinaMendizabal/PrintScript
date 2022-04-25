@@ -4,11 +4,11 @@ import node.NodeVisitor
 
 class Operation : Expression {
 
-    lateinit var left: Expression
+    var left: Expression
     lateinit var operand: Operand
     lateinit var right: Expression
 
-    constructor(value: String, type: VariableType) {
+    constructor(value: String) {
         this.left = Variable(value)
     }
 

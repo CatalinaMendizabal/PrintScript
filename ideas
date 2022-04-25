@@ -1,4 +1,4 @@
 let a: string = "h";
-let c: number = 1;
+let c: const = 1;
 let d: string =  a + c;
 println(d);

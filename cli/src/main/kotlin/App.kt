@@ -16,7 +16,7 @@ class CLI : CliktCommand() {
 
         try {
             println("Lexing...")
-            val tokens = executeLexerTask()
+            val tokens = executeLexerTask("2.0")
             println("Parsing...")
             val root = executeParserTask(tokens)
             println("Interpreting...")
@@ -27,8 +27,8 @@ class CLI : CliktCommand() {
         }
     }
 
-    private fun executeLexerTask(): List<Token> {
-        val lexer: Lexer = RegexLexer()
+    private fun executeLexerTask(version: String): List<Token> {
+        val lexer: Lexer = RegexLexer(version)
         return lexer.lex(FileContent(file))
     }
 
