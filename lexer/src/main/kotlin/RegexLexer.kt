@@ -2,7 +2,8 @@ package PrintScript.lexer
 
 import LexerException
 import PrintScript.lexer.inputContent.Content
-import PrintScript.lexer.lexerEnums.Types
+import VersionException
+import lexerEnums.Type
 import org.austral.ingsis.printscript.common.LexicalRange
 import org.austral.ingsis.printscript.common.Token
 import java.util.Arrays.stream
@@ -30,7 +31,7 @@ class RegexLexer : Lexer {
     private var currentPos = 0
 
     init {
-        for (i in Types.values()) {
+        for (i in Type.values()) {
             patterns[i] = i.type
         }
     }
@@ -64,15 +65,16 @@ class RegexLexer : Lexer {
         return tokens
     }
 
-    private fun checkNextRow(matcher: Matcher) = matcher.group().equals(Types.EOL.type)
-    private fun checkWhiteSpace(matcher: Matcher) = matcher.group().equals(Types.WHITESPACE.type)
+    private fun checkNextRow(matcher: Matcher) = matcher.group().equals(Type.EOL.type)
+    private fun checkWhiteSpace(matcher: Matcher) = matcher.group().equals(Type.WHITESPACE.type)
 
     private fun generateToken(matcher: Matcher, length: Int): Token {
         val matched: Token = patterns.keys.stream().filter { type ->
             matcher.group(type.toString()) != null
         }
-            .findFirst().map { element ->
-                if (element == Types.ERROR) {
+            .findFirst()
+            .map { element ->
+                if (element == Type.ERROR) {
                     throw LexerException("Lexical Error", column, line)
                 }
                 Token(
