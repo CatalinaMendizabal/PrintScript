@@ -1,5 +1,5 @@
-import PrintScript.lexer.lexerEnums.Types
 import expression.Expression
+import lexerEnums.Type
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull
@@ -8,10 +8,10 @@ class AssignmentParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), 
     private val expressionParser: FunctionParser = FunctionParser(stream)
 
     override fun parse(): Assignment {
-        if (peek(Types.IDENTIFIER) == null) throwParserException("identifier")
-        val variable = consume(Types.IDENTIFIER).content
-        if (peek(Types.EQUAL) == null) throwParserException("=")
-        consume(Types.EQUAL)
+        if (peek(Type.IDENTIFIER) == null) throwParserException("identifier")
+        val variable = consume(Type.IDENTIFIER).content
+        if (peek(Type.EQUAL) == null) throwParserException("=")
+        consume(Type.EQUAL)
         val expression: Expression = expressionParser.parse()
         return Assignment(variable, expression)
     }

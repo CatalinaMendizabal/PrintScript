@@ -1,23 +1,17 @@
-package PrintScript.lexer.lexerEnums
+package lexerEnums
 
 import org.austral.ingsis.printscript.common.TokenType
 
-enum class Types(override val type: String) : TokenType {
+enum class Type(override val type: String) : TokenType {
     LET("let"),
-
-    /*
-        CONST("const"),
-    */
+    CONST("const"),
     PRINT("println"),
     STRINGTYPE("string"),
     STRING("\".*\"|\'.*\'"),
     NUMBERTYPE("number"),
     NUMBER("-?\\d+\\.?\\d*"),
-
-    /*
     BOOLEANTYPE("boolean"),
     BOOLEAN("true|false"),
-    */
     LEFTPARENTHESIS("[(]"),
     RIGHTPARENTHESIS("[)]"),
     IDENTIFIER("[_a-zA-Z][_a-zA-Z0-9]*"),
@@ -33,8 +27,8 @@ enum class Types(override val type: String) : TokenType {
     WHITESPACE(" "),
     EOL("\n"),
     ERROR(".+"),
-    /* IF("if"),
-     ELSE("else"),
-     RIGTHBRACKET("[}]"),
-     LEFTBRACKET("[{]");*/
+    IF("if"),
+    ELSE("else"),
+    RIGTHBRACKET("[}]"),
+    LEFTBRACKET("[{]");
 }

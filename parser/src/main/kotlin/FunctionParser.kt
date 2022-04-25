@@ -1,7 +1,7 @@
-import PrintScript.lexer.lexerEnums.Types
 import expression.Expression
 import expression.Operand
 import expression.Variable
+import lexerEnums.Type
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull
@@ -18,7 +18,7 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
 
         while (isAnOperand()) {
             val operand: Operand? =
-                Operand.getOperand(consumeAny(Types.SUM, Types.SUBSTRACT, Types.MULTIPLY, Types.DIVIDE).content)
+                Operand.getOperand(consumeAny(Type.SUM, Type.SUBSTRACT, Type.MULTIPLY, Type.DIVIDE).content)
 
             if (isNotAKeyWord()) throwParserException()
             val next = consumeKeyWord()
@@ -30,14 +30,14 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
 
     // TODO VERSION 1.1
     //  private fun consumeKeyWord() = consumeAny(Types.IDENTIFIER, Types.LITERAL, Types.NUMBER, Types.STRING, Types.BOOLEAN).content
-    private fun consumeKeyWord() = consumeAny(Types.IDENTIFIER, Types.LITERAL, Types.NUMBER, Types.STRING).content
+    private fun consumeKeyWord() = consumeAny(Type.IDENTIFIER, Type.LITERAL, Type.NUMBER, Type.STRING).content
 
-    private fun isAnOperand() = peekAny(Types.SUM, Types.SUBSTRACT, Types.MULTIPLY, Types.DIVIDE) != null
+    private fun isAnOperand() = peekAny(Type.SUM, Type.SUBSTRACT, Type.MULTIPLY, Type.DIVIDE) != null
 
-    private fun isNotOperand() = peekAny(Types.SUM, Types.SUBSTRACT, Types.MULTIPLY, Types.DIVIDE) == null
+    private fun isNotOperand() = peekAny(Type.SUM, Type.SUBSTRACT, Type.MULTIPLY, Type.DIVIDE) == null
 
     // TODO private fun isNotAKeyWord() = peekAny(Types.IDENTIFIER, Types.LITERAL, Types.NUMBER, Types.STRING, Types.BOOLEAN) == null
-    private fun isNotAKeyWord() = peekAny(Types.IDENTIFIER, Types.LITERAL, Types.NUMBER, Types.STRING) == null
+    private fun isNotAKeyWord() = peekAny(Type.IDENTIFIER, Type.LITERAL, Type.NUMBER, Type.STRING) == null
 
     private fun throwParserException() {
         throw ParserException("Expected an identifier or literal", current().range.startCol, current().range.startLine)

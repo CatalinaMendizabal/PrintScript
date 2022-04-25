@@ -2,13 +2,17 @@ package PrintScript.lexer
 
 import LexerException
 import PrintScript.lexer.inputContent.Content
-import PrintScript.lexer.lexerEnums.Types
+import VersionException
+import lexerEnums.Type
 import org.austral.ingsis.printscript.common.LexicalRange
 import org.austral.ingsis.printscript.common.Token
+import org.austral.ingsis.printscript.common.TokenType
 import java.util.Arrays.stream
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import java.util.stream.Collectors
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 /*
 TODO cosas que corrigio tomi :)
@@ -22,15 +26,16 @@ data class RegexLexerRule(val patterns: Map<Types, String>) : LexerRule {
 
 }*/
 
-class RegexLexer : Lexer {
+class RegexLexer(version: String) : Lexer {
 
-    private val patterns = HashMap<Types, String>()
+    private val patterns = HashMap<TokenType, String>()
     private var line = 0
     private var column = 0
     private var currentPos = 0
+    private val version = version
 
     init {
-        for (i in Types.values()) {
+        for (i in Type.values()) {
             patterns[i] = i.type
         }
     }
@@ -64,15 +69,16 @@ class RegexLexer : Lexer {
         return tokens
     }
 
-    private fun checkNextRow(matcher: Matcher) = matcher.group().equals(Types.EOL.type)
-    private fun checkWhiteSpace(matcher: Matcher) = matcher.group().equals(Types.WHITESPACE.type)
+    private fun checkNextRow(matcher: Matcher) = matcher.group().equals(Type.EOL.type)
+    private fun checkWhiteSpace(matcher: Matcher) = matcher.group().equals(Type.WHITESPACE.type)
 
     private fun generateToken(matcher: Matcher, length: Int): Token {
         val matched: Token = patterns.keys.stream().filter { type ->
             matcher.group(type.toString()) != null
         }
-            .findFirst().map { element ->
-                if (element == Types.ERROR) {
+            .findFirst()
+            .map { element ->
+                if (element == Type.ERROR) {
                     throw LexerException("Lexical Error", column, line)
                 }
                 Token(
@@ -82,17 +88,25 @@ class RegexLexer : Lexer {
                     LexicalRange(column, line, column + length, line)
                 )
             }
+            .map { element -> checkVersion(element) }
             .orElseThrow { throw LexerException("Invalid Token", column, line) }
 
         return matched
     }
 
+    private fun checkVersion(element: Token): Token {
+        if (element.type == Type.CONST && version == "1.0") throw VersionException("CONST")
+        if (element.type == Type.BOOLEANTYPE || element.type == Type.BOOLEAN) throw VersionException("BOOLEAN")
+        if (element.type == Type.IF || element.type == Type.ELSE) throw VersionException("IF/ELSE")
+        return element
+    }
+
     private fun generateMatcher(line: String): Matcher {
         return Pattern.compile(
-            stream(Types.values())
+            stream(Type.values())
                 .map { key -> String.format("(?<%s>%s)", key.name, key.type) }
                 .collect(Collectors.joining("|"))
-        )
-            .matcher(line)
+
+        ).matcher(line)
     }
 }
