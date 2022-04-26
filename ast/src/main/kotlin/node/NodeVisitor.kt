@@ -2,6 +2,7 @@ package node
 
 import Assignment
 import CodeBlock
+import Condition
 import Declaration
 import Print
 
@@ -13,4 +14,6 @@ interface NodeVisitor {
     fun visit(assignment: Assignment)
 
     fun visit(print: Print)
+
+    fun visit(condition: Condition)
 }

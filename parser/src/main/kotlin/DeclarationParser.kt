@@ -7,8 +7,7 @@ class DeclarationParser(stream: TokenIterator) : TokenConsumer(stream), Parser<D
     private val functionParser: FunctionParser = FunctionParser(stream)
 
     override fun parse(): Declaration {
-        // consumeAny(Types.CONST, Types.LET)
-        consume(Type.LET)
+        consumeAny(Type.CONST, Type.LET)
         if (peek(Type.IDENTIFIER) == null) throwParserError("Expected identifier")
         val variable = consume(Type.IDENTIFIER).content
 

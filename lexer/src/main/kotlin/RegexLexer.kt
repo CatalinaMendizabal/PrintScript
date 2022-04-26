@@ -84,8 +84,8 @@ class RegexLexer(version: String) : Lexer {
 
     private fun checkVersion(element: Token): Token {
         if (element.type == Type.CONST && version == "1.0") throw VersionException("CONST")
-        if (element.type == Type.BOOLEANTYPE || element.type == Type.BOOLEAN) throw VersionException("BOOLEAN")
-        if (element.type == Type.IF || element.type == Type.ELSE) throw VersionException("IF/ELSE")
+        if ((element.type == Type.BOOLEANTYPE || element.type == Type.BOOLEAN) && version == "1.0") throw VersionException("BOOLEAN")
+        if ((element.type == Type.IF || element.type == Type.ELSE) && version == "1.0") throw VersionException("IF/ELSE")
         return element
     }
 

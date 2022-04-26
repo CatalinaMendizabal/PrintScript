@@ -2,7 +2,7 @@ import node.Node
 import node.NodeVisitor
 
 class CodeBlock : Node {
-    private val children: MutableList<Node> = ArrayList<Node>()
+    private val children: MutableList<Node> = ArrayList()
     fun addChild(child: Node) {
         children.add(child)
     }
