@@ -16,7 +16,7 @@ class CLI : CliktCommand() {
 
         try {
             println("Lexing...")
-            val tokens = executeLexerTask("2.0")
+            val tokens = executeLexerTask("1.0")
             println("Parsing...")
             val root = executeParserTask(tokens)
             println("Interpreting...")

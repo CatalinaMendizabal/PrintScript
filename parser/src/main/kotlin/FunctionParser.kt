@@ -28,16 +28,13 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
         return result
     }
 
-    // TODO VERSION 1.1
-    //  private fun consumeKeyWord() = consumeAny(Types.IDENTIFIER, Types.LITERAL, Types.NUMBER, Types.STRING, Types.BOOLEAN).content
-    private fun consumeKeyWord() = consumeAny(Type.IDENTIFIER, Type.LITERAL, Type.NUMBER, Type.STRING).content
+    private fun consumeKeyWord() = consumeAny(Type.IDENTIFIER, Type.LITERAL, Type.NUMBER, Type.STRING, Type.BOOLEAN).content
 
     private fun isAnOperand() = peekAny(Type.SUM, Type.SUBSTRACT, Type.MULTIPLY, Type.DIVIDE) != null
 
     private fun isNotOperand() = peekAny(Type.SUM, Type.SUBSTRACT, Type.MULTIPLY, Type.DIVIDE) == null
 
-    // TODO private fun isNotAKeyWord() = peekAny(Types.IDENTIFIER, Types.LITERAL, Types.NUMBER, Types.STRING, Types.BOOLEAN) == null
-    private fun isNotAKeyWord() = peekAny(Type.IDENTIFIER, Type.LITERAL, Type.NUMBER, Type.STRING) == null
+    private fun isNotAKeyWord() = peekAny(Type.IDENTIFIER, Type.LITERAL, Type.NUMBER, Type.STRING, Type.BOOLEAN) == null
 
     private fun throwParserException() {
         throw ParserException("Expected an identifier or literal", current().range.startCol, current().range.startLine)

@@ -14,18 +14,6 @@ import java.util.stream.Collectors
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-/*
-TODO cosas que corrigio tomi :)
-data class LexResult(val token: Token?, val nextColumn: Int, val nextLine: Int, val nextOffset: Int)
-
-interface LexerRule {
-    fun lex(content: Content): LexResult
-}
-
-data class RegexLexerRule(val patterns: Map<Types, String>) : LexerRule {
-
-}*/
-
 class RegexLexer(version: String) : Lexer {
 
     private val patterns = HashMap<TokenType, String>()

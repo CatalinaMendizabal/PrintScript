@@ -52,4 +52,8 @@ class InterpreterImplementation : NodeVisitor {
         content.accept(finalValue)
         interpreterConsole.print(finalValue.getExpressionResult())
     }
+
+    override fun visit(condition: Condition) {
+        TODO("Not yet implemented")
+    }
 }
