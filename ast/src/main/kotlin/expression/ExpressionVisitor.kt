@@ -1,9 +1,14 @@
 package expression
 
+import Condition
+
 interface ExpressionVisitor {
     fun visitExpression(operation: Operation)
 
     fun visitVariable(variable: Variable)
+
+//    fun visitCondition(condition: Condition)
+
 }
 /*
 expr1Visitor = value|sum|sub

@@ -54,6 +54,8 @@ class InterpreterImplementation : NodeVisitor {
     }
 
     override fun visit(condition: Condition) {
-        TODO("Not yet implemented")
+       /* TODO
+            condition.accept(this)
+       // val content = finalValue.*/
     }
 }

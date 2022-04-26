@@ -121,6 +121,10 @@ class Value() : ExpressionVisitor {
             throw IllegalArgumentException("Variable $expressionResult is not defined!")
         }
     }
+//
+//    override fun visitCondition(condition: Condition) {
+//        TODO("Not yet implemented")
+//    }
 
     // getter
     fun getStringRegex(): Regex {
