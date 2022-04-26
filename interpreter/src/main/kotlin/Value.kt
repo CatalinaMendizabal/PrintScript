@@ -12,6 +12,9 @@ class Value() : ExpressionVisitor {
     // string regex with numbers and letters and double quotation marks
     private val stringRegex = Regex("\".*\"|'.*'")
 
+    // if regex
+    private val ifRegex = Regex("if\\s*\\(.*\\)\\s*\\{.*\\}")
+
     // string regex with numbers points and numbers
     private var numberRegex = Regex("-?\\d+\\.?\\d*")
 

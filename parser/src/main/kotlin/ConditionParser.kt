@@ -1,22 +1,17 @@
 import expression.Expression
 import lexerEnums.Type
 import org.austral.ingsis.printscript.common.TokenConsumer
+import org.austral.ingsis.printscript.parser.Content
 import org.austral.ingsis.printscript.parser.TokenIterator
 
 class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Condition> {
-    private val parserCode: ParserImplementation = ParserImplementation(stream)
+    private val declarationParser = DeclarationParser(stream)
+    private val printParser = PrintParser(stream)
+    private val assignmentParser = AssignmentParser(stream)
 
-    /*
-    if (a) {
-        pritnln(a);
-        val b: string = "a";
-        print(b);
-    }
-     */
     override fun parse(): Condition {
         var ifCode = CodeBlock()
         var elseCode = CodeBlock()
-//        var expression = FunctionParser(stream)
 
         ifStatement()
         ifCode = executeConditionCode()
@@ -41,12 +36,29 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
     }
 
     private fun executeConditionCode(): CodeBlock {
-        val codeBlock = CodeBlock()
+        var codeBlock = CodeBlock()
         if (peek(Type.LEFTBRACKET) == null) throwParserException("{")
         consume(Type.LEFTBRACKET)
 
-        codeBlock.addChild(parserCode.parse())
+        var nextContent: Content<String>?
 
+        nextContent = peekAny(Type.LET, Type.PRINT, Type.STRINGTYPE, Type.NUMBERTYPE, Type.BOOLEANTYPE, Type.CONST)
+
+        if (nextContent != null) {
+            when (nextContent.content) {
+                "let", "const" -> {
+                    declarationParser.parse()
+                }
+                "println" -> {
+                    printParser.parse()
+                }
+                else -> throwParserException(nextContent)
+            }
+        } else assignmentParser.parse()
+        if(peek(Type.EOF) == null){
+            consume(Type.SEMICOLON)
+        }
+        
         if (peek(Type.RIGTHBRACKET) == null) throwParserException("}")
         consume(Type.RIGTHBRACKET)
         return codeBlock
@@ -57,6 +69,14 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
             "Expected an $boolean",
             current().range.startCol,
             current().range.startLine
+        )
+    }
+
+    private fun throwParserException(nextContent: Content<String>) {
+        throw ParserException(
+            nextContent.content,
+            nextContent.token.range.startCol,
+            nextContent.token.range.startLine
         )
     }
 
