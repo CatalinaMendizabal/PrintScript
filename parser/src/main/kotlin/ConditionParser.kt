@@ -36,13 +36,11 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
     }
 
     private fun executeConditionCode(): CodeBlock {
-        var codeBlock = CodeBlock()
+        val codeBlock = CodeBlock()
         if (peek(Type.LEFTBRACKET) == null) throwParserException("{")
         consume(Type.LEFTBRACKET)
 
-        var nextContent: Content<String>?
-
-        nextContent = peekAny(Type.LET, Type.PRINT, Type.STRINGTYPE, Type.NUMBERTYPE, Type.BOOLEANTYPE, Type.CONST)
+        val nextContent: Content<String>? = peekAny(Type.LET, Type.PRINT, Type.STRINGTYPE, Type.NUMBERTYPE, Type.BOOLEANTYPE, Type.CONST)
 
         if (nextContent != null) {
             when (nextContent.content) {
@@ -58,7 +56,7 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
         if(peek(Type.EOF) == null){
             consume(Type.SEMICOLON)
         }
-        
+
         if (peek(Type.RIGTHBRACKET) == null) throwParserException("}")
         consume(Type.RIGTHBRACKET)
         return codeBlock

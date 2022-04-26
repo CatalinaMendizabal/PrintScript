@@ -4,26 +4,26 @@ import expression.Operand
 import expression.Operation
 import expression.Variable
 
-class Value() : ExpressionVisitor {
+abstract class Value() : ExpressionVisitor {
 
-    private var expressionResult: String = ""
-    private var variables = HashMap<String, String>()
+    var expressionResult = ""
+    var variables = HashMap<String, String>()
 
     // string regex with numbers and letters and double quotation marks
-    private val stringRegex = Regex("\".*\"|'.*'")
+    val stringRegex = Regex("\".*\"|'.*'")
 
     // if regex
-    private val ifRegex = Regex("true|false")
+    val ifRegex = Regex("true|false")
 
     // string regex with numbers points and numbers
-    private var numberRegex = Regex("-?\\d+\\.?\\d*")
+    var numberRegex = Regex("-?\\d+\\.?\\d*")
 
     constructor(variables: HashMap<String, String>) : this() {
         this.variables = variables
     }
 
     private fun evaluateExpression(operation: Operation) {
-        var operand: Operand = operation.operand
+        val operand: Operand = operation.operand
         var leftValue: String = getExpression(operation.left)
         var rightValue: String = getExpression(operation.right)
 //        if(expression.left.accept(this) != null) {
@@ -40,19 +40,23 @@ class Value() : ExpressionVisitor {
             rightValue = variables.getValue(rightValue)
         }
 
-        var result = ""
+        val result =  getOperationResult(leftValue, rightValue, operand)
 
+        this.expressionResult = result
+    }
+
+    fun getOperationResult(leftValue: String, rightValue: String, operand: Operand): String {
+        var aux = ""
         if (isString(leftValue, rightValue)) {
-            result = operateOverString(operand, leftValue, rightValue)
+            aux =  operateOverString(operand, leftValue, rightValue)
         } else if (isNumber(leftValue, rightValue)) {
-            result = operateOverNumber(operand, leftValue, rightValue)
+            aux =  operateOverNumber(operand, leftValue, rightValue)
         } else if (isBoolean(leftValue, rightValue)) {
-            operateOverCondition(operand, operation.left, operation.right)
+           // operateOverCondition(operand, operation.left, operation.right)
         } else {
             throw IllegalArgumentException("Invalid expression")
         }
-
-        this.expressionResult = result
+        return aux
     }
 
     private fun getExpression(expression: Expression): String {
@@ -137,16 +141,4 @@ class Value() : ExpressionVisitor {
 //        TODO("Not yet implemented")
 //    }
 
-    // getter
-    fun getStringRegex(): Regex {
-        return stringRegex
-    }
-
-    fun getNumberRegex(): Regex {
-        return numberRegex
-    }
-
-    fun getExpressionResult(): String {
-        return expressionResult
-    }
 }

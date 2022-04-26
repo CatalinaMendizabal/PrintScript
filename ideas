@@ -2,6 +2,5 @@ let a: string = "h";
 let d: string =  a;
 let b: number = 4;
 if (true) {
-    println(d);
+    println(a);
 };
-println(b);

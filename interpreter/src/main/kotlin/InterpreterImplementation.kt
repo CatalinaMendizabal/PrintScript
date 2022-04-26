@@ -1,64 +1,29 @@
-import node.NodeVisitor
 
-class InterpreterImplementation : NodeVisitor {
+open class InterpreterImplementation : AbstractInterpreterVisitor() {
 
-    private val finalValue: Value = Value()
-    private var variables = HashMap<String, String>()
-    val interpreterConsole: InterpreterConsole = InterpreterConsole()
+    init {
+        finalValue = Value2()
+    }
 
-    private fun checkType(name: String, type: String) {
-        if (type == "string") {
-            if (finalValue.getStringRegex().equals(name)) {
+    override fun checkType(name: String, type: String) {
+        super.checkType(name, type)
+        if (type == "boolean") {
+            if (!isBoolean(finalValue.expressionResult)) {
                 throw Exception("Type mismatch")
             }
         }
-        if (type == "number") {
-            if (`finalValue`.getExpressionResult().contains(Regex("\".*\"|'.*'"))) {
-                throw Exception("Type mismatch. Variable $name must be a number")
-            }
-        }
-        if (type == "boolean") {
-
-        }
     }
 
-    override fun visit(codeBlock: CodeBlock) {
-        codeBlock.getChildren().forEach {
-            it.accept(this)
-        }
-    }
-
-    override fun visit(declaration: Declaration) {
-        val varName = declaration.getVarName()
-        val value = declaration.getValue()
-        val valueType = declaration.getType()
-
-        finalValue.declaration(varName)
-        value.accept(finalValue)
-        finalValue.assignation(varName)
-
-        checkType(varName, valueType)
-        variables[varName] = valueType
-    }
-
-    override fun visit(assignment: Assignment) {
-        val varName = assignment.name
-        val value = assignment.value
-        value.accept(finalValue)
-        val type: String = variables[varName] ?: throw IllegalArgumentException("Variable $varName is not declared")
-        checkType(varName, type)
-        finalValue.assignation(varName)
-    }
-
-    override fun visit(print: Print) {
-        val content = print.content
-        content.accept(finalValue)
-        interpreterConsole.print(finalValue.getExpressionResult())
+    open fun isBoolean(result: String): Boolean {
+        return result == "true" || result == "false"
     }
 
     override fun visit(condition: Condition) {
-       /* TODO
-            condition.accept(this)
-       // val content = finalValue.*/
+        val result: String = finalValue.expressionResult
+        if (result == "true") {
+            condition.ifCode.accept(this)
+        } else if (result == "false") {
+            condition.elseCode.accept(this)
+        }
     }
 }
