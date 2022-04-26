@@ -5,4 +5,3 @@ if (true) {
     println(d);
 };
 println(b);
-println(d);

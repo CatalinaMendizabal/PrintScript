@@ -17,6 +17,9 @@ class InterpreterImplementation : NodeVisitor {
                 throw Exception("Type mismatch. Variable $name must be a number")
             }
         }
+        if (type == "boolean") {
+
+        }
     }
 
     override fun visit(codeBlock: CodeBlock) {

@@ -13,7 +13,7 @@ class Value() : ExpressionVisitor {
     private val stringRegex = Regex("\".*\"|'.*'")
 
     // if regex
-    private val ifRegex = Regex("if\\s*\\(.*\\)\\s*\\{.*\\}")
+    private val ifRegex = Regex("true|false")
 
     // string regex with numbers points and numbers
     private var numberRegex = Regex("-?\\d+\\.?\\d*")
@@ -46,6 +46,8 @@ class Value() : ExpressionVisitor {
             result = operateOverString(operand, leftValue, rightValue)
         } else if (isNumber(leftValue, rightValue)) {
             result = operateOverNumber(operand, leftValue, rightValue)
+        } else if (isBoolean(leftValue, rightValue)) {
+            operateOverCondition(operand, operation.left, operation.right)
         } else {
             throw IllegalArgumentException("Invalid expression")
         }
@@ -75,6 +77,10 @@ class Value() : ExpressionVisitor {
         return numberRegex.matches(leftValue) && numberRegex.matches(rightValue)
     }
 
+    private fun isBoolean(leftValue: String, rightValue: String): Boolean {
+        return leftValue.matches(ifRegex) || rightValue.matches(ifRegex)
+    }
+
     private fun isNotDefined(variable: String): Boolean {
         if (stringRegex.containsMatchIn(variable)) return true
         if (numberRegex.containsMatchIn(variable)) return true
@@ -97,6 +103,11 @@ class Value() : ExpressionVisitor {
         } else {
             return leftValue.replace(Regex("^\"|\"$"), "") + rightValue.replace(Regex("^\"|\"$"), "")
         }
+    }
+
+    private fun operateOverCondition(operand: Operand, leftValue: Expression, rightValue: Expression)  {
+        if (getExpression(leftValue).matches(ifRegex) || getExpression(rightValue).matches(ifRegex)) return
+            //evaluateExpression(Operation(leftValue, operand, rightValue))
     }
 
     fun declaration(variable: String) {
