@@ -17,7 +17,7 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
 
         while (isNotAtEndOfFile()) {
             nextContent = peekAny(Type.LET, Type.PRINT, Type.STRINGTYPE, Type.NUMBERTYPE, Type.BOOLEANTYPE, Type.CONST, Type.IF)
-            //nextContent = peekAny(Type.LET, Type.PRINT, Type.STRINGTYPE, Type.NUMBERTYPE)
+            // nextContent = peekAny(Type.LET, Type.PRINT, Type.STRINGTYPE, Type.NUMBERTYPE)
 
             if (nextContent != null) {
                 when (nextContent.content) {

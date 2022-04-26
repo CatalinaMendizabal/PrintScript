@@ -2,7 +2,7 @@
 open class InterpreterImplementation : AbstractInterpreterVisitor() {
 
     init {
-        finalValue = Value2()
+        finalValue = Value()
     }
 
     override fun checkType(name: String, type: String) {

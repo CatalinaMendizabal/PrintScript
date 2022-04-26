@@ -1,4 +1,3 @@
-import expression.Expression
 import lexerEnums.Type
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.Content
@@ -10,11 +9,10 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
     private val assignmentParser = AssignmentParser(stream)
 
     override fun parse(): Condition {
-        var ifCode = CodeBlock()
         var elseCode = CodeBlock()
 
         ifStatement()
-        ifCode = executeConditionCode()
+        val ifCode: CodeBlock = executeConditionCode()
 
         if (peek(Type.ELSE) != null) {
             consume(Type.ELSE).content
@@ -40,7 +38,8 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
         if (peek(Type.LEFTBRACKET) == null) throwParserException("{")
         consume(Type.LEFTBRACKET)
 
-        val nextContent: Content<String>? = peekAny(Type.LET, Type.PRINT, Type.STRINGTYPE, Type.NUMBERTYPE, Type.BOOLEANTYPE, Type.CONST)
+        val nextContent: Content<String>? =
+            peekAny(Type.LET, Type.PRINT, Type.STRINGTYPE, Type.NUMBERTYPE, Type.BOOLEANTYPE, Type.CONST)
 
         if (nextContent != null) {
             when (nextContent.content) {
@@ -53,7 +52,7 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
                 else -> throwParserException(nextContent)
             }
         } else assignmentParser.parse()
-        if(peek(Type.EOF) == null){
+        if (peek(Type.EOF) == null) {
             consume(Type.SEMICOLON)
         }
 
@@ -77,5 +76,4 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
             nextContent.token.range.startLine
         )
     }
-
 }

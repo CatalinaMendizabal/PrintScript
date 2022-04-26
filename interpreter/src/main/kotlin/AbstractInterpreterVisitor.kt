@@ -2,7 +2,7 @@ import node.NodeVisitor
 
 abstract class AbstractInterpreterVisitor : NodeVisitor {
 
-   var finalValue: Value = Value2()
+    var finalValue: AbstractValue = Value()
     private var variables = HashMap<String, String>()
     open val interpreterConsole: InterpreterConsole = InterpreterConsole()
 
@@ -54,7 +54,7 @@ abstract class AbstractInterpreterVisitor : NodeVisitor {
     }
 
     override fun visit(condition: Condition) {
-       // condition.().accept(solverVisitor)
+        // condition.().accept(solverVisitor)
         val result: String = finalValue.expressionResult
         if (result == "true") {
             condition.ifCode.accept(this)
