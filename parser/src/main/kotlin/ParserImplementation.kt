@@ -27,7 +27,7 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
                     "println" -> {
                         program.addChild(printParser.parse())
                     }
-                    "boolean" -> {
+                    "if" -> {
                         program.addChild(conditionParser.parse())
                     }
                     else -> throwParserException(nextContent)

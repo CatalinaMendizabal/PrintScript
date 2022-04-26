@@ -28,8 +28,8 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
         if (peek(Type.LEFTPARENTHESIS) == null) throwParserException("(")
         consume(Type.LEFTPARENTHESIS)
 
-        if (peek(Type.BOOLEANTYPE) == null) throwParserException("boolean")
-        consume(Type.BOOLEANTYPE)
+        if (peek(Type.BOOLEAN) == null) throwParserException("boolean")
+        consume(Type.BOOLEAN)
 
         if (peek(Type.RIGHTPARENTHESIS) == null) throwParserException(")")
         consume(Type.RIGHTPARENTHESIS)
