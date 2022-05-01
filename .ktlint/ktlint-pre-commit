@@ -3,11 +3,13 @@
 
 export PATH=/usr/local/bin:$PATH
 
+echo "Running formatter"
+gradle ktlintFormat
+
 echo "Running lint check..."
 gradle ktlint
 
 status=$?
 # return 1 exit code if running checks fails
-[ $status -ne 0 ] && exit[echo "Running formatter"
-                          gradle ktlintFormat ]
+[ $status -ne 0 ] && exit 1
 exit 0
