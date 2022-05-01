@@ -1,3 +1,6 @@
+package edu.austral.ingsis.g3.interpreter
+
+import Condition
 
 open class InterpreterImplementation : AbstractInterpreterVisitor() {
 

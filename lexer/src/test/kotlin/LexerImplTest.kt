@@ -1,9 +1,9 @@
 import PrintScript.lexer.Lexer
 import PrintScript.lexer.RegexLexer
 import PrintScript.lexer.inputContent.StringContent
-import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import org.junit.Test
 
 class LexerImplTest {
 

@@ -2,11 +2,11 @@ import expression.Expression
 import expression.Operand
 import expression.Operation
 import expression.Variable
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import node.Node
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.junit.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
 
 class ParserTestImpl {
     @Test

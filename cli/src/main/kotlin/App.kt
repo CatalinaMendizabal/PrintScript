@@ -2,10 +2,12 @@ import PrintScript.lexer.Lexer
 import PrintScript.lexer.RegexLexer
 import PrintScript.lexer.inputContent.FileContent
 import com.github.ajalt.clikt.core.CliktCommand
+import edu.austral.ingsis.g3.interpreter.Interpreter
+import edu.austral.ingsis.g3.interpreter.InterpreterConsole
+import java.io.File
 import node.Node
 import org.austral.ingsis.printscript.common.Token
 import org.austral.ingsis.printscript.parser.TokenIterator
-import java.io.File
 
 class CLI : CliktCommand() {
 
