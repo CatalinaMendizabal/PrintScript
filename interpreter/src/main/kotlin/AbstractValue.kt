@@ -46,13 +46,11 @@ abstract class AbstractValue() : ExpressionVisitor {
     }
 
     fun getOperationResult(leftValue: String, rightValue: String, operand: Operand): String {
-        var aux = ""
+        val aux: String
         if (isString(leftValue, rightValue)) {
             aux = operateOverString(operand, leftValue, rightValue)
         } else if (isNumber(leftValue, rightValue)) {
             aux = operateOverNumber(operand, leftValue, rightValue)
-        } else if (isBoolean(leftValue, rightValue)) {
-            // operateOverCondition(operand, operation.left, operation.right)
         } else {
             throw IllegalArgumentException("Invalid expression")
         }
@@ -81,10 +79,6 @@ abstract class AbstractValue() : ExpressionVisitor {
         return numberRegex.matches(leftValue) && numberRegex.matches(rightValue)
     }
 
-    private fun isBoolean(leftValue: String, rightValue: String): Boolean {
-        return leftValue.matches(ifRegex) || rightValue.matches(ifRegex)
-    }
-
     private fun isNotDefined(variable: String): Boolean {
         if (stringRegex.containsMatchIn(variable)) return true
         if (numberRegex.containsMatchIn(variable)) return true
@@ -107,11 +101,6 @@ abstract class AbstractValue() : ExpressionVisitor {
         } else {
             return leftValue.replace(Regex("^\"|\"$"), "") + rightValue.replace(Regex("^\"|\"$"), "")
         }
-    }
-
-    private fun operateOverCondition(leftValue: Expression, rightValue: Expression) {
-        if (getExpression(leftValue).matches(ifRegex) || getExpression(rightValue).matches(ifRegex)) return
-        // evaluateExpression(Operation(leftValue, operand, rightValue))
     }
 
     fun declaration(variable: String) {

@@ -1,7 +1,7 @@
 let a: string = "h";
 let d: string =  a;
 let b: number = 4;
-if (true) {
+if (false) {
     println(a);
 } else {
     println(b);
