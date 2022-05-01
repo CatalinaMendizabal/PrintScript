@@ -14,6 +14,10 @@ enum class Type(override val type: String) : TokenType {
     BOOLEAN("true|false"),
     LEFTPARENTHESIS("[(]"),
     RIGHTPARENTHESIS("[)]"),
+    RIGTHBRACKET("[}]"),
+    LEFTBRACKET("[{]"),
+    IF("if"),
+    ELSE("else"),
     IDENTIFIER("[_a-zA-Z][_a-zA-Z0-9]*"),
     SUM("[+]"),
     SUBSTRACT("[-]"),
@@ -26,9 +30,5 @@ enum class Type(override val type: String) : TokenType {
     LITERAL("[0-9]{1,9}(\\\\.[0-9]*)?"),
     WHITESPACE(" "),
     EOL("\n"),
-    ERROR(".+"),
-    IF("if"),
-    ELSE("else"),
-    RIGTHBRACKET("[}]"),
-    LEFTBRACKET("[{]");
+    ERROR(".+");
 }

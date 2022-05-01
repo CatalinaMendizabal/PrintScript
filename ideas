@@ -1,4 +1,9 @@
 let a: string = "h";
-let c: const = 1;
-let d: string =  a + c;
-println(d);
+let d: string =  a;
+let b: number = 4;
+if (false) {
+    println(a);
+} else {
+    println(b);
+};
+println(b);
