@@ -19,10 +19,10 @@ open class InterpreterImplementation : AbstractInterpreterVisitor() {
     }
 
     override fun visit(condition: Condition) {
-        val result: String = finalValue.expressionResult
-        if (result == "true") {
+        val booleanValue = condition.booleanValue
+        if (booleanValue == "true") {
             condition.ifCode.accept(this)
-        } else if (result == "false") {
+        } else if (booleanValue == "false") {
             condition.elseCode.accept(this)
         }
     }

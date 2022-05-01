@@ -3,4 +3,7 @@ let d: string =  a;
 let b: number = 4;
 if (true) {
     println(a);
+} else {
+    println(b);
 };
+println(b);

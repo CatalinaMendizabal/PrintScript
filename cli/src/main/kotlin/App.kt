@@ -6,6 +6,7 @@ import node.Node
 import org.austral.ingsis.printscript.common.Token
 import org.austral.ingsis.printscript.parser.TokenIterator
 import java.io.File
+import java.util.Scanner
 
 class CLI : CliktCommand() {
 
@@ -16,7 +17,7 @@ class CLI : CliktCommand() {
 
         try {
             println("Lexing...")
-            val tokens = executeLexerTask("2.0")
+            val tokens = executeLexerTask(version)
             println("Parsing...")
             val root = executeParserTask(tokens)
             println("Interpreting...")
