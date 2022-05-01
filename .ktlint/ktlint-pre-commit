@@ -8,6 +8,6 @@ gradle ktlint
 
 status=$?
 # return 1 exit code if running checks fails
-[ $status -ne echo "Running formatter"
-              gradle ktlintFormat ] && exit 1
+[ $status -ne 0 ] && exit[echo "Running formatter"
+                          gradle ktlintFormat ]
 exit 0
