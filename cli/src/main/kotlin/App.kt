@@ -8,17 +8,27 @@ import java.io.File
 import node.Node
 import org.austral.ingsis.printscript.common.Token
 import org.austral.ingsis.printscript.parser.TokenIterator
+import java.io.File
+import java.util.Scanner
 
 class CLI : CliktCommand() {
 
-    private val src = "let a: String = \"Hola\";" + "println(a);" + "let b: Number = 1;"
-    var file = File("ideas")
+    var file = File("")
 
     override fun run() {
+        val fileName: String = askForFile()
+        file = getFile(fileName)
+        val version: String = askForVersion()
+        if ((version != "1.0") && (version != "2.0")) {
+            println("Version not supported")
+            println("Try again")
+            println()
+            run()
+        }
 
         try {
             println("Lexing...")
-            val tokens = executeLexerTask("2.0")
+            val tokens = executeLexerTask(version)
             println("Parsing...")
             val root = executeParserTask(tokens)
             println("Interpreting...")
@@ -27,6 +37,26 @@ class CLI : CliktCommand() {
         } catch (e: Throwable) {
             println("Error: " + e.message)
         }
+    }
+
+    private fun askForFile(): String {
+        println("Insert file name: ")
+        val scanner = Scanner(System.`in`)
+        return scanner.nextLine().trim()
+    }
+
+    private fun askForVersion(): String {
+        println("Select version: \n* 1.0\n* 2.0")
+        val scanner = Scanner(System.`in`)
+        return scanner.nextLine().trim()
+    }
+
+    private fun getFile(fileName: String): File {
+        val file = File(fileName)
+        if (!file.exists()) {
+            throw Exception("File not found")
+        }
+        return file
     }
 
     private fun executeLexerTask(version: String): List<Token> {

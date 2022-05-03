@@ -8,6 +8,8 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
     private val printParser = PrintParser(stream)
     private val assignmentParser = AssignmentParser(stream)
 
+    private lateinit var booleanValue: String
+
     override fun parse(): Condition {
         var elseCode = CodeBlock()
 
@@ -18,7 +20,7 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
             consume(Type.ELSE).content
             elseCode = executeConditionCode()
         }
-        return Condition(ifCode, elseCode)
+        return Condition(booleanValue, ifCode, elseCode)
     }
 
     private fun ifStatement() {
@@ -27,7 +29,7 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
         consume(Type.LEFTPARENTHESIS)
 
         if (peek(Type.BOOLEAN) == null) throwParserException("boolean")
-        consume(Type.BOOLEAN)
+        booleanValue = consume(Type.BOOLEAN).content
 
         if (peek(Type.RIGHTPARENTHESIS) == null) throwParserException(")")
         consume(Type.RIGHTPARENTHESIS)
@@ -44,10 +46,10 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
         if (nextContent != null) {
             when (nextContent.content) {
                 "let", "const" -> {
-                    declarationParser.parse()
+                    codeBlock.addChild(declarationParser.parse())
                 }
                 "println" -> {
-                    printParser.parse()
+                    codeBlock.addChild(printParser.parse())
                 }
                 else -> throwParserException(nextContent)
             }
