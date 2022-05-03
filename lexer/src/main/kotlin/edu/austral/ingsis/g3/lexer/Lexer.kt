@@ -1,4 +1,4 @@
-package PrintScript.lexer
+package edu.austral.ingsis.g3.lexer
 
 import PrintScript.lexer.inputContent.Content
 import org.austral.ingsis.printscript.common.Token

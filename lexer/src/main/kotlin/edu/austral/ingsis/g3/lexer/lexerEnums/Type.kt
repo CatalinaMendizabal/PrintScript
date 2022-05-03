@@ -1,4 +1,4 @@
-package lexerEnums
+package edu.austral.ingsis.g3.lexer.lexerEnums
 
 import org.austral.ingsis.printscript.common.TokenType
 

@@ -1,3 +1,5 @@
+package edu.austral.ingsis.g3.interpreter
+
 import expression.Operand
 import expression.Variable
 

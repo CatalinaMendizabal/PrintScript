@@ -1,3 +1,5 @@
+package edu.austral.ingsis.g3.interpreter
+
 class InterpreterConsole {
 
     var builder: StringBuilder = StringBuilder()

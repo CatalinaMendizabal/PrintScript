@@ -1,18 +1,16 @@
-package PrintScript.lexer
+package edu.austral.ingsis.g3.lexer
 
-import LexerException
 import PrintScript.lexer.inputContent.Content
-import VersionException
-import lexerEnums.Type
-import org.austral.ingsis.printscript.common.LexicalRange
-import org.austral.ingsis.printscript.common.Token
-import org.austral.ingsis.printscript.common.TokenType
+import edu.austral.ingsis.g3.lexer.lexerEnums.Type
 import java.util.Arrays.stream
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import java.util.stream.Collectors
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
+import org.austral.ingsis.printscript.common.LexicalRange
+import org.austral.ingsis.printscript.common.Token
+import org.austral.ingsis.printscript.common.TokenType
 
 class RegexLexer(version: String) : Lexer {
 
