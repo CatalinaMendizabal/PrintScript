@@ -1,7 +1,9 @@
+package edu.austral.ingsis.g3.parser
+
+import edu.austral.ingsis.g3.lexer.lexerEnums.Type
 import expression.Expression
 import expression.Operand
 import expression.Variable
-import lexerEnums.Type
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull

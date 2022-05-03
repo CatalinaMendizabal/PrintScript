@@ -1,15 +1,18 @@
-import PrintScript.lexer.Lexer
-import PrintScript.lexer.RegexLexer
+package edu.austral.ingisis.g3.cli
+
 import PrintScript.lexer.inputContent.FileContent
 import com.github.ajalt.clikt.core.CliktCommand
 import edu.austral.ingsis.g3.interpreter.Interpreter
 import edu.austral.ingsis.g3.interpreter.InterpreterConsole
+import edu.austral.ingsis.g3.lexer.Lexer
+import edu.austral.ingsis.g3.lexer.RegexLexer
+import edu.austral.ingsis.g3.parser.Parser
+import edu.austral.ingsis.g3.parser.ParserImplementation
 import java.io.File
+import java.util.Scanner
 import node.Node
 import org.austral.ingsis.printscript.common.Token
 import org.austral.ingsis.printscript.parser.TokenIterator
-import java.io.File
-import java.util.Scanner
 
 class CLI : CliktCommand() {
 

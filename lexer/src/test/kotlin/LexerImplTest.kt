@@ -1,6 +1,7 @@
-import PrintScript.lexer.Lexer
-import PrintScript.lexer.RegexLexer
 import PrintScript.lexer.inputContent.StringContent
+import edu.austral.ingsis.g3.lexer.Lexer
+import edu.austral.ingsis.g3.lexer.LexerException
+import edu.austral.ingsis.g3.lexer.RegexLexer
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import org.junit.jupiter.api.Test

@@ -1,3 +1,10 @@
+import edu.austral.ingsis.g3.parser.AssignmentParser
+import edu.austral.ingsis.g3.parser.DeclarationParser
+import edu.austral.ingsis.g3.parser.FunctionParser
+import edu.austral.ingsis.g3.parser.Parser
+import edu.austral.ingsis.g3.parser.ParserException
+import edu.austral.ingsis.g3.parser.ParserImplementation
+import edu.austral.ingsis.g3.parser.PrintParser
 import expression.Expression
 import expression.Operand
 import expression.Operation
@@ -11,7 +18,7 @@ import org.junit.jupiter.api.Test
 class ParserTestImpl {
     @Test
     fun assignmentParserTestForSingleLiteral() {
-        val parser: Parser<Assignment> = AssignmentParser(TokenIterator.Companion.create("a = 5", token_001))
+        val parser: Parser<Assignment> = AssignmentParser(TokenIterator.create("a = 5", token_001))
         val assignment = Assignment("a", Variable("5"))
         assertEquals(assignment.toString(), parser.parse().toString())
     }
