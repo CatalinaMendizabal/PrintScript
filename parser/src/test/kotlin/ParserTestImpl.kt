@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import node.Node
 import org.austral.ingsis.printscript.parser.TokenIterator
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class ParserTestImpl {
     @Test

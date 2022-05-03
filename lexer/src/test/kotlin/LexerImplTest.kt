@@ -3,7 +3,7 @@ import PrintScript.lexer.RegexLexer
 import PrintScript.lexer.inputContent.StringContent
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class LexerImplTest {
 
