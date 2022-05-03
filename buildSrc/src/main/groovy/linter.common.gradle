@@ -31,4 +31,19 @@ task ktlintFormat(type: JavaExec, group: "formatting") {
     args "-F", "src/**/*.kt"
 }
 
+task installGitHook(type: Copy) {
+  from new File(rootProject.rootDir, ".ktlint/ktlint-pre-commit")
+  into { new File(rootProject.rootDir, '.git/hooks') }
+  rename("ktlint-pre-commit", 'pre-commit')
+
+/*  from new File(rootProject.rootDir, "./ktlint/pre-push-2")
+  into { new File(rootProject.rootDir, '.git/hooks') }
+  rename("pre-push-2", 'pre-push')*/
+
+  fileMode 0775
+}
+
 build.dependsOn(ktlint)
+build.dependsOn(ktlintFormat)
+build.dependsOn installGitHook
+

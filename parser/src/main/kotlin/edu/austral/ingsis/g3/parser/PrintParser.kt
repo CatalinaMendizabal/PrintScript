@@ -1,5 +1,8 @@
+package edu.austral.ingsis.g3.parser
+
+import Print
+import edu.austral.ingsis.g3.lexer.lexerEnums.Type
 import expression.Expression
-import lexerEnums.Type
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 

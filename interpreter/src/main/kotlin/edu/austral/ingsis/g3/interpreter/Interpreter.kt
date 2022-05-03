@@ -1,3 +1,5 @@
+package edu.austral.ingsis.g3.interpreter
+
 import node.Node
 
 class Interpreter {

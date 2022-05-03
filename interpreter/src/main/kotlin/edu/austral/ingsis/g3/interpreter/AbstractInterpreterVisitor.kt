@@ -1,3 +1,10 @@
+package edu.austral.ingsis.g3.interpreter
+
+import Assignment
+import CodeBlock
+import Condition
+import Declaration
+import Print
 import node.NodeVisitor
 
 abstract class AbstractInterpreterVisitor : NodeVisitor {
