@@ -1,6 +1,6 @@
 package edu.austral.ingsis.g3.parser
 import Assignment
-import edu.austral.ingsis.g3.lexer.lexerEnums.Type
+import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import expression.Expression
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
@@ -10,10 +10,10 @@ class AssignmentParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), 
     private val expressionParser: FunctionParser = FunctionParser(stream)
 
     override fun parse(): Assignment {
-        if (peek(Type.IDENTIFIER) == null) throwParserException("identifier")
-        val variable = consume(Type.IDENTIFIER).content
-        if (peek(Type.EQUAL) == null) throwParserException("=")
-        consume(Type.EQUAL)
+        if (peek(TokenTypes.IDENTIFIER) == null) throwParserException("identifier")
+        val variable = consume(TokenTypes.IDENTIFIER).content
+        if (peek(TokenTypes.EQUAL) == null) throwParserException("=")
+        consume(TokenTypes.EQUAL)
         val expression: Expression = expressionParser.parse()
         return Assignment(variable, expression)
     }

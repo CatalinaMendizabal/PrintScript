@@ -1,6 +1,6 @@
 let a: string = "h";
 let d: string =  a;
-let b: number = 4;
+let numberb: number = 4;
 if (false) {
     println(a);
 } else {

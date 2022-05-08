@@ -1,6 +1,6 @@
 package edu.austral.ingsis.g3.parser
 
-import edu.austral.ingsis.g3.lexer.lexerEnums.Type
+import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import expression.Expression
 import expression.Operand
 import expression.Variable
@@ -20,7 +20,7 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
 
         while (isAnOperand()) {
             val operand: Operand? =
-                Operand.getOperand(consumeAny(Type.SUM, Type.SUBSTRACT, Type.MULTIPLY, Type.DIVIDE).content)
+                Operand.getOperand(consumeAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE).content)
 
             if (isNotAKeyWord()) throwParserException()
             val next = consumeKeyWord()
@@ -30,13 +30,15 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
         return result
     }
 
-    private fun consumeKeyWord() = consumeAny(Type.IDENTIFIER, Type.LITERAL, Type.NUMBER, Type.STRING, Type.BOOLEAN).content
+    // TODO BORRE LITERAL DE IS KEY
 
-    private fun isAnOperand() = peekAny(Type.SUM, Type.SUBSTRACT, Type.MULTIPLY, Type.DIVIDE) != null
+    private fun consumeKeyWord() = consumeAny(TokenTypes.IDENTIFIER,  TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN).content
 
-    private fun isNotOperand() = peekAny(Type.SUM, Type.SUBSTRACT, Type.MULTIPLY, Type.DIVIDE) == null
+    private fun isAnOperand() = peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) != null
 
-    private fun isNotAKeyWord() = peekAny(Type.IDENTIFIER, Type.LITERAL, Type.NUMBER, Type.STRING, Type.BOOLEAN) == null
+    private fun isNotOperand() = peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) == null
+
+    private fun isNotAKeyWord() = peekAny(TokenTypes.IDENTIFIER,  TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN) == null
 
     private fun throwParserException() {
         throw ParserException("Expected an identifier or literal", current().range.startCol, current().range.startLine)
