@@ -1,3 +1,4 @@
+import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import edu.austral.ingsis.g3.parser.AssignmentParser
 import edu.austral.ingsis.g3.parser.DeclarationParser
 import edu.austral.ingsis.g3.parser.FunctionParser
@@ -8,10 +9,15 @@ import edu.austral.ingsis.g3.parser.PrintParser
 import expression.Expression
 import expression.Operand
 import expression.Operation
+import expression.ReadInput
 import expression.Variable
+import java.io.BufferedReader
+import java.io.FileReader
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import node.Node
+import org.austral.ingsis.printscript.common.LexicalRange
+import org.austral.ingsis.printscript.common.Token
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.junit.jupiter.api.Test
 
@@ -128,4 +134,41 @@ class ParserTestImpl {
             print(parser.parse())
         }
     }
+
+    @Test
+    fun parserTestV1_1() {
+        val parser: Parser<Node> = ParserImplementation(
+            TokenIterator.create(
+                "if(false){let variable: string = 'Hello World!';}else{ \nconst aBoolean:boolean=true;};if(aBoolean){let variable: string = readInput('hola' + readInput(' mundo') + '!');};",
+                token_013
+            )
+        )
+        val codeBlock = CodeBlock()
+        val ifBlock = CodeBlock()
+        val elseBlock = CodeBlock()
+        ifBlock.addChild(Declaration("variable", "string", Variable("'Hello World!'")))
+        elseBlock.addChild(Declaration("aBoolean", "boolean", Variable("true")))
+        val ifBlock2 = CodeBlock()
+        ifBlock2.addChild(
+            Declaration(
+                "variable",
+                "string",
+                ReadInput(
+                    Operation(
+                        Operation(
+                            Variable("'hola'"),
+                            Operand.SUM,
+                            ReadInput(Variable("' mundo'"))
+                        ),
+                        Operand.SUM,
+                        Variable("'!'")
+                    )
+                )
+            )
+        )
+        codeBlock.addChild(Condition(Variable("false").toString(), ifBlock, elseBlock))
+        codeBlock.addChild(Condition(Variable("aBoolean").toString(), ifBlock2, CodeBlock()))
+        assertEquals(codeBlock.toString(), parser.parse().toString())
+    }
+
 }

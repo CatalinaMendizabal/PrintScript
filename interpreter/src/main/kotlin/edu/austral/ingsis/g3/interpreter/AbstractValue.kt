@@ -4,6 +4,7 @@ import expression.Expression
 import expression.ExpressionVisitor
 import expression.Operand
 import expression.Operation
+import expression.ReadInput
 import expression.Variable
 
 abstract class AbstractValue() : ExpressionVisitor {
@@ -127,4 +128,6 @@ abstract class AbstractValue() : ExpressionVisitor {
             throw IllegalArgumentException("Variable $expressionResult is not defined!")
         }
     }
+
+    override fun visitReadInput(input: ReadInput) {}
 }

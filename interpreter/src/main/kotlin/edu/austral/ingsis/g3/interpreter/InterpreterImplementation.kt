@@ -2,12 +2,16 @@ package edu.austral.ingsis.g3.interpreter
 
 import Condition
 
-open class InterpreterImplementation : AbstractInterpreterVisitor() {
+open class InterpreterImplementation() : AbstractInterpreterVisitor() {
 
     init {
         finalValue = Value()
     }
 
+    /*constructor(inputProvider: InputProvider) : this() {
+        finalValue = inputProvider
+    }
+*/
     override fun checkType(name: String, type: String) {
         super.checkType(name, type)
         if (type == "boolean") {

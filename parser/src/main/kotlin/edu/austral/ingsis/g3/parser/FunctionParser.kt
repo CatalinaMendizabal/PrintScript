@@ -1,5 +1,6 @@
 package edu.austral.ingsis.g3.parser
 
+import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import expression.Expression
 import expression.Operand
 import expression.Variable
@@ -29,15 +30,13 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
         return result
     }
 
-    // TODO BORRE LITERAL DE IS KEY
-
-    private fun consumeKeyWord() = consumeAny(TokenTypes.IDENTIFIER, TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN).content
+    private fun consumeKeyWord() = consumeAny(TokenTypes.IDENTIFIER, TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN, TokenTypes.READINPUT).content
 
     private fun isAnOperand() = peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) != null
 
     private fun isNotOperand() = peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) == null
 
-    private fun isNotAKeyWord() = peekAny(TokenTypes.IDENTIFIER, TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN) == null
+    private fun isNotAKeyWord() = peekAny(TokenTypes.IDENTIFIER, TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN, TokenTypes.READINPUT) == null
 
     private fun throwParserException() {
         throw ParserException("Expected an identifier or literal", current().range.startCol, current().range.startLine)

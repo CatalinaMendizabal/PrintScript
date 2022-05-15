@@ -5,6 +5,7 @@ import CodeBlock
 import Condition
 import Declaration
 import Print
+import expression.ReadInput
 import node.NodeVisitor
 
 abstract class AbstractInterpreterVisitor : NodeVisitor {
@@ -72,4 +73,5 @@ abstract class AbstractInterpreterVisitor : NodeVisitor {
              condition.accept(this)
         // val content = finalValue.*/
     }
+    override fun visit(input: ReadInput) {}
 }

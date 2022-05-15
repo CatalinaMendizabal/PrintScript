@@ -2,6 +2,7 @@ package edu.austral.ingsis.g3.parser
 
 import CodeBlock
 import Condition
+import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.Content
 import org.austral.ingsis.printscript.parser.TokenIterator
@@ -44,7 +45,7 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
         consume(TokenTypes.LEFTBRACKET)
 
         val nextContent: Content<String>? =
-            peekAny(TokenTypes.LET, TokenTypes.PRINT, TokenTypes.STRINGTYPE, TokenTypes.NUMBERTYPE, TokenTypes.BOOLEANTYPE, TokenTypes.CONST)
+            peekAny(TokenTypes.LET, TokenTypes.PRINTLN, TokenTypes.TYPESTRING, TokenTypes.TYPENUMBER, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST)
 
         if (nextContent != null) {
             when (nextContent.content) {
@@ -61,8 +62,8 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
             consume(TokenTypes.SEMICOLON)
         }
 
-        if (peek(TokenTypes.RIGTHBRACKET) == null) throwParserException("}")
-        consume(TokenTypes.RIGTHBRACKET)
+        if (peek(TokenTypes.RIGHTBRACKET) == null) throwParserException("}")
+        consume(TokenTypes.RIGHTBRACKET)
         return codeBlock
     }
 

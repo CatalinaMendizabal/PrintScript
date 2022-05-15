@@ -1,6 +1,7 @@
 package edu.austral.ingsis.g3.parser
 
 import Declaration
+import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import expression.Expression
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
@@ -16,8 +17,8 @@ class DeclarationParser(stream: TokenIterator) : TokenConsumer(stream), Parser<D
         if (peek(TokenTypes.COLON) == null) throwParserError("Expected :")
         consume(TokenTypes.COLON, ":")
 
-        if (peekAny(TokenTypes.STRINGTYPE, TokenTypes.LET, TokenTypes.NUMBERTYPE, TokenTypes.PRINT, TokenTypes.BOOLEANTYPE, TokenTypes.CONST) == null) throwParserError("Expected type")
-        val type = consumeAny(TokenTypes.STRINGTYPE, TokenTypes.LET, TokenTypes.NUMBERTYPE, TokenTypes.PRINT, TokenTypes.BOOLEANTYPE, TokenTypes.CONST).content
+        if (peekAny(TokenTypes.TYPESTRING, TokenTypes.LET, TokenTypes.TYPENUMBER, TokenTypes.PRINTLN, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST) == null) throwParserError("Expected type")
+        val type = consumeAny(TokenTypes.TYPESTRING, TokenTypes.LET, TokenTypes.TYPENUMBER, TokenTypes.PRINTLN, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST).content
 
         if (peek(TokenTypes.SEMICOLON, ";") != null) return Declaration(variable, type)
 
