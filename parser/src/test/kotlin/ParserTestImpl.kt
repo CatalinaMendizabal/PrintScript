@@ -1,4 +1,4 @@
-import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
+
 import edu.austral.ingsis.g3.parser.AssignmentParser
 import edu.austral.ingsis.g3.parser.DeclarationParser
 import edu.austral.ingsis.g3.parser.FunctionParser
@@ -11,13 +11,9 @@ import expression.Operand
 import expression.Operation
 import expression.ReadInput
 import expression.Variable
-import java.io.BufferedReader
-import java.io.FileReader
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import node.Node
-import org.austral.ingsis.printscript.common.LexicalRange
-import org.austral.ingsis.printscript.common.Token
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.junit.jupiter.api.Test
 
@@ -170,5 +166,4 @@ class ParserTestImpl {
         codeBlock.addChild(Condition(Variable("aBoolean").toString(), ifBlock2, CodeBlock()))
         assertEquals(codeBlock.toString(), parser.parse().toString())
     }
-
 }
