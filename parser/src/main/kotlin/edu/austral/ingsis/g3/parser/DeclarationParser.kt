@@ -1,7 +1,6 @@
 package edu.austral.ingsis.g3.parser
 
 import Declaration
-import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import expression.Expression
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator

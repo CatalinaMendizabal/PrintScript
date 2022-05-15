@@ -3,23 +3,19 @@ package edu.austral.ingsis.g3.lexer.lexerEnums
 import org.austral.ingsis.printscript.common.TokenType
 
 enum class TokenTypes(override val type: String) : TokenType {
-    // Variables
     IDENTIFIER("IDENTIFIER"),
 
-    // Keywords
     LET("LET"),
     CONST("CONST"),
-    PRINT("PRINT"),
+    PRINTLN("PRINTLN"),
     READINPUT("READINPUT"),
     IF("IF"),
     ELSE("ELSE"),
 
-    // Types
-    STRINGTYPE("STRINGTYPE"),
-    NUMBERTYPE("NUMBERTYPE"),
-    BOOLEANTYPE("BOOLEANTYPE"),
+    TYPESTRING("TYPESTRING"),
+    TYPENUMBER("TYPENUMBER"),
+    TYPEBOOLEAN("TYPEBOOLEAN"),
 
-    // Operations
     SUM("SUM"),
     SUBSTRACT("SUBSTRACT"),
     MULTIPLY("MULTIPLY"),
@@ -28,20 +24,17 @@ enum class TokenTypes(override val type: String) : TokenType {
     LEFTPARENTHESIS("LEFTPARENTHESIS"),
     RIGHTPARENTHESIS("RIGHTPARENTHESIS"),
     LEFTBRACKET("LEFTBRACKET"),
-    RIGTHBRACKET("RIGTHBRACKET"),
+    RIGHTBRACKET("RIGHTBRACKET"),
 
-    // Declarations
     NUMBER("NUMBER"),
     STRING("STRING"),
     BOOLEAN("BOOLEAN"),
 
-    // Elements
     WHITESPACE("WHITESPACE"),
     EOF("EOF"),
     EOL("EOL"),
     COLON("COLON"),
     SEMICOLON("SEMICOLON"),
 
-    // No match token
-    NOMATCH("NOMATCH")
+    ERROR("ERROR")
 }

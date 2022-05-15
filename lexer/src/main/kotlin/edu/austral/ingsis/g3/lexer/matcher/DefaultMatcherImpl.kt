@@ -3,8 +3,7 @@ package edu.austral.ingsis.g3.lexer.matcher
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import org.austral.ingsis.printscript.common.TokenType
-
-class LexerMatcherImpl : LexerMatcher {
+class DefaultMatcherImpl : LexerMatcher {
 
     private val pattern: Pattern
     private val regex: String?

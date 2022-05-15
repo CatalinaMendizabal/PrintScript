@@ -1,6 +1,5 @@
 package edu.austral.ingsis.g3.parser
 
-import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import expression.Expression
 import expression.Operand
 import expression.Variable
