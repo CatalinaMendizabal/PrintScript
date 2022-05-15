@@ -3,8 +3,8 @@ package edu.austral.ingsis.g3.lexer
 import PrintScript.lexer.inputContent.Content
 import edu.austral.ingsis.g3.lexer.exceptions.LexerException
 import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
-import edu.austral.ingsis.g3.lexer.matcher.LexerMatcher
 import edu.austral.ingsis.g3.lexer.matcher.DefaultMatcherImpl
+import edu.austral.ingsis.g3.lexer.matcher.LexerMatcher
 import java.util.EnumMap
 import java.util.regex.Matcher
 import org.austral.ingsis.printscript.common.LexicalRange

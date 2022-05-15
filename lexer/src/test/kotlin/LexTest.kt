@@ -138,5 +138,4 @@ class LexTest {
         assertEquals(11, tokens.size)
         assertEquals(expected, tokens.toString())
     }
-
 }
