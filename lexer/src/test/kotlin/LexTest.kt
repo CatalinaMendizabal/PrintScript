@@ -1,12 +1,12 @@
 import PrintScript.lexer.inputContent.StringContent
 import edu.austral.ingsis.g3.lexer.DefaultLexerImpl
 import edu.austral.ingsis.g3.lexer.Lexer
-import edu.austral.ingsis.g3.lexer.matcher.MatcherProvider
 import edu.austral.ingsis.g3.lexer.lexerEnums.Version
+import edu.austral.ingsis.g3.lexer.matcher.MatcherProvider
 import kotlin.test.assertEquals
 import org.junit.jupiter.api.Test
 
-class LexTest{
+class LexTest {
 
     private val lexer: Lexer
 

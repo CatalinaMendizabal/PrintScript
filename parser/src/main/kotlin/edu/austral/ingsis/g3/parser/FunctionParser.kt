@@ -32,13 +32,13 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
 
     // TODO BORRE LITERAL DE IS KEY
 
-    private fun consumeKeyWord() = consumeAny(TokenTypes.IDENTIFIER,  TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN).content
+    private fun consumeKeyWord() = consumeAny(TokenTypes.IDENTIFIER, TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN).content
 
     private fun isAnOperand() = peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) != null
 
     private fun isNotOperand() = peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) == null
 
-    private fun isNotAKeyWord() = peekAny(TokenTypes.IDENTIFIER,  TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN) == null
+    private fun isNotAKeyWord() = peekAny(TokenTypes.IDENTIFIER, TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN) == null
 
     private fun throwParserException() {
         throw ParserException("Expected an identifier or literal", current().range.startCol, current().range.startLine)

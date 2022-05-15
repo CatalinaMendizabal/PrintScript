@@ -28,41 +28,39 @@ class RegexLexer(version: String) : Lexer {
         /*for (i in Type.values()) {
             patterns[i] = i.type
         }*/
-        patterns[TokenTypes.LET] = LexerMatcherImpl(TokenTypes.LET,"let")
-        patterns[TokenTypes.CONST] = LexerMatcherImpl(TokenTypes.CONST ,"const")
-        patterns[TokenTypes.IF] = LexerMatcherImpl(TokenTypes.IF ,"if")
-        patterns[TokenTypes.ELSE] = LexerMatcherImpl(TokenTypes.ELSE ,"else")
-        patterns[TokenTypes.PRINT] = LexerMatcherImpl(TokenTypes.PRINT ,"println")
+        patterns[TokenTypes.LET] = LexerMatcherImpl(TokenTypes.LET, "let")
+        patterns[TokenTypes.CONST] = LexerMatcherImpl(TokenTypes.CONST, "const")
+        patterns[TokenTypes.IF] = LexerMatcherImpl(TokenTypes.IF, "if")
+        patterns[TokenTypes.ELSE] = LexerMatcherImpl(TokenTypes.ELSE, "else")
+        patterns[TokenTypes.PRINT] = LexerMatcherImpl(TokenTypes.PRINT, "println")
 
+        patterns[TokenTypes.BOOLEANTYPE] = LexerMatcherImpl(TokenTypes.BOOLEANTYPE, "boolean")
+        patterns[TokenTypes.STRINGTYPE] = LexerMatcherImpl(TokenTypes.STRINGTYPE, "string")
+        patterns[TokenTypes.NUMBERTYPE] = LexerMatcherImpl(TokenTypes.NUMBERTYPE, "number")
 
-        patterns[TokenTypes.BOOLEANTYPE] = LexerMatcherImpl(TokenTypes.BOOLEANTYPE ,"boolean")
-        patterns[TokenTypes.STRINGTYPE] = LexerMatcherImpl(TokenTypes.STRINGTYPE ,"string")
-        patterns[TokenTypes.NUMBERTYPE] = LexerMatcherImpl(TokenTypes.NUMBERTYPE ,"number")
+        patterns[TokenTypes.SUM] = LexerMatcherImpl(TokenTypes.SUM, "[+]")
+        patterns[TokenTypes.SUBSTRACT] = LexerMatcherImpl(TokenTypes.SUBSTRACT, "[-]")
+        patterns[TokenTypes.MULTIPLY] = LexerMatcherImpl(TokenTypes.MULTIPLY, "[*]")
+        patterns[TokenTypes.DIVIDE] = LexerMatcherImpl(TokenTypes.DIVIDE, "[/]")
+        patterns[TokenTypes.EQUAL] = LexerMatcherImpl(TokenTypes.EQUAL, "[=]")
+        patterns[TokenTypes.LEFTBRACKET] = LexerMatcherImpl(TokenTypes.LEFTBRACKET, "[{]")
+        patterns[TokenTypes.LEFTPARENTHESIS] = LexerMatcherImpl(TokenTypes.LEFTPARENTHESIS, "[(]")
+        patterns[TokenTypes.RIGHTPARENTHESIS] = LexerMatcherImpl(TokenTypes.RIGHTPARENTHESIS, "[)]")
+        patterns[TokenTypes.RIGTHBRACKET] = LexerMatcherImpl(TokenTypes.RIGTHBRACKET, "[}]")
 
-        patterns[TokenTypes.SUM] = LexerMatcherImpl(TokenTypes.SUM ,"[+]")
-        patterns[TokenTypes.SUBSTRACT] = LexerMatcherImpl(TokenTypes.SUBSTRACT ,"[-]")
-        patterns[TokenTypes.MULTIPLY] = LexerMatcherImpl(TokenTypes.MULTIPLY ,"[*]")
-        patterns[TokenTypes.DIVIDE] = LexerMatcherImpl(TokenTypes.DIVIDE ,"[/]")
-        patterns[TokenTypes.EQUAL] = LexerMatcherImpl(TokenTypes.EQUAL ,"[=]")
-        patterns[TokenTypes.LEFTBRACKET] = LexerMatcherImpl(TokenTypes.LEFTBRACKET ,"[{]")
-        patterns[TokenTypes.LEFTPARENTHESIS] = LexerMatcherImpl(TokenTypes.LEFTPARENTHESIS ,"[(]")
-        patterns[TokenTypes.RIGHTPARENTHESIS] = LexerMatcherImpl(TokenTypes.RIGHTPARENTHESIS ,"[)]")
-        patterns[TokenTypes.RIGTHBRACKET] = LexerMatcherImpl(TokenTypes.RIGTHBRACKET ,"[}]")
+        patterns[TokenTypes.BOOLEAN] = LexerMatcherImpl(TokenTypes.BOOLEAN, "true|false")
+        patterns[TokenTypes.NUMBER] = LexerMatcherImpl(TokenTypes.NUMBER, "-?[0-9.]+")
+        patterns[TokenTypes.STRING] = LexerMatcherImpl(TokenTypes.STRING, "\".*\"|\'.*\'")
 
-        patterns[TokenTypes.BOOLEAN] = LexerMatcherImpl(TokenTypes.BOOLEAN ,"true|false")
-        patterns[TokenTypes.NUMBER] = LexerMatcherImpl(TokenTypes.NUMBER ,"-?[0-9.]+")
-        patterns[TokenTypes.STRING] = LexerMatcherImpl(TokenTypes.STRING ,"\".*\"|\'.*\'")
+        patterns[TokenTypes.IDENTIFIER] = LexerMatcherImpl(TokenTypes.IDENTIFIER, "[_a-zA-Z][_a-zA-Z0-9]*")
+        // patterns[TType.LITERAL] = "\"([_a-zA-Z0-9 !\\/.])*\"|'([_a-zA-Z0-9 !\\/.])*'";
 
-        patterns[TokenTypes.IDENTIFIER] = LexerMatcherImpl(TokenTypes.IDENTIFIER ,"[_a-zA-Z][_a-zA-Z0-9]*")
-       // patterns[TType.LITERAL] = "\"([_a-zA-Z0-9 !\\/.])*\"|'([_a-zA-Z0-9 !\\/.])*'";
-
-        patterns[TokenTypes.COLON] = LexerMatcherImpl(TokenTypes.COLON ,":")
-        patterns[TokenTypes.SEMICOLON] = LexerMatcherImpl(TokenTypes.SEMICOLON ,";")
-        patterns[TokenTypes.WHITESPACE] = LexerMatcherImpl(TokenTypes.WHITESPACE ," ")
-        patterns[TokenTypes.EOL] = LexerMatcherImpl(TokenTypes.EOL ,"\n")
-        patterns[TokenTypes.NOMATCH] = LexerMatcherImpl(TokenTypes.NOMATCH ,".+")
+        patterns[TokenTypes.COLON] = LexerMatcherImpl(TokenTypes.COLON, ":")
+        patterns[TokenTypes.SEMICOLON] = LexerMatcherImpl(TokenTypes.SEMICOLON, ";")
+        patterns[TokenTypes.WHITESPACE] = LexerMatcherImpl(TokenTypes.WHITESPACE, " ")
+        patterns[TokenTypes.EOL] = LexerMatcherImpl(TokenTypes.EOL, "\n")
+        patterns[TokenTypes.NOMATCH] = LexerMatcherImpl(TokenTypes.NOMATCH, ".+")
     }
-
 
     override fun lex(input: Content): List<Token> {
         val tokens = ArrayList<Token>()
@@ -156,7 +154,8 @@ class RegexLexer(version: String) : Lexer {
             stream(TokenTypes.values())
                 .map { key -> String.format("?(<%s>%s)", key.name, patterns[key]) }
                 .collect(Collectors.joining())
-                .substring(1))
+                .substring(1)
+        )
             .matcher(line)
     }
 }

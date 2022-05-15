@@ -15,7 +15,6 @@ class MatcherProvider {
             matchers[TokenTypes.ELSE] = LexerMatcherImpl(TokenTypes.ELSE, "else")
             matchers[TokenTypes.PRINT] = LexerMatcherImpl(TokenTypes.PRINT, "println")
 
-
             matchers[TokenTypes.BOOLEANTYPE] = LexerMatcherImpl(TokenTypes.BOOLEANTYPE, "boolean")
             matchers[TokenTypes.STRINGTYPE] = LexerMatcherImpl(TokenTypes.STRINGTYPE, "string")
             matchers[TokenTypes.NUMBERTYPE] = LexerMatcherImpl(TokenTypes.NUMBERTYPE, "number")
