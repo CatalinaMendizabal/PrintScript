@@ -10,7 +10,7 @@ class Interpreter {
         return interpreter.interpreterConsole
     }*/
 
-   fun interpret(node: Node, readInputProvider: ReadInputProvider): InterpreterConsole {
+    fun interpret(node: Node, readInputProvider: ReadInputProvider): InterpreterConsole {
         val interpreter = InterpreterVisitor(readInputProvider)
         node.accept(interpreter)
         return interpreter.interpreterConsole

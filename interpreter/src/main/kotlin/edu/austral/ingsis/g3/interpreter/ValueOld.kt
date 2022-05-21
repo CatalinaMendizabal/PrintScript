@@ -1,6 +1,5 @@
 package edu.austral.ingsis.g3.interpreter
 
-
 open class ValueOld {
 
    /* private val constants: MutableMap<String, String?> = HashMap()

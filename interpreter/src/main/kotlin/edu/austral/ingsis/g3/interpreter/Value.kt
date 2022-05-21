@@ -17,7 +17,7 @@ class Value : ExpressionVisitor {
     private val ifRegex = Regex("true|false")
     private val numberRegex = Regex("-?\\d+\\.?\\d*")
 
-    constructor(variables: HashMap<String, String>)  {
+    constructor(variables: HashMap<String, String>) {
         this.variables = variables
     }
 
@@ -115,13 +115,12 @@ class Value : ExpressionVisitor {
     }
 
     override fun visitReadInput(input: ReadInput) {
-      //  val values = AbstractValue(variables, inputProvider)
+        //  val values = AbstractValue(variables, inputProvider)
         input.prompt.accept(this)
         val res = this.expressionResult
         if (res.matches(stringRegex)) {
             expressionResult = "\"" + inputProvider.getInput(res)
-        // Todo
-        }
-        else throw IllegalArgumentException("Input should be string")
+            // Todo
+        } else throw IllegalArgumentException("Input should be string")
     }
 }

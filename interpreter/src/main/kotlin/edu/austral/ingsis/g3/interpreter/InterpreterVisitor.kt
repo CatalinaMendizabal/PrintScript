@@ -15,7 +15,7 @@ class InterpreterVisitor(readInputProvider: ReadInputProvider) : NodeVisitor {
     private var variables = HashMap<String, String>()
     val interpreterConsole: InterpreterConsole = InterpreterConsole()
 
-     private fun checkType(name: String, type: String) {
+    private fun checkType(name: String, type: String) {
         if (type == "string") {
             if (finalValue.stringRegex.equals(name)) {
                 throw Exception("Type mismatch")

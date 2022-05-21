@@ -2,7 +2,6 @@ package edu.austral.ingisis.g3.cli
 
 import PrintScript.lexer.inputContent.FileContent
 import com.github.ajalt.clikt.core.CliktCommand
-import edu.austral.ingsis.g3.interpreter.DefaultReadInputProvider
 import edu.austral.ingsis.g3.interpreter.Interpreter
 import edu.austral.ingsis.g3.interpreter.InterpreterConsole
 import edu.austral.ingsis.g3.lexer.DefaultRegexLexer
