@@ -8,13 +8,14 @@ import Print
 import expression.ReadInput
 import node.NodeVisitor
 
-abstract class AbstractInterpreterVisitor : NodeVisitor {
+class InterpreterVisitor(readInputProvider: ReadInputProvider) : NodeVisitor {
 
-    var finalValue: AbstractValue = Value()
+    var finalValue = Value(readInputProvider)
+
     private var variables = HashMap<String, String>()
-    open val interpreterConsole: InterpreterConsole = InterpreterConsole()
+    val interpreterConsole: InterpreterConsole = InterpreterConsole()
 
-    open fun checkType(name: String, type: String) {
+     private fun checkType(name: String, type: String) {
         if (type == "string") {
             if (finalValue.stringRegex.equals(name)) {
                 throw Exception("Type mismatch")
@@ -25,6 +26,15 @@ abstract class AbstractInterpreterVisitor : NodeVisitor {
                 throw Exception("Type mismatch. Variable $name must be a number")
             }
         }
+        if (type == "boolean") {
+            if (!isBoolean(finalValue.expressionResult)) {
+                throw Exception("Type mismatch")
+            }
+        }
+    }
+
+    private fun isBoolean(result: String): Boolean {
+        return result == "true" || result == "false"
     }
 
     override fun visit(codeBlock: CodeBlock) {
@@ -62,19 +72,21 @@ abstract class AbstractInterpreterVisitor : NodeVisitor {
     }
 
     override fun visit(condition: Condition) {
-        // condition.().accept(solverVisitor)
-        val result: String = finalValue.expressionResult
+        val result: String = condition.booleanValue
         if (result == "true") {
             condition.ifCode.accept(this)
         } else if (result == "false") {
             condition.elseCode.accept(this)
         }
-        /* TODO
-             condition.accept(this)
-        // val content = finalValue.*/
     }
 
     override fun visit(input: ReadInput) {
-        // input.prompt.accept()
+        TODO("Not yet implemented")
     }
+
+    /* override fun visit(input: ReadInput) {
+        // TODO val default = Default
+         var input = input.prompt.accept(this)
+         default.getInput(input.toString())
+     }*/
 }
