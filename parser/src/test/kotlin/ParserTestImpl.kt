@@ -1,4 +1,3 @@
-
 import edu.austral.ingsis.g3.parser.AssignmentParser
 import edu.austral.ingsis.g3.parser.DeclarationParser
 import edu.austral.ingsis.g3.parser.FunctionParser
@@ -133,21 +132,17 @@ class ParserTestImpl {
 
     @Test
     fun parserTestV1_1() {
+        // "if(false){let variable: string = 'Hello World!';}else{ \nconst aBoolean:boolean=true;};if(aBoolean){let variable: string = readInput('hola' + readInput(' mundo') + '!');};",
         val parser: Parser<Node> = ParserImplementation(
             TokenIterator.create(
-                "if(false){let variable: string = 'Hello World!';}else{ \nconst aBoolean:boolean=true;};if(aBoolean){let variable: string = readInput('hola' + readInput(' mundo') + '!');};",
-                token_013
+                "let var: string = readInput('hola' + readInput(' mundo') + '!');",
+                token_014
             )
         )
-        val codeBlock = CodeBlock()
-        val ifBlock = CodeBlock()
-        val elseBlock = CodeBlock()
-        ifBlock.addChild(Declaration("variable", "string", Variable("'Hello World!'")))
-        elseBlock.addChild(Declaration("aBoolean", "boolean", Variable("true")))
-        val ifBlock2 = CodeBlock()
-        ifBlock2.addChild(
+        val code = CodeBlock()
+        code.addChild(
             Declaration(
-                "variable",
+                "var",
                 "string",
                 ReadInput(
                     Operation(
@@ -162,8 +157,7 @@ class ParserTestImpl {
                 )
             )
         )
-        codeBlock.addChild(Condition(Variable("false").toString(), ifBlock, elseBlock))
-        codeBlock.addChild(Condition(Variable("aBoolean").toString(), ifBlock2, CodeBlock()))
-        assertEquals(codeBlock.toString(), parser.parse().toString())
+        val b = parser.parse().toString()
+        assertEquals(code.toString(), b)
     }
 }

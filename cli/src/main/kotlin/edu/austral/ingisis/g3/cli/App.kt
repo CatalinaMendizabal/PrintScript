@@ -4,8 +4,10 @@ import PrintScript.lexer.inputContent.FileContent
 import com.github.ajalt.clikt.core.CliktCommand
 import edu.austral.ingsis.g3.interpreter.Interpreter
 import edu.austral.ingsis.g3.interpreter.InterpreterConsole
+import edu.austral.ingsis.g3.lexer.DefaultRegexLexer
 import edu.austral.ingsis.g3.lexer.Lexer
-import edu.austral.ingsis.g3.lexer.RegexLexer
+import edu.austral.ingsis.g3.lexer.lexerEnums.Version
+import edu.austral.ingsis.g3.lexer.matcher.MatchProvider
 import edu.austral.ingsis.g3.parser.Parser
 import edu.austral.ingsis.g3.parser.ParserImplementation
 import java.io.File
@@ -22,16 +24,16 @@ class CLI : CliktCommand() {
         val fileName: String = askForFile()
         file = getFile(fileName)
         val version: String = askForVersion()
-        if ((version != "1.0") && (version != "2.0")) {
+        if (Version.getVariableType(version) == null) {
             println("Version not supported")
             println("Try again")
             println()
             run()
         }
-
+        val selectedVersion: Version = Version.getVariableType(version)!!
         try {
             println("Lexing...")
-            val tokens = executeLexerTask(version)
+            val tokens = executeLexerTask(selectedVersion)
             println("Parsing...")
             val root = executeParserTask(tokens)
             println("Interpreting...")
@@ -62,8 +64,8 @@ class CLI : CliktCommand() {
         return file
     }
 
-    private fun executeLexerTask(version: String): List<Token> {
-        val lexer: Lexer = RegexLexer(version)
+    private fun executeLexerTask(version: Version): List<Token> {
+        val lexer: Lexer = DefaultRegexLexer(MatchProvider.getMatchers(version))
         return lexer.lex(FileContent(file))
     }
 

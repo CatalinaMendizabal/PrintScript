@@ -15,15 +15,15 @@ class DeclarationParser(stream: TokenIterator) : TokenConsumer(stream), Parser<D
         val variable = consume(TokenTypes.IDENTIFIER).content
 
         if (peek(TokenTypes.COLON) == null) throwParserError("Expected :")
-        consume(TokenTypes.COLON, ":")
+        consume(TokenTypes.COLON)
 
         if (peekAny(TokenTypes.TYPESTRING, TokenTypes.LET, TokenTypes.TYPENUMBER, TokenTypes.PRINTLN, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST) == null) throwParserError("Expected type")
         val type = consumeAny(TokenTypes.TYPESTRING, TokenTypes.LET, TokenTypes.TYPENUMBER, TokenTypes.PRINTLN, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST).content
 
-        if (peek(TokenTypes.SEMICOLON, ";") != null) return Declaration(variable, type)
+        if (peek(TokenTypes.SEMICOLON) != null) return Declaration(variable, type)
 
-        if (peek(TokenTypes.EQUAL, "=") == null) throwParserError("Expected =")
-        consume(TokenTypes.EQUAL, "=")
+        if (peek(TokenTypes.EQUAL) == null) throwParserError("Expected =")
+        consume(TokenTypes.EQUAL)
 
         val expression: Expression = functionParser.parse()
         return Declaration(variable, type, expression)

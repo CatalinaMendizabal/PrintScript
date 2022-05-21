@@ -6,21 +6,21 @@ import expression.ReadInput
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 
-class ReadInputParser(stream: TokenIterator, expressionParser: FunctionParser) :
+class ReadInputParser(stream: TokenIterator) :
     TokenConsumer(stream), Parser<ReadInput> {
-    var expressionParser: FunctionParser
+    var expressionParser = FunctionParser(stream)
 
-    init {
-        this.expressionParser = expressionParser
-    }
+//    init {
+//        this.expressionParser = expressionParser
+//    }
 
     override fun parse(): ReadInput {
         consume(TokenTypes.READINPUT, "readInput")
         if (isLeftParenthesis()) throwException("(")
-        consume(TokenTypes.LEFTPARENTHESIS, "(")
+        consume(TokenTypes.LEFTPARENTHESIS)
         val message: Expression = expressionParser.parse()
         if (isRightParenthesis()) throwException(")")
-        consume(TokenTypes.RIGHTPARENTHESIS, ")")
+        consume(TokenTypes.RIGHTPARENTHESIS)
         return ReadInput(message)
     }
 

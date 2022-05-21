@@ -146,3 +146,26 @@ val token_013 = listOf(
     Token(TokenTypes.RIGHTBRACKET, 168, 169, LexicalRange(112, 1, 113, 1)),
     Token(TokenTypes.SEMICOLON, 169, 170, LexicalRange(113, 1, 114, 1)),
 )
+
+val token_014 = listOf(
+    Token(TokenTypes.LET, 0, 3, LexicalRange(0, 0, 3, 0)),
+    Token(TokenTypes.IDENTIFIER, 4, 12, LexicalRange(4, 0, 12, 0)),
+    Token(TokenTypes.COLON, 12, 13, LexicalRange(12, 0, 13, 0)),
+    Token(TokenTypes.TYPESTRING, 14, 22, LexicalRange(14, 0, 22, 0)),
+    Token(TokenTypes.EQUAL, 23, 24, LexicalRange(23, 0, 24, 0)),
+    Token(TokenTypes.READINPUT, 25, 34, LexicalRange(25, 0, 34, 0)),
+    Token(TokenTypes.LEFTPARENTHESIS, 34, 35, LexicalRange(34, 0, 35, 0)),
+    Token(TokenTypes.STRING, 35, 41, LexicalRange(35, 0, 41, 0)),
+    Token(TokenTypes.WHITESPACE, 41, 42, LexicalRange(41, 0, 42, 0)),
+    Token(TokenTypes.SUM, 42, 43, LexicalRange(42, 0, 43, 0)),
+    Token(TokenTypes.READINPUT, 43, 52, LexicalRange(43, 0, 52, 0)),
+    Token(TokenTypes.LEFTPARENTHESIS, 52, 53, LexicalRange(52, 0, 53, 0)),
+    Token(TokenTypes.STRING, 53, 61, LexicalRange(53, 0, 61, 0)),
+    Token(TokenTypes.RIGHTPARENTHESIS, 61, 62, LexicalRange(61, 0, 62, 0)),
+    Token(TokenTypes.WHITESPACE, 62, 63, LexicalRange(62, 0, 63, 0)),
+    Token(TokenTypes.SUM, 63, 64, LexicalRange(63, 0, 64, 0)),
+    Token(TokenTypes.WHITESPACE, 65, 66, LexicalRange(65, 0, 66, 0)),
+    Token(TokenTypes.STRING, 66, 69, LexicalRange(66, 0, 69, 0)),
+    Token(TokenTypes.RIGHTPARENTHESIS, 69, 70, LexicalRange(69, 0, 70, 0)),
+    Token(TokenTypes.SEMICOLON, 70, 71, LexicalRange(70, 0, 71, 0)),
+)

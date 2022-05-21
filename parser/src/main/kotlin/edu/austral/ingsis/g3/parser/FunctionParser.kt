@@ -9,7 +9,7 @@ import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull
 
 class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Parser<Expression> {
-
+    // private val readInputParser = ReadInputParser(stream, this)
     override fun parse(): Expression {
 
         if (isNotAKeyWord()) throwParserException()
@@ -20,7 +20,14 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
 
         while (isAnOperand()) {
             val operand: Operand? =
-                Operand.getOperand(consumeAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE).content)
+                Operand.getOperand(
+                    consumeAny(
+                        TokenTypes.SUM,
+                        TokenTypes.SUBSTRACT,
+                        TokenTypes.MULTIPLY,
+                        TokenTypes.DIVIDE
+                    ).content
+                )
 
             if (isNotAKeyWord()) throwParserException()
             val next = consumeKeyWord()
@@ -30,13 +37,27 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
         return result
     }
 
-    private fun consumeKeyWord() = consumeAny(TokenTypes.IDENTIFIER, TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN, TokenTypes.READINPUT).content
+    private fun consumeKeyWord() = consumeAny(
+        TokenTypes.IDENTIFIER,
+        TokenTypes.NUMBER,
+        TokenTypes.STRING,
+        TokenTypes.BOOLEAN,
+        TokenTypes.READINPUT
+    ).content
 
-    private fun isAnOperand() = peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) != null
+    private fun isAnOperand() =
+        peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) != null
 
-    private fun isNotOperand() = peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) == null
+    private fun isNotOperand() =
+        peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) == null
 
-    private fun isNotAKeyWord() = peekAny(TokenTypes.IDENTIFIER, TokenTypes.NUMBER, TokenTypes.STRING, TokenTypes.BOOLEAN, TokenTypes.READINPUT) == null
+    private fun isNotAKeyWord() = peekAny(
+        TokenTypes.IDENTIFIER,
+        TokenTypes.NUMBER,
+        TokenTypes.STRING,
+        TokenTypes.BOOLEAN,
+        TokenTypes.READINPUT
+    ) == null
 
     private fun throwParserException() {
         throw ParserException("Expected an identifier or literal", current().range.startCol, current().range.startLine)
