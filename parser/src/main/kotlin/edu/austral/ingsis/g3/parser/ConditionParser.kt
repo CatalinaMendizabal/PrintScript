@@ -11,7 +11,7 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
     private val declarationParser = DeclarationParser(stream)
     private val printParser = PrintParser(stream)
     private val assignmentParser = AssignmentParser(stream)
-    private val readInputParser = ReadInputParser(stream)
+    // private val readInputParser = ReadInputParser(stream)
 
     private lateinit var booleanValue: String
 
@@ -56,16 +56,13 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
                 "println" -> {
                     codeBlock.addChild(printParser.parse())
                 }
-                "readInput" -> {
+                /*"readInput" -> {
                     codeBlock.addChild(readInputParser.parse())
-                }
+                }*/
                 else -> throwParserException(nextContent)
             }
         } else assignmentParser.parse()
         if (peek(TokenTypes.EOF) == null) {
-            if (codeBlock.getChildren()[0].toString().contains("readInput")) {
-                codeBlock.addChild(readInputParser.parse())
-            }
             consume(TokenTypes.SEMICOLON)
         }
 

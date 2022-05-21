@@ -29,19 +29,10 @@ abstract class AbstractValue() : ExpressionVisitor {
         val operand: Operand = operation.operand
         var leftValue: String = getExpression(operation.left)
         var rightValue: String = getExpression(operation.right)
-//        if(expression.left.accept(this) != null) {
-//            leftValue = expression.left.accept(this).toString()
-//        }
-//        if (expression.right.accept(this) != null){
-//            rightValue = expression.right.accept(this).toString()
-//        }
 
-        if (variables.containsKey(leftValue)) {
-            leftValue = variables.getValue(leftValue)
-        }
-        if (variables.containsKey(rightValue)) {
-            rightValue = variables.getValue(rightValue)
-        }
+        if (variables.containsKey(leftValue)) leftValue = variables.getValue(leftValue)
+
+        if (variables.containsKey(rightValue)) rightValue = variables.getValue(rightValue)
 
         val result = getOperationResult(leftValue, rightValue, operand)
 
@@ -49,7 +40,8 @@ abstract class AbstractValue() : ExpressionVisitor {
     }
 
     fun getOperationResult(leftValue: String, rightValue: String, operand: Operand): String {
-        val aux: String
+        /*
+         val aux: String
         if (isString(leftValue, rightValue)) {
             aux = operateOverString(operand, leftValue, rightValue)
         } else if (isNumber(leftValue, rightValue)) {
@@ -57,7 +49,10 @@ abstract class AbstractValue() : ExpressionVisitor {
         } else {
             throw IllegalArgumentException("Invalid expression")
         }
-        return aux
+         */
+        return if (isString(leftValue, rightValue)) operateOverString(operand, leftValue, rightValue)
+        else if (isNumber(leftValue, rightValue)) operateOverNumber(operand, leftValue, rightValue)
+        else throw IllegalArgumentException("Invalid expression")
     }
 
     private fun getExpression(expression: Expression): String {
@@ -66,15 +61,9 @@ abstract class AbstractValue() : ExpressionVisitor {
     }
 
     private fun isString(leftValue: String, rightValue: String): Boolean {
-        if (stringRegex.matches(leftValue) && stringRegex.matches(rightValue)) {
-            return true
-        }
-        if (stringRegex.matches(leftValue) && numberRegex.matches(rightValue)) {
-            return true
-        }
-        if (stringRegex.matches(rightValue) && numberRegex.matches(leftValue)) {
-            return true
-        }
+        if (stringRegex.matches(leftValue) && stringRegex.matches(rightValue)) return true
+        if (stringRegex.matches(leftValue) && numberRegex.matches(rightValue)) return true
+        if (stringRegex.matches(rightValue) && numberRegex.matches(leftValue)) return true
         return false
     }
 
@@ -106,6 +95,8 @@ abstract class AbstractValue() : ExpressionVisitor {
         }
     }
 
+    private fun operateOverReadInput() {}
+
     fun declaration(variable: String) {
         variables[variable] = ""
     }
@@ -129,5 +120,6 @@ abstract class AbstractValue() : ExpressionVisitor {
         }
     }
 
-    override fun visitReadInput(input: ReadInput) {}
+    override fun visitReadInput(input: ReadInput) {
+    }
 }

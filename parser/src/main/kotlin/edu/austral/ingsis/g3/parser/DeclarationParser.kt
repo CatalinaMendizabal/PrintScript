@@ -17,8 +17,8 @@ class DeclarationParser(stream: TokenIterator) : TokenConsumer(stream), Parser<D
         if (peek(TokenTypes.COLON) == null) throwParserError("Expected :")
         consume(TokenTypes.COLON)
 
-        if (peekAny(TokenTypes.TYPESTRING, TokenTypes.LET, TokenTypes.TYPENUMBER, TokenTypes.PRINTLN, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST) == null) throwParserError("Expected type")
-        val type = consumeAny(TokenTypes.TYPESTRING, TokenTypes.LET, TokenTypes.TYPENUMBER, TokenTypes.PRINTLN, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST).content
+        if (peekAny(TokenTypes.TYPESTRING, TokenTypes.LET, TokenTypes.TYPENUMBER, TokenTypes.PRINTLN, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST, TokenTypes.READINPUT) == null) throwParserError("Expected type")
+        val type = consumeAny(TokenTypes.TYPESTRING, TokenTypes.LET, TokenTypes.TYPENUMBER, TokenTypes.PRINTLN, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST, TokenTypes.READINPUT).content
 
         if (peek(TokenTypes.SEMICOLON) != null) return Declaration(variable, type)
 

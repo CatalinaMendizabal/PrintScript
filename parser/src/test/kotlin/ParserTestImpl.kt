@@ -135,14 +135,14 @@ class ParserTestImpl {
         // "if(false){let variable: string = 'Hello World!';}else{ \nconst aBoolean:boolean=true;};if(aBoolean){let variable: string = readInput('hola' + readInput(' mundo') + '!');};",
         val parser: Parser<Node> = ParserImplementation(
             TokenIterator.create(
-                "let var: string = readInput('hola' + readInput(' mundo') + '!');",
+                "let variable: string = readInput('hola' + readInput(' mundo') + '!');",
                 token_014
             )
         )
         val code = CodeBlock()
         code.addChild(
             Declaration(
-                "var",
+                "variable",
                 "string",
                 ReadInput(
                     Operation(

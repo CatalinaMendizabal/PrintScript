@@ -1,6 +1,6 @@
 package edu.austral.ingsis.g3.interpreter
 
-interface InputProvider {
+interface ReadInputProvider {
 
     fun getInput(prompt: String): String
 }

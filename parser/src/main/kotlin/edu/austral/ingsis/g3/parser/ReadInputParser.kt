@@ -6,13 +6,13 @@ import expression.ReadInput
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 
-class ReadInputParser(stream: TokenIterator) :
+class ReadInputParser(stream: TokenIterator, expressionParser: FunctionParser) :
     TokenConsumer(stream), Parser<ReadInput> {
-    var expressionParser = FunctionParser(stream)
+    private var expressionParser: FunctionParser
 
-//    init {
-//        this.expressionParser = expressionParser
-//    }
+    init {
+        this.expressionParser = expressionParser
+    }
 
     override fun parse(): ReadInput {
         consume(TokenTypes.READINPUT, "readInput")

@@ -13,14 +13,14 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
     private val printParser = PrintParser(stream)
     private val assignmentParser = AssignmentParser(stream)
     private val conditionParser = ConditionParser(stream)
-    private val readInputParser = ReadInputParser(stream)
+//    private val readInputParser = ReadInputParser(stream)
 
     override fun parse(): Node {
         val program = CodeBlock()
         var nextContent: Content<String>?
 
         while (isNotAtEndOfFile()) {
-            nextContent = peekAny(TokenTypes.LET, TokenTypes.PRINTLN, TokenTypes.TYPESTRING, TokenTypes.TYPENUMBER, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST, TokenTypes.IF, TokenTypes.READINPUT)
+            nextContent = peekAny(TokenTypes.LET, TokenTypes.PRINTLN, TokenTypes.TYPESTRING, TokenTypes.TYPENUMBER, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST, TokenTypes.IF)
 
             if (nextContent != null) {
                 when (nextContent.content) {
@@ -32,9 +32,6 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
                     }
                     "if" -> {
                         program.addChild(conditionParser.parse())
-                    }
-                    "readInput" -> {
-                        program.addChild(readInputParser.parse())
                     }
                     else -> throwParserException(nextContent)
                 }

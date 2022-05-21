@@ -73,5 +73,8 @@ abstract class AbstractInterpreterVisitor : NodeVisitor {
              condition.accept(this)
         // val content = finalValue.*/
     }
-    override fun visit(input: ReadInput) {}
+
+    override fun visit(input: ReadInput) {
+        // input.prompt.accept()
+    }
 }

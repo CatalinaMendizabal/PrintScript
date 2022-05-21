@@ -8,10 +8,10 @@ open class InterpreterImplementation() : AbstractInterpreterVisitor() {
         finalValue = Value()
     }
 
-    /*constructor(inputProvider: InputProvider) : this() {
-        finalValue = inputProvider
-    }
-*/
+   /* constructor(readInputProvider: ReadInputProvider) : this() {
+        finalValue = readInputProvider
+    }*/
+
     override fun checkType(name: String, type: String) {
         super.checkType(name, type)
         if (type == "boolean") {
