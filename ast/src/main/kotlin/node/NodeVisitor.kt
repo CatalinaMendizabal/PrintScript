@@ -5,6 +5,7 @@ import CodeBlock
 import Condition
 import Declaration
 import Print
+import expression.ReadInput
 
 interface NodeVisitor {
     fun visit(codeBlock: CodeBlock)
@@ -16,4 +17,6 @@ interface NodeVisitor {
     fun visit(print: Print)
 
     fun visit(condition: Condition)
+
+    fun visit(input: ReadInput)
 }

@@ -8,6 +8,7 @@ import edu.austral.ingsis.g3.parser.PrintParser
 import expression.Expression
 import expression.Operand
 import expression.Operation
+import expression.ReadInput
 import expression.Variable
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -127,5 +128,36 @@ class ParserTestImpl {
         assertFailsWith<ParserException> {
             print(parser.parse())
         }
+    }
+
+    @Test
+    fun parserTestV1_1() {
+        // "if(false){let variable: string = 'Hello World!';}else{ \nconst aBoolean:boolean=true;};if(aBoolean){let variable: string = readInput('hola' + readInput(' mundo') + '!');};",
+        val parser: Parser<Node> = ParserImplementation(
+            TokenIterator.create(
+                "let variable: string = readInput('hola' + readInput(' mundo') + '!');",
+                token_014
+            )
+        )
+        val code = CodeBlock()
+        code.addChild(
+            Declaration(
+                "variable",
+                "string",
+                ReadInput(
+                    Operation(
+                        Operation(
+                            Variable("'hola'"),
+                            Operand.SUM,
+                            ReadInput(Variable("' mundo'"))
+                        ),
+                        Operand.SUM,
+                        Variable("'!'")
+                    )
+                )
+            )
+        )
+        val b = parser.parse().toString()
+        assertEquals(code.toString(), b)
     }
 }

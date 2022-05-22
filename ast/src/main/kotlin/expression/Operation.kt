@@ -24,7 +24,7 @@ class Operation : Expression {
         visitor.visitExpression(this)
     }
 
-    override fun addVariable(operand: Operand, variable: Variable): Expression {
+    override fun addVariable(operand: Operand, variable: Expression): Expression {
         return if (operand === Operand.SUBSTRACT || operand === Operand.SUM) {
             Operation(this, operand, variable)
         } else {
