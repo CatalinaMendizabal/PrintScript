@@ -26,7 +26,7 @@ class MatchProvider {
             matchers[TokenTypes.RIGHTPARENTHESIS] = DefaultMatcherImpl(TokenTypes.RIGHTPARENTHESIS, "[)]")
 
             matchers[TokenTypes.NUMBER] = DefaultMatcherImpl(TokenTypes.NUMBER, "-?\\d+\\.?\\d*")
-            matchers[TokenTypes.STRING] = DefaultMatcherImpl(TokenTypes.STRING, "([_a-zA-Z0-9 !\\\\/.])*\\\"|'([_a-zA-Z0-9 !\\\\/.])*'|\".*\"|\'.*\'")
+            matchers[TokenTypes.STRING] = DefaultMatcherImpl(TokenTypes.STRING, "\".*\" |\'.*\' |\".*\"|'.*'")
 
             matchers[TokenTypes.WHITESPACE] = DefaultMatcherImpl(TokenTypes.WHITESPACE, " ")
             matchers[TokenTypes.COLON] = DefaultMatcherImpl(TokenTypes.COLON, "[:]")

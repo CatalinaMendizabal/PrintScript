@@ -13,7 +13,7 @@ class Value : ExpressionVisitor {
     var variables = HashMap<String, String>()
     private lateinit var inputProvider: ReadInputProvider
 
-    val stringRegex = Regex("\".*\"|'.*'")
+    val stringRegex = Regex("\".*\" |\'.*\' |\".*\"|'.*'|.*")
     private val ifRegex = Regex("true|false")
     private val numberRegex = Regex("-?\\d+\\.?\\d*")
 
@@ -85,7 +85,7 @@ class Value : ExpressionVisitor {
         if (operand != Operand.SUM) {
             throw IllegalArgumentException("Operand $operand is not supported for value type String")
         } else {
-            return leftValue.replace(Regex("^\"|\"$"), "") + rightValue.replace(Regex("^\"|\"$"), "")
+            return leftValue.replace(Regex("^\"|\"|^'|'"), "") + rightValue.replace(Regex("^\"|\"|^\'|\'"), "")
         }
     }
 

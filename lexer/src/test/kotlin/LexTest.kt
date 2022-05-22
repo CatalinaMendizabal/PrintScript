@@ -19,7 +19,7 @@ class LexTest {
     fun test001_stringDeclarationTest() {
         val tokens = lexer.lex(StringContent(src_001))
         val expected = tokens_001.toString()
-        assertEquals(8, tokens.size)
+        assertEquals(6, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -27,7 +27,7 @@ class LexTest {
     fun test002_stringDoubleQuoteAssignationTest() {
         val tokens = lexer.lex(StringContent(src_002))
         val expected = tokens_002.toString()
-        assertEquals(7, tokens.size)
+        assertEquals(5, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -36,7 +36,7 @@ class LexTest {
         val tokens = lexer.lex(StringContent(src_003))
         val expected = tokens_003.toString()
 
-        assertEquals(7, tokens.size)
+        assertEquals(5, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -45,7 +45,7 @@ class LexTest {
         val tokens = lexer.lex(StringContent(src_004))
         val expected = tokens_004.toString()
 
-        assertEquals(12, tokens.size)
+        assertEquals(8, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -54,7 +54,7 @@ class LexTest {
         val tokens = lexer.lex(StringContent(src_005))
         val expected = tokens_005.toString()
 
-        assertEquals(8, tokens.size)
+        assertEquals(6, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -63,7 +63,7 @@ class LexTest {
         val tokens = lexer.lex(StringContent(src_006))
         val expected = tokens_006.toString()
 
-        assertEquals(7, tokens.size)
+        assertEquals(5, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -72,7 +72,7 @@ class LexTest {
         val tokens = lexer.lex(StringContent(src_007))
         val expected = tokens_007.toString()
 
-        assertEquals(12, tokens.size)
+        assertEquals(8, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -99,7 +99,7 @@ class LexTest {
         val tokens = lexer.lex(StringContent(src_010))
         val expected = tokens_010.toString()
 
-        assertEquals(14, tokens.size)
+        assertEquals(9, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -108,7 +108,7 @@ class LexTest {
         val tokens = lexer.lex(StringContent(src_011))
         val expected = tokens_011.toString()
 
-        assertEquals(11, tokens.size)
+        assertEquals(7, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -117,7 +117,7 @@ class LexTest {
         val tokens = lexer.lex(StringContent(src_012))
         val expected = tokens_012.toString()
 
-        assertEquals(11, tokens.size)
+        assertEquals(7, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -126,7 +126,7 @@ class LexTest {
         val tokens = lexer.lex(StringContent(src_013))
         val expected = tokens_013.toString()
 
-        assertEquals(11, tokens.size)
+        assertEquals(7, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -135,7 +135,7 @@ class LexTest {
         val tokens = lexer.lex(StringContent(src_014))
         val expected = tokens_014.toString()
 
-        assertEquals(11, tokens.size)
+        assertEquals(7, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 }

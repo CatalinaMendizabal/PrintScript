@@ -47,8 +47,11 @@ class DefaultRegexLexer(private var matchers: EnumMap<TokenTypes, LexerMatcher>)
                     token
                 }.first()
 
-                if (matched.type == TokenTypes.WHITESPACE || matched.type == TokenTypes.EOL) continue
-                else tokens += matched
+            if (matched.type == TokenTypes.WHITESPACE || matched.type == TokenTypes.EOL) {
+                continue
+            } else {
+                tokens += matched
+            }
         }
 
         tokens += Token(TokenTypes.EOF, position, position, LexicalRange(column, line, column, line))
