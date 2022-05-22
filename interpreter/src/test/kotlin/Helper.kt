@@ -2,6 +2,10 @@ import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import org.austral.ingsis.printscript.common.LexicalRange
 import org.austral.ingsis.printscript.common.Token
 
+val token_00 = listOf(
+    Token(TokenTypes.IDENTIFIER, 0, 1, LexicalRange(0, 0, 3, 0)),
+)
+
 val token_001 = listOf(
     Token(TokenTypes.IDENTIFIER, 0, 1, LexicalRange(0, 0, 3, 0)),
     Token(TokenTypes.EQUAL, 2, 3, LexicalRange(2, 0, 3, 1)),
