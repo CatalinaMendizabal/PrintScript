@@ -17,7 +17,7 @@ class InterpreterTest {
     @Test
     fun test_001_Interpret() {
         val parser: Parser<Print> = PrintParser(TokenIterator.create("println('hola')", token_008))
-        val interpreter = Interpreter().interpret(parser.parse(), DefaultReadInputProvider())
+        val interpreter = Interpreter().interpret(parser.parse())
         assertEquals("'hola'", interpreter.readLine())
     }
 
@@ -25,7 +25,7 @@ class InterpreterTest {
     fun test_002() {
         val interpreter = Interpreter()
         val print = Print(Variable("3"))
-        assertEquals("3", interpreter.interpret(print, DefaultReadInputProvider()).readLine())
+        assertEquals("3", interpreter.interpret(print).readLine())
     }
 
     @Test
@@ -55,6 +55,6 @@ class InterpreterTest {
             )
         )
         val interpreter = Interpreter()
-        assertEquals("'hola mundo!'", interpreter.interpret(parser.parse(), DefaultReadInputProvider()).readLine())
+        assertEquals("'hola mundo!'", interpreter.interpret(parser.parse()).readLine())
     }
 }

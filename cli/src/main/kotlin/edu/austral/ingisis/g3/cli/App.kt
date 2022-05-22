@@ -51,7 +51,7 @@ class CLI : CliktCommand() {
     }
 
     private fun askForVersion(): String {
-        println("Select version: \n* 1.0\n* 2.0")
+        println("Select version: \n* 1.0\n* 1.1")
         val scanner = Scanner(System.`in`)
         return scanner.nextLine().trim()
     }

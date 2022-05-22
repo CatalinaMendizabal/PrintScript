@@ -119,7 +119,8 @@ class Value : ExpressionVisitor {
         input.prompt.accept(this)
         val res = this.expressionResult
         if (res.matches(stringRegex)) {
-            expressionResult = "\"" + inputProvider.getInput(res)
+            expressionResult = inputProvider.getInput(res)
+            var a = 0
             // Todo
         } else throw IllegalArgumentException("Input should be string")
     }

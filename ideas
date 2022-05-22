@@ -1,9 +1,2 @@
-let a: string = "h";
-let d: string =  a;
-let numberb: number = 4;
-if (false) {
-    println(a);
-} else {
-    println(b);
-};
-println(b);
+const name: string = readInput("Name:");
+println("Hello" + name + "!");
