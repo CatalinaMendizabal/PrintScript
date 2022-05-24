@@ -1,7 +1,7 @@
 package edu.austral.ingsis.g3.parser
 
 import CodeBlock
-import edu.austral.ingsis.g3.lexer.lexerEnums.Type
+import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import node.Node
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.Content
@@ -13,14 +13,14 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
     private val printParser = PrintParser(stream)
     private val assignmentParser = AssignmentParser(stream)
     private val conditionParser = ConditionParser(stream)
+//    private val readInputParser = ReadInputParser(stream)
 
     override fun parse(): Node {
         val program = CodeBlock()
         var nextContent: Content<String>?
 
         while (isNotAtEndOfFile()) {
-            nextContent = peekAny(Type.LET, Type.PRINT, Type.STRINGTYPE, Type.NUMBERTYPE, Type.BOOLEANTYPE, Type.CONST, Type.IF)
-            // nextContent = peekAny(Type.LET, Type.PRINT, Type.STRINGTYPE, Type.NUMBERTYPE)
+            nextContent = peekAny(TokenTypes.LET, TokenTypes.PRINTLN, TokenTypes.TYPESTRING, TokenTypes.TYPENUMBER, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST, TokenTypes.IF)
 
             if (nextContent != null) {
                 when (nextContent.content) {
@@ -37,12 +37,12 @@ class ParserImplementation(@NotNull stream: TokenIterator) : TokenConsumer(strea
                 }
             } else program.addChild(assignmentParser.parse())
 
-            consume(Type.SEMICOLON)
+            consume(TokenTypes.SEMICOLON)
         }
         return program
     }
 
-    private fun isNotAtEndOfFile() = peek(Type.EOF) == null
+    private fun isNotAtEndOfFile() = peek(TokenTypes.EOF) == null
 
     private fun throwParserException(nextContent: Content<String>) {
         throw ParserException(

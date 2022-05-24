@@ -4,5 +4,5 @@ import node.Node
 
 interface Expression : Node {
     fun accept(visitor: ExpressionVisitor)
-    fun addVariable(operand: Operand, variable: Variable): Expression
+    fun addVariable(operand: Operand, variable: Expression): Expression
 }

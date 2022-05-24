@@ -10,7 +10,7 @@ class Variable(private val value: String) : Expression {
 
     override fun accept(visitor: NodeVisitor) {}
 
-    override fun addVariable(operand: Operand, variable: Variable): Expression {
+    override fun addVariable(operand: Operand, variable: Expression): Expression {
         return Operation(this, operand, variable)
     }
 
