@@ -44,7 +44,7 @@ class ConditionParser(stream: TokenIterator, private val statementParser: Statem
 
         while (peek(TokenTypes.RIGHTBRACKET) == null) {
             if (peek(TokenTypes.EOF) != null) {
-                throw UnclosedCodeBlockException("Code block not closed with '}'");
+                throw UnclosedCodeBlockException("Code block not closed with '}'")
             }
             codeBlock.addChild(statementParser.parse())
         }
@@ -68,4 +68,3 @@ class ConditionParser(stream: TokenIterator, private val statementParser: Statem
         )
     }
 }
-

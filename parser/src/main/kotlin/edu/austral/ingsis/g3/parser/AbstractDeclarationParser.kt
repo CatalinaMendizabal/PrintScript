@@ -9,7 +9,7 @@ import org.austral.ingsis.printscript.parser.TokenIterator
 abstract class AbstractDeclarationParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Declaration> {
     var functionParser: AbstractFunctionParser = FunctionParserV1_0(stream)
 
-    override fun parse() : Declaration {
+    override fun parse(): Declaration {
         val isConst: Boolean = consumeDeclarationKeyword()
         val variable: String = consume(TokenTypes.IDENTIFIER).content
 
@@ -26,13 +26,12 @@ abstract class AbstractDeclarationParser(stream: TokenIterator) : TokenConsumer(
 
         val expression: Expression = functionParser.parse()
         return Declaration(variable, type, isConst, expression)
-
     }
 
-   private fun consumeDeclarationKeyword() : Boolean {
+    private fun consumeDeclarationKeyword(): Boolean {
         consume(TokenTypes.LET)
-       if (peek(TokenTypes.IDENTIFIER) == null) throwParserError("Expected identifier")
-       return false
+        if (peek(TokenTypes.IDENTIFIER) == null) throwParserError("Expected identifier")
+        return false
     }
 
     private fun throwParserError(text: String) {

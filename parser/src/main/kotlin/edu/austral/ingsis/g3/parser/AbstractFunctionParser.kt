@@ -54,7 +54,6 @@ abstract class AbstractFunctionParser(@NotNull stream: TokenIterator) : TokenCon
     private fun isAnOperand() =
         peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) != null
 
-
     private fun throwParserException() {
         throw ParserException("Expected an identifier or literal", current().range.startCol, current().range.startLine)
     }

@@ -57,10 +57,10 @@ class DefaultRegexLexer(private var matchers: EnumMap<TokenTypes, LexerMatcher>)
             }
         }
 
-            tokens += Token(TokenTypes.EOF, position, position, LexicalRange(column, line, column, line))
+        tokens += Token(TokenTypes.EOF, position, position, LexicalRange(column, line, column, line))
 
         return tokens
     }
 
-    private fun isNotSupportedOnVersion(type: TokenTypes) = type == TokenTypes.CONST || type ==  TokenTypes.IF || type == TokenTypes.READINPUT || type == TokenTypes.BOOLEAN
+    private fun isNotSupportedOnVersion(type: TokenTypes) = type == TokenTypes.CONST || type == TokenTypes.IF || type == TokenTypes.READINPUT || type == TokenTypes.BOOLEAN
 }

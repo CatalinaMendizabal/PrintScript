@@ -13,7 +13,7 @@ class FunctionParserV1_1(@NotNull stream: TokenIterator) : AbstractFunctionParse
     override fun parse(): Expression {
         var result: Expression
 
-        if (isReadInput())  result = readInputParser.parse()
+        if (isReadInput()) result = readInputParser.parse()
         else if (isAKeyWord()) {
             val value = consumeKeyWord()
             if (isNotOperand()) return Variable(value)
@@ -67,5 +67,4 @@ class FunctionParserV1_1(@NotNull stream: TokenIterator) : AbstractFunctionParse
     private fun throwParserException() {
         throw ParserException("Expected an identifier or literal", current().range.startCol, current().range.startLine)
     }
-
 }

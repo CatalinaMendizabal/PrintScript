@@ -41,5 +41,4 @@ class StatementParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), P
         )
         consume(TokenTypes.SEMICOLON)
     }
-
 }

@@ -1,11 +1,9 @@
-import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
+
 import edu.austral.ingsis.g3.parser.AssignmentParser
 import edu.austral.ingsis.g3.parser.FunctionParserV1_0
 import edu.austral.ingsis.g3.parser.Parser
 import expression.Variable
 import kotlin.test.assertEquals
-import org.austral.ingsis.printscript.common.LexicalRange
-import org.austral.ingsis.printscript.common.Token
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.junit.jupiter.api.Test
 
