@@ -9,7 +9,8 @@ import edu.austral.ingsis.g3.lexer.Lexer
 import edu.austral.ingsis.g3.lexer.lexerEnums.Version
 import edu.austral.ingsis.g3.lexer.matcher.MatchProvider
 import edu.austral.ingsis.g3.parser.Parser
-import edu.austral.ingsis.g3.parser.ParserImplementation
+import edu.austral.ingsis.g3.parser.ParserImplementatonV1_0
+import edu.austral.ingsis.g3.parser.ParserImplementatonV1_1
 import java.io.File
 import java.util.Scanner
 import node.Node
@@ -19,9 +20,11 @@ import org.austral.ingsis.printscript.parser.TokenIterator
 class CLI : CliktCommand() {
 
     var file = File("")
+    private val printScript = PrintScript(File("ideas"), "1.0")
 
     override fun run() {
-        val fileName: String = askForFile()
+        printScript.run()
+       /* val fileName: String = askForFile()
         file = getFile(fileName)
         val version: String = askForVersion()
         if (Version.getVariableType(version) == null) {
@@ -35,13 +38,13 @@ class CLI : CliktCommand() {
             println("Lexing...")
             val tokens = executeLexerTask(selectedVersion)
             println("Parsing...")
-            val root = executeParserTask(tokens)
+            val root = executeParserTask(tokens, version)
             println("Interpreting...")
             val consoleInt = executeInterpreterTask(root)
             println(consoleInt.readLine())
         } catch (e: Throwable) {
             println("Error: " + e.message)
-        }
+        }*/
     }
 
     private fun askForFile(): String {
@@ -69,9 +72,10 @@ class CLI : CliktCommand() {
         return lexer.lex(FileContent(file))
     }
 
-    private fun executeParserTask(tokens: List<Token>): Node {
+    private fun executeParserTask(tokens: List<Token>, version: String): Node {
         val parser: Parser<Node> =
-            ParserImplementation(TokenIterator.create(FileContent(file).convertContent(), tokens))
+            if (version == "1.0") ParserImplementatonV1_0(TokenIterator.create(FileContent(file).convertContent(), tokens))
+            else ParserImplementatonV1_1(TokenIterator.create(FileContent(file).convertContent(), tokens))
         return parser.parse()
     }
 

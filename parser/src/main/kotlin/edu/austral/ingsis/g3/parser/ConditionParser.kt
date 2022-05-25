@@ -7,11 +7,8 @@ import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.Content
 import org.austral.ingsis.printscript.parser.TokenIterator
 
-class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Condition> {
-    private val declarationParser = DeclarationParser(stream)
-    private val printParser = PrintParser(stream)
-    private val assignmentParser = AssignmentParser(stream)
-    // private val readInputParser = ReadInputParser(stream)
+class ConditionParser(stream: TokenIterator, private val statementParser: StatementParser) : TokenConsumer(stream), Parser<Condition> {
+    private val expressionParser: AbstractFunctionParser = FunctionParserV1_1(stream)
 
     private lateinit var booleanValue: String
 
@@ -45,28 +42,12 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
         if (peek(TokenTypes.LEFTBRACKET) == null) throwParserException("{")
         consume(TokenTypes.LEFTBRACKET)
 
-        val nextContent: Content<String>? =
-            peekAny(TokenTypes.LET, TokenTypes.PRINTLN, TokenTypes.TYPESTRING, TokenTypes.TYPENUMBER, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST)
-
-        if (nextContent != null) {
-            when (nextContent.content) {
-                "let", "const" -> {
-                    codeBlock.addChild(declarationParser.parse())
-                }
-                "println" -> {
-                    codeBlock.addChild(printParser.parse())
-                }
-                /*"readInput" -> {
-                    codeBlock.addChild(readInputParser.parse())
-                }*/
-                else -> throwParserException(nextContent)
+        while (peek(TokenTypes.RIGHTBRACKET) == null) {
+            if (peek(TokenTypes.EOF) != null) {
+                throw UnclosedCodeBlockException("Code block not closed with '}'");
             }
-        } else assignmentParser.parse()
-        if (peek(TokenTypes.EOF) == null) {
-            consume(TokenTypes.SEMICOLON)
+            codeBlock.addChild(statementParser.parse())
         }
-
-        if (peek(TokenTypes.RIGHTBRACKET) == null) throwParserException("}")
         consume(TokenTypes.RIGHTBRACKET)
         return codeBlock
     }
@@ -87,3 +68,4 @@ class ConditionParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Con
         )
     }
 }
+

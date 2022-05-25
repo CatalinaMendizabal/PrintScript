@@ -8,7 +8,7 @@ import org.austral.ingsis.printscript.parser.TokenIterator
 
 class PrintParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Print> {
 
-    private val expressionParser = FunctionParser(stream)
+    private val expressionParser: AbstractFunctionParser = FunctionParserV1_0(stream)
 
     override fun parse(): Print {
 

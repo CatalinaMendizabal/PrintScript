@@ -1,2 +1,2 @@
-const name: string = readInput("Name:");
-println("Hello" + name + "!");
+const numberResult: number = 5 * 5 - 8;
+println(numberResult);

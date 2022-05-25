@@ -2,6 +2,7 @@ package edu.austral.ingsis.g3.lexer
 
 import PrintScript.lexer.inputContent.Content
 import edu.austral.ingsis.g3.lexer.exceptions.LexerException
+import edu.austral.ingsis.g3.lexer.exceptions.VersionException
 import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import edu.austral.ingsis.g3.lexer.matcher.DefaultMatcherImpl
 import edu.austral.ingsis.g3.lexer.matcher.LexerMatcher
@@ -38,6 +39,8 @@ class DefaultRegexLexer(private var matchers: EnumMap<TokenTypes, LexerMatcher>)
 
                     if (it == TokenTypes.ERROR) throw LexerException("Error", line, column)
 
+                    if (isNotSupportedOnVersion(it)) throw VersionException(it.toString())
+
                     val token = Token(it, position, endPos, range)
 
                     column = endColumn
@@ -54,8 +57,10 @@ class DefaultRegexLexer(private var matchers: EnumMap<TokenTypes, LexerMatcher>)
             }
         }
 
-        tokens += Token(TokenTypes.EOF, position, position, LexicalRange(column, line, column, line))
+            tokens += Token(TokenTypes.EOF, position, position, LexicalRange(column, line, column, line))
 
         return tokens
     }
+
+    private fun isNotSupportedOnVersion(type: TokenTypes) = type == TokenTypes.CONST || type ==  TokenTypes.IF || type == TokenTypes.READINPUT || type == TokenTypes.BOOLEAN
 }

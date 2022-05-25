@@ -1,3 +1,4 @@
+/*
 package edu.austral.ingsis.g3.parser
 
 import Declaration
@@ -33,3 +34,4 @@ class DeclarationParser(stream: TokenIterator) : TokenConsumer(stream), Parser<D
         throw ParserException(text, current().range.startCol, current().range.startLine)
     }
 }
+*/

@@ -1,32 +1,27 @@
-/*
 package edu.austral.ingsis.g3.parser
 
 import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import expression.Expression
 import expression.Operand
 import expression.Variable
-import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull
 
-class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Parser<Expression> {
-    private val readInputParser = ReadInputParser(stream, this)
+class FunctionParserV1_1(@NotNull stream: TokenIterator) : AbstractFunctionParser(stream) {
+    var readInputParser = ReadInputParser(stream, this)
 
     override fun parse(): Expression {
-
         var result: Expression
-        val value: String
 
-        if (isReadInput()) result = readInputParser.parse()
+        if (isReadInput())  result = readInputParser.parse()
         else if (isAKeyWord()) {
-            value = consumeKeyWord()
+            val value = consumeKeyWord()
             if (isNotOperand()) return Variable(value)
             result = Variable(value)
         } else {
             throwParserException()
             result = Variable("")
         }
-
         while (isAnOperand()) {
             val operand: Operand? =
                 Operand.getOperand(
@@ -37,7 +32,6 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
                         TokenTypes.DIVIDE
                     ).content
                 )
-
             if (isAKeyWord()) {
                 val next = consumeKeyWord()
                 result = operand?.let { result.addVariable(it, Variable(next)) }!!
@@ -48,14 +42,20 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
         return result
     }
 
+    private fun isReadInput() = peek(TokenTypes.READINPUT) != null
+
+    private fun isAKeyWord() = peekAny(
+        TokenTypes.IDENTIFIER,
+        TokenTypes.NUMBER,
+        TokenTypes.STRING,
+        TokenTypes.BOOLEAN,
+    ) != null
+
     private fun consumeKeyWord() = consumeAny(
         TokenTypes.IDENTIFIER,
         TokenTypes.NUMBER,
         TokenTypes.STRING,
         TokenTypes.BOOLEAN,
-        */
-/*    TokenTypes.READINPUT*//*
-
     ).content
 
     private fun isAnOperand() =
@@ -64,20 +64,8 @@ class FunctionParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Pa
     private fun isNotOperand() =
         peekAny(TokenTypes.SUM, TokenTypes.SUBSTRACT, TokenTypes.MULTIPLY, TokenTypes.DIVIDE) == null
 
-    private fun isReadInput() = peek(TokenTypes.READINPUT) != null
-
-    private fun isAKeyWord() = peekAny(
-        TokenTypes.IDENTIFIER,
-        TokenTypes.NUMBER,
-        TokenTypes.STRING,
-        TokenTypes.BOOLEAN,
-        */
-/* TokenTypes.READINPUT*//*
-
-    ) != null
-
     private fun throwParserException() {
         throw ParserException("Expected an identifier or literal", current().range.startCol, current().range.startLine)
     }
+
 }
-*/

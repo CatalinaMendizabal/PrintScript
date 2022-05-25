@@ -6,11 +6,10 @@ import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull
 
-class AssignmentParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Parser<Assignment> {
-    private val expressionParser: FunctionParser = FunctionParser(stream)
+class AssignmentParser(@NotNull stream: TokenIterator, private val expressionParser: AbstractFunctionParser) : TokenConsumer(stream), Parser<Assignment> {
 
     override fun parse(): Assignment {
-        if (peek(TokenTypes.IDENTIFIER) == null) throwParserException("identifier")
+        if (peek(TokenTypes.IDENTIFIER) == null) throwParserException("Identifier")
         val variable = consume(TokenTypes.IDENTIFIER).content
         if (peek(TokenTypes.EQUAL) == null) throwParserException("=")
         consume(TokenTypes.EQUAL)

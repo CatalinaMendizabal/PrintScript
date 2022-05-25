@@ -7,10 +7,24 @@ class Declaration : Node {
     private val varName: String
     private val type: String
     private lateinit var value: Expression
+    private var isConst: Boolean = false
 
     constructor(varName: String, type: String, value: Expression) {
         this.varName = varName
         this.type = type
+        this.value = value
+    }
+
+    constructor(varName: String, type: String, isConst: Boolean) {
+        this.varName = varName
+        this.type = type
+        this.isConst = isConst
+    }
+
+    constructor(varName: String, type: String, isConst: Boolean, value: Expression) {
+        this.varName = varName
+        this.type = type
+        this.isConst = isConst
         this.value = value
     }
 
