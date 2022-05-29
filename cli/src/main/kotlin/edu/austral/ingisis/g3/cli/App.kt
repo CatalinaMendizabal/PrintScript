@@ -68,7 +68,7 @@ class CLI : CliktCommand() {
     }
 
     private fun executeLexerTask(version: Version): List<Token> {
-        val lexer: Lexer = DefaultRegexLexer(MatchProvider.getMatchers(version))
+        val lexer: Lexer = DefaultRegexLexer(MatchProvider.getMatchers(version), version)
         return lexer.lex(FileContent(file))
     }
 
