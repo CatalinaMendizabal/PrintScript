@@ -1,7 +1,7 @@
 
 import edu.austral.ingsis.g3.parser.AssignmentParser
-import edu.austral.ingsis.g3.parser.function.FunctionParserV1
 import edu.austral.ingsis.g3.parser.Parser
+import edu.austral.ingsis.g3.parser.function.FunctionParserV1
 import expression.Variable
 import kotlin.test.assertEquals
 import org.austral.ingsis.printscript.parser.TokenIterator

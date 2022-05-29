@@ -2,10 +2,10 @@ package edu.austral.ingsis.g3.parser.declaration
 
 import Declaration
 import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
-import edu.austral.ingsis.g3.parser.function.AbstractFunctionParser
-import edu.austral.ingsis.g3.parser.function.FunctionParserV1
 import edu.austral.ingsis.g3.parser.Parser
 import edu.austral.ingsis.g3.parser.exceptions.ParserException
+import edu.austral.ingsis.g3.parser.function.AbstractFunctionParser
+import edu.austral.ingsis.g3.parser.function.FunctionParserV1
 import expression.Expression
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
