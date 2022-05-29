@@ -1,6 +1,6 @@
 
 import edu.austral.ingsis.g3.parser.AssignmentParser
-import edu.austral.ingsis.g3.parser.FunctionParserV1_0
+import edu.austral.ingsis.g3.parser.function.FunctionParserV1
 import edu.austral.ingsis.g3.parser.Parser
 import expression.Variable
 import kotlin.test.assertEquals
@@ -11,7 +11,7 @@ class ParserTestImpl {
     @Test
     fun assignmentParserTestForSingleLiteral() {
         val tokenIterator = TokenIterator.create("a = 5", token_001)
-        val parser: Parser<Assignment> = AssignmentParser(tokenIterator, FunctionParserV1_0(tokenIterator))
+        val parser: Parser<Assignment> = AssignmentParser(tokenIterator, FunctionParserV1(tokenIterator))
         val assignment = Assignment("a", Variable("5"))
         assertEquals(assignment.toString(), parser.parse().toString())
     }

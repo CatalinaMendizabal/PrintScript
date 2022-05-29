@@ -7,7 +7,7 @@ import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull
 
-class ParserImplementatonV1_1(@NotNull stream: TokenIterator) : TokenConsumer(stream), Parser<Node> {
+class ParserImplementatonV2(@NotNull stream: TokenIterator) : TokenConsumer(stream), Parser<Node> {
     private val statementParser = StatementParser(stream)
 
     override fun parse(): Node {

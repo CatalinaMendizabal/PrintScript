@@ -1,13 +1,17 @@
-package edu.austral.ingsis.g3.parser
+package edu.austral.ingsis.g3.parser.declaration
 
 import Declaration
 import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
+import edu.austral.ingsis.g3.parser.function.AbstractFunctionParser
+import edu.austral.ingsis.g3.parser.function.FunctionParserV1
+import edu.austral.ingsis.g3.parser.Parser
+import edu.austral.ingsis.g3.parser.exceptions.ParserException
 import expression.Expression
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 
 abstract class AbstractDeclarationParser(stream: TokenIterator) : TokenConsumer(stream), Parser<Declaration> {
-    var functionParser: AbstractFunctionParser = FunctionParserV1_0(stream)
+    var functionParser: AbstractFunctionParser = FunctionParserV1(stream)
 
     override fun parse(): Declaration {
         consumeAny(TokenTypes.LET, TokenTypes.CONST)

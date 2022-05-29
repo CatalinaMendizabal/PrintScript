@@ -1,13 +1,15 @@
-package edu.austral.ingsis.g3.parser
+package edu.austral.ingsis.g3.parser.function
 
 import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
+import edu.austral.ingsis.g3.parser.ReadInputParser
+import edu.austral.ingsis.g3.parser.exceptions.ParserException
 import expression.Expression
 import expression.Operand
 import expression.Variable
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull
 
-class FunctionParserV1_1(@NotNull stream: TokenIterator) : AbstractFunctionParser(stream) {
+class FunctionParserV2(@NotNull stream: TokenIterator) : AbstractFunctionParser(stream) {
     var readInputParser = ReadInputParser(stream, this)
 
     override fun parse(): Expression {

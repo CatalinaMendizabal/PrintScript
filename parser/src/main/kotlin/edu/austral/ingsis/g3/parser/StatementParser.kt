@@ -1,6 +1,10 @@
 package edu.austral.ingsis.g3.parser
 
 import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
+import edu.austral.ingsis.g3.parser.declaration.DeclarationParserV2
+import edu.austral.ingsis.g3.parser.exceptions.UnexpectedKeywordException
+import edu.austral.ingsis.g3.parser.exceptions.UnexpectedTokenException
+import edu.austral.ingsis.g3.parser.function.FunctionParserV2
 import node.Node
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.Content
@@ -8,9 +12,9 @@ import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull
 
 class StatementParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), Parser<Node> {
-    private val declarationParserV1_1 = DeclarationParserV1_1(stream)
+    private val declarationParserV2 = DeclarationParserV2(stream)
     private val printParser = PrintParser(stream)
-    private val assignmentParser = AssignmentParser(stream, FunctionParserV1_1(stream))
+    private val assignmentParser = AssignmentParser(stream, FunctionParserV2(stream))
     private val conditionParser: ConditionParser = ConditionParser(stream, this)
 
     override fun parse(): Node {
@@ -19,7 +23,7 @@ class StatementParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), P
         if (next != null) {
             when (next.content) {
                 "const", "let" -> {
-                    result = declarationParserV1_1.parse()
+                    result = declarationParserV2.parse()
                 }
                 "println" -> {
                     result = printParser.parse()

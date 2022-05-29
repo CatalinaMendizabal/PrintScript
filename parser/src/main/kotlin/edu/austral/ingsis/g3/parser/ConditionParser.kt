@@ -3,12 +3,16 @@ package edu.austral.ingsis.g3.parser
 import CodeBlock
 import Condition
 import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
+import edu.austral.ingsis.g3.parser.exceptions.ParserException
+import edu.austral.ingsis.g3.parser.exceptions.UnclosedCodeBlockException
+import edu.austral.ingsis.g3.parser.function.AbstractFunctionParser
+import edu.austral.ingsis.g3.parser.function.FunctionParserV2
 import expression.Expression
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 
 class ConditionParser(stream: TokenIterator, private val statementParser: StatementParser) : TokenConsumer(stream), Parser<Condition> {
-    private val expressionParser: AbstractFunctionParser = FunctionParserV1_1(stream)
+    private val expressionParser: AbstractFunctionParser = FunctionParserV2(stream)
 
     private lateinit var booleanValue: String
 

@@ -2,16 +2,20 @@ package edu.austral.ingsis.g3.parser
 
 import CodeBlock
 import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
+import edu.austral.ingsis.g3.parser.declaration.DeclarationParserV1
+import edu.austral.ingsis.g3.parser.exceptions.ParserException
+import edu.austral.ingsis.g3.parser.exceptions.UnexpectedTokenException
+import edu.austral.ingsis.g3.parser.function.FunctionParserV1
 import node.Node
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.Content
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull
 
-class ParserImplementatonV1_0(@NotNull stream: TokenIterator) : TokenConsumer(stream), Parser<Node> {
-    private val declarationParserV10 = DeclarationParserV1_0(stream)
+class ParserImplementatonV1(@NotNull stream: TokenIterator) : TokenConsumer(stream), Parser<Node> {
+    private val declarationParserV10 = DeclarationParserV1(stream)
     private val printParser = PrintParser(stream)
-    private val assignmentParser = AssignmentParser(stream, FunctionParserV1_0(stream))
+    private val assignmentParser = AssignmentParser(stream, FunctionParserV1(stream))
 
     override fun parse(): Node {
         val program = CodeBlock()
