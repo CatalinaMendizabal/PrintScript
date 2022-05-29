@@ -1,8 +1,8 @@
 package edu.austral.ingsis.g3.parser
 
 import CodeBlock
+import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
 import node.Node
-import org.austral.ingsis.printscript.common.CoreTokenTypes
 import org.austral.ingsis.printscript.common.TokenConsumer
 import org.austral.ingsis.printscript.parser.TokenIterator
 import org.jetbrains.annotations.NotNull
@@ -12,7 +12,7 @@ class ParserImplementatonV1_1(@NotNull stream: TokenIterator) : TokenConsumer(st
 
     override fun parse(): Node {
         val program = CodeBlock()
-        while (peek(CoreTokenTypes.EOF) == null) {
+        while (peek(TokenTypes.EOF) == null) {
             program.addChild(statementParser.parse())
         }
         return program

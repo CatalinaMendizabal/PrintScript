@@ -3,8 +3,8 @@ package edu.austral.ingsis.g3.parser
 import CodeBlock
 import Condition
 import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
+import expression.Expression
 import org.austral.ingsis.printscript.common.TokenConsumer
-import org.austral.ingsis.printscript.parser.Content
 import org.austral.ingsis.printscript.parser.TokenIterator
 
 class ConditionParser(stream: TokenIterator, private val statementParser: StatementParser) : TokenConsumer(stream), Parser<Condition> {
@@ -15,26 +15,36 @@ class ConditionParser(stream: TokenIterator, private val statementParser: Statem
     override fun parse(): Condition {
         var elseCode = CodeBlock()
 
-        ifStatement()
+        consume(TokenTypes.IF).content
+        if (peek(TokenTypes.LEFTPARENTHESIS) == null) throwParserException("(")
+        consume(TokenTypes.LEFTPARENTHESIS)
+
+        val condition: Expression = expressionParser.parse()
+        // if (peekAny(TokenTypes.BOOLEAN, TokenTypes.IDENTIFIER) == null) throwParserException("boolean")
+        // booleanValue = consumeAny(TokenTypes.BOOLEAN, TokenTypes.IDENTIFIER).content
+
+        if (peek(TokenTypes.RIGHTPARENTHESIS) == null) throwParserException(")")
+        consume(TokenTypes.RIGHTPARENTHESIS)
         val ifCode: CodeBlock = executeConditionCode()
 
         if (peek(TokenTypes.ELSE) != null) {
             consume(TokenTypes.ELSE).content
             elseCode = executeConditionCode()
         }
-        return Condition(booleanValue, ifCode, elseCode)
+        return Condition(booleanValue, ifCode, elseCode, condition)
     }
 
     private fun ifStatement() {
-        consume(TokenTypes.IF).content
+       /* consume(TokenTypes.IF).content
         if (peek(TokenTypes.LEFTPARENTHESIS) == null) throwParserException("(")
         consume(TokenTypes.LEFTPARENTHESIS)
 
-        if (peek(TokenTypes.BOOLEAN) == null) throwParserException("boolean")
-        booleanValue = consume(TokenTypes.BOOLEAN).content
+        val condition: Expression = expressionParser.parse()
+        // if (peekAny(TokenTypes.BOOLEAN, TokenTypes.IDENTIFIER) == null) throwParserException("boolean")
+        // booleanValue = consumeAny(TokenTypes.BOOLEAN, TokenTypes.IDENTIFIER).content
 
         if (peek(TokenTypes.RIGHTPARENTHESIS) == null) throwParserException(")")
-        consume(TokenTypes.RIGHTPARENTHESIS)
+        consume(TokenTypes.RIGHTPARENTHESIS)*/
     }
 
     private fun executeConditionCode(): CodeBlock {
@@ -57,14 +67,6 @@ class ConditionParser(stream: TokenIterator, private val statementParser: Statem
             "Expected an $boolean",
             current().range.startCol,
             current().range.startLine
-        )
-    }
-
-    private fun throwParserException(nextContent: Content<String>) {
-        throw ParserException(
-            nextContent.content,
-            nextContent.token.range.startCol,
-            nextContent.token.range.startLine
         )
     }
 }

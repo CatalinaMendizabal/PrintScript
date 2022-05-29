@@ -7,7 +7,7 @@ class Declaration : Node {
     private val varName: String
     private val type: String
     private lateinit var value: Expression
-    private var isConst: Boolean = false
+    var isConst: Boolean = false
 
     constructor(varName: String, type: String, value: Expression) {
         this.varName = varName

@@ -33,7 +33,7 @@ class PrintScript(private val file: File, private val version: String) {
     }
 
     private fun executeLexerTask(version: Version): List<Token> {
-        val lexer: Lexer = DefaultRegexLexer(MatchProvider.getMatchers(Version.V1_1))
+        val lexer: Lexer = DefaultRegexLexer(MatchProvider.getMatchers(Version.V1_1), version)
         return lexer.lex(FileContent(file))
     }
 

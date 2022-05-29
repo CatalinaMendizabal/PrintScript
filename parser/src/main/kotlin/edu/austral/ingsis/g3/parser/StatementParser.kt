@@ -17,15 +17,20 @@ class StatementParser(@NotNull stream: TokenIterator) : TokenConsumer(stream), P
         val result: Node
         val next: Content<String>? = peekAny(TokenTypes.LET, TokenTypes.CONST, TokenTypes.PRINTLN, TokenTypes.READINPUT, TokenTypes.IF, TokenTypes.ELSE)
         if (next != null) {
-            if (next.content == "LET" || next.content == "CONST") {
-                result = declarationParserV1_1.parse()
-            } else if (next.content == "PRINTLN") {
-                result = printParser.parse()
-            } else if (next.content == "IF") {
-                result = conditionParser.parse()
-                if (peek(TokenTypes.SEMICOLON) != null) consumeEOL()
-                return result
-            } else throw UnexpectedKeywordException(next.content, next.token.range.startCol, next.token.range.startLine)
+            when (next.content) {
+                "const", "let" -> {
+                    result = declarationParserV1_1.parse()
+                }
+                "println" -> {
+                    result = printParser.parse()
+                }
+                "if" -> {
+                    result = conditionParser.parse()
+                    if (peek(TokenTypes.SEMICOLON) != null) consumeEOL()
+                    return result
+                }
+                else -> throw UnexpectedKeywordException(next.content, next.token.range.startCol, next.token.range.startLine)
+            }
         } else {
             result = assignmentParser.parse()
         }

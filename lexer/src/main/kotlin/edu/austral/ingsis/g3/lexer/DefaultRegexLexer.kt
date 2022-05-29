@@ -4,6 +4,7 @@ import PrintScript.lexer.inputContent.Content
 import edu.austral.ingsis.g3.lexer.exceptions.LexerException
 import edu.austral.ingsis.g3.lexer.exceptions.VersionException
 import edu.austral.ingsis.g3.lexer.lexerEnums.TokenTypes
+import edu.austral.ingsis.g3.lexer.lexerEnums.Version
 import edu.austral.ingsis.g3.lexer.matcher.DefaultMatcherImpl
 import edu.austral.ingsis.g3.lexer.matcher.LexerMatcher
 import java.util.EnumMap
@@ -11,7 +12,7 @@ import java.util.regex.Matcher
 import org.austral.ingsis.printscript.common.LexicalRange
 import org.austral.ingsis.printscript.common.Token
 
-class DefaultRegexLexer(private var matchers: EnumMap<TokenTypes, LexerMatcher>) : Lexer {
+class DefaultRegexLexer(private var matchers: EnumMap<TokenTypes, LexerMatcher>, private var version: Version) : Lexer {
 
     override fun lex(input: Content): List<Token> {
         val matcher = DefaultMatcherImpl(matchers.values.toList()).getMatcher(input.convertContent())
@@ -39,7 +40,7 @@ class DefaultRegexLexer(private var matchers: EnumMap<TokenTypes, LexerMatcher>)
 
                     if (it == TokenTypes.ERROR) throw LexerException("Error", line, column)
 
-                    if (isNotSupportedOnVersion(it)) throw VersionException(it.toString())
+                    if (isNotSupportedOnVersion(it, version)) throw VersionException(it.toString())
 
                     val token = Token(it, position, endPos, range)
 
@@ -62,5 +63,7 @@ class DefaultRegexLexer(private var matchers: EnumMap<TokenTypes, LexerMatcher>)
         return tokens
     }
 
-    private fun isNotSupportedOnVersion(type: TokenTypes) = type == TokenTypes.CONST || type == TokenTypes.IF || type == TokenTypes.READINPUT || type == TokenTypes.BOOLEAN
+    private fun isNotSupportedOnVersion(type: TokenTypes, version: Version) =
+        if (version == Version.V1_0) type == TokenTypes.CONST || type == TokenTypes.IF || type == TokenTypes.READINPUT || type == TokenTypes.BOOLEAN
+        else false
 }

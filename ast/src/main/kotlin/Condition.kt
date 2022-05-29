@@ -1,8 +1,10 @@
+import expression.Expression
 import node.Node
 import node.NodeVisitor
 
-class Condition(booleanValue: String, ifCode: CodeBlock, elseCode: CodeBlock) : Node {
+class Condition(booleanValue: String, ifCode: CodeBlock, elseCode: CodeBlock, condition: Expression) : Node {
 
+    val condition: Expression = condition
     val ifCode: CodeBlock = ifCode
     val elseCode: CodeBlock = elseCode
     val booleanValue = booleanValue

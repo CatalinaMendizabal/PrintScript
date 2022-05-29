@@ -10,14 +10,16 @@ abstract class AbstractDeclarationParser(stream: TokenIterator) : TokenConsumer(
     var functionParser: AbstractFunctionParser = FunctionParserV1_0(stream)
 
     override fun parse(): Declaration {
-        val isConst: Boolean = consumeDeclarationKeyword()
+        consumeAny(TokenTypes.LET, TokenTypes.CONST)
+        val isConst = false
+        if (peek(TokenTypes.IDENTIFIER) == null) throwParserError("Expected identifier")
         val variable: String = consume(TokenTypes.IDENTIFIER).content
 
         if (peek(TokenTypes.COLON) == null) throwParserError("Expected :")
         consume(TokenTypes.COLON)
 
         if (peekAny(TokenTypes.TYPESTRING, TokenTypes.LET, TokenTypes.TYPENUMBER, TokenTypes.PRINTLN, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST, TokenTypes.READINPUT) == null) throwParserError("Expected type")
-        val type = consumeAny(TokenTypes.TYPESTRING, TokenTypes.LET, TokenTypes.TYPENUMBER, TokenTypes.PRINTLN/* TODO, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST, TokenTypes.READINPUT*/).content
+        val type = consumeAny(TokenTypes.TYPESTRING, TokenTypes.LET, TokenTypes.TYPENUMBER, TokenTypes.PRINTLN, TokenTypes.TYPEBOOLEAN, TokenTypes.CONST, TokenTypes.READINPUT).content
 
         if (peek(TokenTypes.SEMICOLON) != null) return Declaration(variable, type, isConst)
 
@@ -26,12 +28,6 @@ abstract class AbstractDeclarationParser(stream: TokenIterator) : TokenConsumer(
 
         val expression: Expression = functionParser.parse()
         return Declaration(variable, type, isConst, expression)
-    }
-
-    private fun consumeDeclarationKeyword(): Boolean {
-        consume(TokenTypes.LET)
-        if (peek(TokenTypes.IDENTIFIER) == null) throwParserError("Expected identifier")
-        return false
     }
 
     private fun throwParserError(text: String) {

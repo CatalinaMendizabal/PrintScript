@@ -12,7 +12,7 @@ class LexTest {
 
     init {
         val matchers = MatchProvider.getMatchers(Version.V1_0)
-        lexer = DefaultRegexLexer(matchers)
+        lexer = DefaultRegexLexer(matchers, Version.V1_0)
     }
 
     @Test
