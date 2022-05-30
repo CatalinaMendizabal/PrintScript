@@ -20,15 +20,13 @@ class SolverVisitorV2 : AbstractSolverVisitor {
         this.printEmitter = printEmitter
     }
 
-    constructor(variables: Map<String?, String?>, inputProvider: IInputProvider, printEmitter: IPrintEmitter) : super(
-        variables as HashMap<String?, String?>
-    ) {
+    constructor(variables: Map<String?, String?>, inputProvider: IInputProvider, printEmitter: IPrintEmitter) : super(variables as HashMap<String?, String?>) {
         this.inputProvider = inputProvider
         this.printEmitter = printEmitter
     }
 
-    override fun solveOperation(operand: Operand?, leftResult: String?, rightResult: String?): String? {
-        val result = super.solveOperation(operand, leftResult, rightResult)
+    override fun getOperationResult(operand: Operand?, leftResult: String?, rightResult: String?): String? {
+        val result = super.getOperationResult(operand, leftResult, rightResult)
         if (result == null) {
             if (rightResult != null) {
                 if (leftResult != null) {

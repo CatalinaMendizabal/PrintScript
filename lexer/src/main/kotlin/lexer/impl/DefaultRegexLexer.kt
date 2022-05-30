@@ -2,10 +2,10 @@ package impl
 
 import PrintScript.lexer.inputContent.Content
 import enums.TokenTypes
-import exception.LexerException
 import interfaces.LexerMatcher
 import java.util.EnumMap
 import java.util.regex.Matcher
+import lexer.impl.LexerException
 import lexer.interfaces.Lexer
 import org.austral.ingsis.printscript.common.LexicalRange
 import org.austral.ingsis.printscript.common.Token
@@ -36,7 +36,7 @@ class DefaultRegexLexer(private var matchers: EnumMap<TokenTypes, LexerMatcher>)
                     val endPos = position + match.length
                     val range = LexicalRange(column, line, endColumn, endLine)
 
-                    if (it == TokenTypes.ERROR) throw LexerException(range)
+                    if (it == TokenTypes.ERROR) throw LexerException("Error", line, column)
                     val token = Token(it, position, endPos, range)
 
                     column = endColumn

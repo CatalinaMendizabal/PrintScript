@@ -17,7 +17,7 @@ import parser.ProgramParserV1
 import parser.ProgramParserV2
 
 class PrintScript(private val file: File, private val version: String) {
-    val selectedVersion = PrintScriptVersion.V1_1.toString()
+    private val selectedVersion = PrintScriptVersion.V1_1.toString()
     fun run() {
         try {
             println("Lexing...")

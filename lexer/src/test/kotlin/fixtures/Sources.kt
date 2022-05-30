@@ -1,18 +1,18 @@
 package fixtures
 
-const val src_001 = "let a: String;"
+const val src_001 = "let a: string;"
 
 const val src_002 = "a = \"This is a test!\";"
 
 const val src_003 = "a = \'This is a test!\';"
 
-const val src_004 = "let a: String = \"This is a test!\";"
+const val src_004 = "let a: string = \"This is a test!\";"
 
-const val src_005 = "let a: Number;"
+const val src_005 = "let a: number;"
 
 const val src_006 = "a = 2;"
 
-const val src_007 = "let a: Number = 2.123;"
+const val src_007 = "let a: number = 2.123;"
 
 const val src_008 = "println(\"This is a test!\");"
 
@@ -30,9 +30,9 @@ const val src_014 = "a = 2 / 3;"
 
 const val src_015 = "let"
 
-const val src_016 = "String"
+const val src_016 = "string"
 
-const val src_017 = "Number"
+const val src_017 = "number"
 
 const val src_018 = "println"
 
@@ -84,8 +84,6 @@ const val src_041 = " "
 
 const val src_042 = ""
 
-const val src_043 = "\n"
-
 const val src_044 = ":"
 
 const val src_045 = ";"
@@ -110,7 +108,6 @@ const val src_054 = "readInput"
 
 const val src_055 = "boolean"
 
-const val src_056 = "Boolean"
 
 const val src_057 = "number"
 

@@ -10,7 +10,7 @@ open class DeclarationParserV2(stream: TokenIterator) :
         functionParser = FunctionParserV2(stream)
     }
 
-    protected fun consumeDeclarationKeyword(): Boolean {
+    override fun consumeDeclarationKeyword(): Boolean {
         var isConst = false
         if (peek(TokenTypes.CONST) !== null) {
             consume(TokenTypes.CONST)

@@ -2,6 +2,7 @@ import PrintScript.lexer.inputContent.StringContent
 import enums.PrintScriptVersion
 import enums.TokenTypes
 import exception.LexerException
+import fixtures.*
 import impl.DefaultRegexLexer
 import impl.MatchProvider
 import kotlin.test.Test
@@ -24,7 +25,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_001))
         val expected = tokens_001.toString()
 
-        assertEquals(8, tokens.size)
+        assertEquals(6, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -33,7 +34,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_002))
         val expected = tokens_002.toString()
 
-        assertEquals(7, tokens.size)
+        assertEquals(5, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -42,7 +43,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_003))
         val expected = tokens_003.toString()
 
-        assertEquals(7, tokens.size)
+        assertEquals(5, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -51,7 +52,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_004))
         val expected = tokens_004.toString()
 
-        assertEquals(12, tokens.size)
+        assertEquals(8, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -60,7 +61,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_005))
         val expected = tokens_005.toString()
 
-        assertEquals(8, tokens.size)
+        assertEquals(6, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -69,7 +70,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_006))
         val expected = tokens_006.toString()
 
-        assertEquals(7, tokens.size)
+        assertEquals(5, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -78,7 +79,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_007))
         val expected = tokens_007.toString()
 
-        assertEquals(12, tokens.size)
+        assertEquals(8, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -105,7 +106,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_010))
         val expected = tokens_010.toString()
 
-        assertEquals(14, tokens.size)
+        assertEquals(9, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -114,7 +115,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_011))
         val expected = tokens_011.toString()
 
-        assertEquals(11, tokens.size)
+        assertEquals(7, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -123,7 +124,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_012))
         val expected = tokens_012.toString()
 
-        assertEquals(11, tokens.size)
+        assertEquals(7, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -132,7 +133,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_013))
         val expected = tokens_013.toString()
 
-        assertEquals(11, tokens.size)
+        assertEquals(7, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -141,7 +142,7 @@ class LexerTest {
         val tokens = lexer.lex(StringContent(src_014))
         val expected = tokens_014.toString()
 
-        assertEquals(11, tokens.size)
+        assertEquals(7, tokens.size)
         assertEquals(expected, tokens.toString())
     }
 
@@ -186,7 +187,7 @@ class LexerTest {
     @Test
     fun test019_plusTokenTest() {
         val tokens = lexer.lex(StringContent(src_019))
-        val expected = TokenTypes.PLUS
+        val expected = TokenTypes.SUM
 
         assertEquals(2, tokens.size)
         assertEquals(expected, tokens[0].type)
@@ -195,7 +196,7 @@ class LexerTest {
     @Test
     fun test020_minusTokenTest() {
         val tokens = lexer.lex(StringContent(src_020))
-        val expected = TokenTypes.MINUS
+        val expected = TokenTypes.SUBSTRACT
 
         assertEquals(2, tokens.size)
         assertEquals(expected, tokens[0].type)
@@ -204,7 +205,7 @@ class LexerTest {
     @Test
     fun test021_timesTokenTest() {
         val tokens = lexer.lex(StringContent(src_021))
-        val expected = TokenTypes.TIMES
+        val expected = TokenTypes.MULTIPLY
 
         assertEquals(2, tokens.size)
         assertEquals(expected, tokens[0].type)
@@ -213,7 +214,7 @@ class LexerTest {
     @Test
     fun test022_dividedByTokenTest() {
         val tokens = lexer.lex(StringContent(src_022))
-        val expected = TokenTypes.DIVIDEDBY
+        val expected = TokenTypes.DIVIDE
 
         assertEquals(2, tokens.size)
         assertEquals(expected, tokens[0].type)
@@ -222,7 +223,7 @@ class LexerTest {
     @Test
     fun test023_assignmentTokenTest() {
         val tokens = lexer.lex(StringContent(src_023))
-        val expected = TokenTypes.ASSIGNMENT
+        val expected = TokenTypes.EQUAL
 
         assertEquals(2, tokens.size)
         assertEquals(expected, tokens[0].type)
@@ -231,7 +232,7 @@ class LexerTest {
     @Test
     fun test024_openParenTokenTest() {
         val tokens = lexer.lex(StringContent(src_024))
-        val expected = TokenTypes.OPENPAREN
+        val expected = TokenTypes.LEFTPARENTHESIS
 
         assertEquals(2, tokens.size)
         assertEquals(expected, tokens[0].type)
@@ -240,7 +241,7 @@ class LexerTest {
     @Test
     fun test025_closeParenTokenTest() {
         val tokens = lexer.lex(StringContent(src_025))
-        val expected = TokenTypes.CLOSEPAREN
+        val expected = TokenTypes.RIGHTPARENTHESIS
 
         assertEquals(2, tokens.size)
         assertEquals(expected, tokens[0].type)
@@ -382,15 +383,6 @@ class LexerTest {
     }
 
     @Test
-    fun test041_whitespaceTokenTest() {
-        val tokens = lexer.lex(StringContent(src_041))
-        val expected = TokenTypes.WHITESPACE
-
-        assertEquals(2, tokens.size)
-        assertEquals(expected, tokens[0].type)
-    }
-
-    @Test
     fun test042_eofTokenTest() {
         val tokens = lexer.lex(StringContent(src_042))
         val expected = TokenTypes.EOF
@@ -399,14 +391,6 @@ class LexerTest {
         assertEquals(expected, tokens[0].type)
     }
 
-    @Test
-    fun test043_eolTokenTest() {
-        val tokens = lexer.lex(StringContent(src_043))
-        val expected = TokenTypes.EOL
-
-        assertEquals(2, tokens.size)
-        assertEquals(expected, tokens[0].type)
-    }
 
     @Test
     fun test044_colonTokenTest() {
@@ -520,14 +504,6 @@ class LexerTest {
         assertEquals(expected, tokens[0].type)
     }
 
-    @Test
-    fun test056_booleanTokenTest() {
-        val tokens = lexer.lex(StringContent(src_056))
-        val expected = TokenTypes.TYPEBOOLEAN
-
-        assertEquals(2, tokens.size)
-        assertEquals(expected, tokens[0].type)
-    }
 
     @Test
     fun test057_numberTokenTest() {
@@ -568,7 +544,7 @@ class LexerTest {
     @Test
     fun test061_openBracesTokenTest() {
         val tokens = lexer.lex(StringContent(src_061))
-        val expected = TokenTypes.OPENBRACE
+        val expected = TokenTypes.LEFTBRACKET
 
         assertEquals(2, tokens.size)
         assertEquals(expected, tokens[0].type)
@@ -577,7 +553,7 @@ class LexerTest {
     @Test
     fun test062_closeBracesTokenTest() {
         val tokens = lexer.lex(StringContent(src_062))
-        val expected = TokenTypes.CLOSEBRACE
+        val expected = TokenTypes.RIGHTBRACKET
 
         assertEquals(2, tokens.size)
         assertEquals(expected, tokens[0].type)

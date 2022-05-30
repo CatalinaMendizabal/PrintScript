@@ -24,7 +24,7 @@ abstract class AbstractDeclarationParser(stream: TokenIterator) : TokenConsumer(
         return Declaration(variable, type, isConst, expression)
     }
 
-    private fun consumeDeclarationKeyword(): Boolean {
+    open fun consumeDeclarationKeyword(): Boolean {
         consume(TokenTypes.LET)
         if (peek(TokenTypes.IDENTIFIER) == null) throw UnexpectedTokenException(
             "identifier",

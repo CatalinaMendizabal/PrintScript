@@ -12,7 +12,7 @@ import org.austral.ingsis.printscript.common.Token
 class CLI : CliktCommand() {
 
     var file = File("")
-    private val printScript = PrintScript(File("ideas"), "1.0")
+    private val printScript = PrintScript(File("ideas"), "1.1")
 
     override fun run() {
         printScript.run()

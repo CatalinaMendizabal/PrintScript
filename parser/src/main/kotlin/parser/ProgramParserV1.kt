@@ -16,10 +16,7 @@ class ProgramParserV1(stream: TokenIterator) :
     Parser<Node> {
     private val declarationParserV10 = DeclarationParserV1(stream)
     private val printParser = PrintParser(stream)
-    private val assignmentParser = AssignmentParser(
-        stream,
-        FunctionParserV1(stream)
-    )
+    private val assignmentParser = AssignmentParser(stream, FunctionParserV1(stream))
 
     override fun parse(): Node {
         val program = CodeBlock()
