@@ -8,5 +8,5 @@
  */
 
 rootProject.name = 'PrintScript'
-include('lexer', 'parser', 'interpreter', 'ast', 'intepreter', 'cli')
+include('lexer', 'parser', 'interpreter', 'ast', 'intepreter', 'cli', 'common')
 

@@ -2,20 +2,12 @@ package edu.austral.ingisis.g3.cli
 
 import PrintScript.lexer.inputContent.FileContent
 import com.github.ajalt.clikt.core.CliktCommand
-import edu.austral.ingsis.g3.interpreter.Interpreter
-import edu.austral.ingsis.g3.interpreter.InterpreterConsole
-import edu.austral.ingsis.g3.lexer.DefaultRegexLexer
-import edu.austral.ingsis.g3.lexer.Lexer
-import edu.austral.ingsis.g3.lexer.lexerEnums.Version
-import edu.austral.ingsis.g3.lexer.matcher.MatchProvider
-import edu.austral.ingsis.g3.parser.Parser
-import edu.austral.ingsis.g3.parser.ParserImplementatonV1
-import edu.austral.ingsis.g3.parser.ParserImplementatonV2
+import enums.PrintScriptVersion
+import impl.DefaultRegexLexer
+import impl.MatchProvider
 import java.io.File
 import java.util.Scanner
-import node.Node
 import org.austral.ingsis.printscript.common.Token
-import org.austral.ingsis.printscript.parser.TokenIterator
 
 class CLI : CliktCommand() {
 
@@ -67,12 +59,16 @@ class CLI : CliktCommand() {
         return file
     }
 
-    private fun executeLexerTask(version: Version): List<Token> {
-        val lexer: Lexer = DefaultRegexLexer(MatchProvider.getMatchers(version), version)
-        return lexer.lex(FileContent(file))
+    private fun executeLexerTask(version: PrintScriptVersion, src: File): List<Token> {
+        val matchers = MatchProvider.getMatchers(version)
+        val lexer = DefaultRegexLexer(matchers)
+        return lexer.lex(FileContent(src))
+
+      /*  val lexer: Lexer = DefaultRegexLexer(MatchProvider.getMatchers(version), version)
+        return lexer.lex(FileContent(file))*/
     }
 
-    private fun executeParserTask(tokens: List<Token>, version: String): Node {
+   /* private fun executeParserTask(tokens: List<Token>, version: String): Node {
         val parser: Parser<Node> =
             if (version == "1.0") ParserImplementatonV1(TokenIterator.create(FileContent(file).convertContent(), tokens))
             else ParserImplementatonV2(TokenIterator.create(FileContent(file).convertContent(), tokens))
@@ -82,7 +78,7 @@ class CLI : CliktCommand() {
     private fun executeInterpreterTask(ast: Node): InterpreterConsole {
         val interpreter = Interpreter()
         return interpreter.interpret(ast)
-    }
+    }*/
 }
 
 fun main(args: Array<String>) = CLI().main(args)

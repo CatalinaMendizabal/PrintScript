@@ -8,6 +8,7 @@ dependencies {
     implementation project(':lexer')
     implementation project(':parser')
     implementation project(':interpreter')
+    implementation project(':common')
 }
 
 version "1.1.2"
