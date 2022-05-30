@@ -41,7 +41,6 @@ class InterpreterVisitorV2(inputProvider: IInputProvider, printEmitter: IPrintEm
     }
 
     override fun visit(readInput: ReadInput) {
-
     }
 
     override fun visit(print: Print) {

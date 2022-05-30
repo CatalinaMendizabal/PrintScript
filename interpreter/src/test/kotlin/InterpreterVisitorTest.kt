@@ -1,14 +1,11 @@
 import ast.expression.Operand
 import ast.expression.Operation
-import ast.expression.ReadInput
 import ast.expression.Variable
 import ast.node.Assignment
 import ast.node.CodeBlock
 import ast.node.Declaration
-import ast.node.IfBlock
 import ast.node.Print
 import interpreter.interpreterVisitor.InterpreterVisitorV1
-import interpreter.interpreterVisitor.InterpreterVisitorV2
 import kotlin.test.assertEquals
 import org.junit.jupiter.api.Test
 
