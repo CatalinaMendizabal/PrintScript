@@ -40,12 +40,16 @@ class InterpreterVisitorV2(inputProvider: IInputProvider, printEmitter: IPrintEm
         } else throw NodeException("If block condition is not boolean")
     }
 
-    override fun visit(readInput: ReadInput) {}
+    override fun visit(readInput: ReadInput) {
+
+    }
 
     override fun visit(print: Print) {
         print.content.accept(solverVisitor)
+        result.write(solverVisitor.result)
+     /*   print.content.accept(solverVisitor)
         val result: String = solverVisitor.result.replace("^\"|\"|^\'|\'", "")
         this.result.write(result)
-        printEmitter.print(result)
+        printEmitter.print(result)*/
     }
 }

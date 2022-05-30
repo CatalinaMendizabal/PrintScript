@@ -55,7 +55,8 @@ internal class ParserTest {
     @Test
     fun expressionParserTestForSimpleSum() {
         val parser: Parser<Expression> = FunctionParserV1(
-            create(src_004, token_004))
+            create(src_004, token_004)
+        )
         val expression = Operation(Variable("2"), Operand.SUM, Variable("3"))
         Assertions.assertEquals(expression.toString(), parser.parse().toString())
     }
@@ -63,7 +64,8 @@ internal class ParserTest {
     @Test
     fun expressionParserTestForNumberOperation() {
         val parser: Parser<Expression> = FunctionParserV1(
-            create(src_005, token_005))
+            create(src_005, token_005)
+        )
         val expression = Operation(
             Operation(
                 Variable("2"),
@@ -171,7 +173,6 @@ internal class ParserTest {
         val declaration = Declaration("a", "number", false, Variable("8"))
         Assertions.assertEquals(declaration.toString(), parser.parse().toString())
     }
-
 
     /*    @Test
     public void defaultParserTestForSimpleCodeBlockTest(){

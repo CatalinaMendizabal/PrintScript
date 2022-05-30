@@ -108,7 +108,6 @@ const val src_054 = "readInput"
 
 const val src_055 = "boolean"
 
-
 const val src_057 = "number"
 
 const val src_058 = "string"

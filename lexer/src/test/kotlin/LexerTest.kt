@@ -2,7 +2,6 @@ import PrintScript.lexer.inputContent.StringContent
 import enums.PrintScriptVersion
 import enums.TokenTypes
 import exception.LexerException
-import fixtures.*
 import impl.DefaultRegexLexer
 import impl.MatchProvider
 import kotlin.test.Test
@@ -391,7 +390,6 @@ class LexerTest {
         assertEquals(expected, tokens[0].type)
     }
 
-
     @Test
     fun test044_colonTokenTest() {
         val tokens = lexer.lex(StringContent(src_044))
@@ -503,7 +501,6 @@ class LexerTest {
         assertEquals(2, tokens.size)
         assertEquals(expected, tokens[0].type)
     }
-
 
     @Test
     fun test057_numberTokenTest() {
