@@ -1,9 +1,6 @@
 import ast.expression.Operand
 import ast.expression.Operation
 import ast.expression.Variable
-import ast.node.Assignment
-import ast.node.CodeBlock
-import ast.node.Declaration
 import ast.node.Print
 import interpreter.interpreterVisitor.InterpreterVisitorV1
 import kotlin.test.assertEquals
