@@ -1,2 +1,5 @@
-const name: string = readInput("Name:");
-println("Hello " + name + "!");
+println("Hoal");
+if(true){
+  const name: string = readInput("Name:");
+  println("Hello " + name + "!");
+};

@@ -13,7 +13,7 @@ abstract class AbstractSolverVisitor : ExpressionVisitor {
 
     var result: String = ""
     protected var variables: MutableMap<String?, String?> = HashMap()
-    protected val stringRegex = Regex("\"[\\s\\S][^\"]*\"|'[\\s\\S][^']*'|\".*\"|'.*'|.*\"")
+    protected val stringRegex = Regex("\"[\\s\\S][^\"]*\"|'[\\s\\S][^']*'|\".*\"|'.*'|.*\"|[\\s\\S]*")
     protected val numberRegex = Regex("-?[0-9]{1,9}(\\.[0-9]*)?")
 
     constructor()

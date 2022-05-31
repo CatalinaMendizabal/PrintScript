@@ -15,6 +15,7 @@ class IfBlockParser(stream: TokenIterator, statementParser: StatementParser) :
     TokenConsumer(stream), Parser<IfBlock> {
     private val expressionParser: AbstractFunctionParser = FunctionParserV2(stream)
     private val statementParser: StatementParser
+    private val readInputParser: ReadInputParser = ReadInputParser(stream, expressionParser)
 
     init {
         this.statementParser = statementParser
@@ -57,7 +58,14 @@ class IfBlockParser(stream: TokenIterator, statementParser: StatementParser) :
                 if (peek(TokenTypes.EOF) != null) {
                     throw UnclosedCodeBlockException("Code block not closed with '}'")
                 }
-                result.addChild(statementParser.parse())
+                if (peek(TokenTypes.READINPUT) != null) {
+                    result.addChild(readInputParser.parse())
+                    if (peek(TokenTypes.SEMICOLON) != null) {
+                        consume(TokenTypes.SEMICOLON)
+                    }
+                } else {
+                    result.addChild(statementParser.parse())
+                }
             }
             consume(TokenTypes.RIGHTBRACKET)
             return result

@@ -22,6 +22,9 @@ abstract class AbstractInterpreterVisitor : NodeVisitor {
     override fun visit(codeBlock: CodeBlock) {
         for (child in codeBlock.children) {
             child.accept(this)
+            if (child is ReadInput) {
+                solverVisitor.visitReadInput(child)
+            }
         }
     }
 
