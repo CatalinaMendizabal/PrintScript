@@ -7,7 +7,6 @@ import ast.node.Declaration
 import ast.node.Node
 import ast.node.Print
 import enums.TokenTypes
-import java.util.List
 import org.austral.ingsis.printscript.common.LexicalRange
 import org.austral.ingsis.printscript.common.Token
 import org.austral.ingsis.printscript.parser.TokenIterator.Companion.create
@@ -96,7 +95,7 @@ internal class ParserTest {
         val parser: Parser<Expression> = FunctionParserV1(
             create(
                 "2 + a * 'hola' - 8",
-                List.of(
+                listOf(
                     Token(TokenTypes.NUMBER, 0, 1, LexicalRange(0, 0, 1, 0)),
                     Token(TokenTypes.SUM, 2, 3, LexicalRange(2, 0, 3, 0)),
                     Token(TokenTypes.IDENTIFIER, 4, 5, LexicalRange(4, 0, 5, 0)),
@@ -124,7 +123,7 @@ internal class ParserTest {
         val parser: Parser<Print> = PrintParser(
             create(
                 "println('hola')",
-                List.of(
+                listOf(
                     Token(TokenTypes.PRINTLN, 0, 7, LexicalRange(0, 0, 7, 0)),
                     Token(TokenTypes.LEFTPARENTHESIS, 7, 8, LexicalRange(7, 0, 8, 0)),
                     Token(TokenTypes.STRING, 8, 14, LexicalRange(8, 0, 14, 0)),
@@ -141,7 +140,7 @@ internal class ParserTest {
         val parser: Parser<Declaration> = DeclarationParserV1(
             create(
                 "let a:number;",
-                List.of(
+                listOf(
                     Token(TokenTypes.LET, 0, 3, LexicalRange(0, 0, 3, 0)),
                     Token(TokenTypes.IDENTIFIER, 4, 5, LexicalRange(4, 0, 5, 0)),
                     Token(TokenTypes.COLON, 5, 6, LexicalRange(5, 0, 6, 0)),
@@ -159,7 +158,7 @@ internal class ParserTest {
         val parser: Parser<Declaration> = DeclarationParserV1(
             create(
                 "let a:number = 8;",
-                List.of(
+                listOf(
                     Token(TokenTypes.LET, 0, 3, LexicalRange(0, 0, 3, 0)),
                     Token(TokenTypes.IDENTIFIER, 4, 5, LexicalRange(4, 0, 5, 0)),
                     Token(TokenTypes.COLON, 5, 6, LexicalRange(5, 0, 6, 0)),
@@ -227,7 +226,7 @@ internal class ParserTest {
         val parser: Parser<Node> = ProgramParserV1(
             create(
                 "number",
-                List.of(
+                listOf(
                     Token(TokenTypes.TYPENUMBER, 0, 6, LexicalRange(0, 0, 6, 0))
                 )
             )
@@ -242,7 +241,7 @@ internal class ParserTest {
         val parser: Parser<Declaration> = DeclarationParserV1(
             create(
                 "let :",
-                List.of(
+                listOf(
                     Token(TokenTypes.LET, 0, 3, LexicalRange(0, 0, 3, 0)),
                     Token(TokenTypes.COLON, 4, 5, LexicalRange(4, 0, 5, 0))
                 )
@@ -258,7 +257,7 @@ internal class ParserTest {
         val parser: Parser<Declaration> = DeclarationParserV1(
             create(
                 "let x number",
-                List.of(
+                listOf(
                     Token(TokenTypes.LET, 0, 3, LexicalRange(0, 0, 3, 0)),
                     Token(TokenTypes.IDENTIFIER, 4, 5, LexicalRange(4, 0, 5, 0)),
                     Token(TokenTypes.NUMBER, 6, 12, LexicalRange(6, 0, 12, 0))
@@ -275,7 +274,7 @@ internal class ParserTest {
         val parser: Parser<Declaration> = DeclarationParserV1(
             create(
                 "let x : ;",
-                List.of(
+                listOf(
                     Token(TokenTypes.LET, 0, 3, LexicalRange(0, 0, 3, 0)),
                     Token(TokenTypes.IDENTIFIER, 4, 5, LexicalRange(4, 0, 5, 0)),
                     Token(TokenTypes.COLON, 6, 7, LexicalRange(6, 0, 7, 0)),
@@ -293,7 +292,7 @@ internal class ParserTest {
         val parser: Parser<Print> = PrintParser(
             create(
                 "println 'hola')",
-                List.of(
+                listOf(
                     Token(TokenTypes.PRINTLN, 0, 7, LexicalRange(0, 0, 7, 0)),
                     Token(TokenTypes.STRING, 8, 14, LexicalRange(8, 0, 14, 0)),
                     Token(TokenTypes.RIGHTPARENTHESIS, 14, 15, LexicalRange(14, 0, 15, 0))
@@ -310,7 +309,7 @@ internal class ParserTest {
         val parser: Parser<Print> = PrintParser(
             create(
                 "println('hola'",
-                List.of(
+                listOf(
                     Token(TokenTypes.PRINTLN, 0, 7, LexicalRange(0, 0, 7, 0)),
                     Token(TokenTypes.LEFTPARENTHESIS, 7, 8, LexicalRange(7, 0, 8, 0)),
                     Token(TokenTypes.STRING, 8, 14, LexicalRange(8, 0, 14, 0))

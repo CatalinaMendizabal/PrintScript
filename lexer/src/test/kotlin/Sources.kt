@@ -1,5 +1,3 @@
-package fixtures
-
 const val src_001 = "let a: string;"
 
 const val src_002 = "a = \"This is a test!\";"

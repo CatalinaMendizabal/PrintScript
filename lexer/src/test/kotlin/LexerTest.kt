@@ -1,12 +1,10 @@
 import PrintScript.lexer.inputContent.StringContent
 import enums.PrintScriptVersion
 import enums.TokenTypes
-import exception.LexerException
 import impl.DefaultRegexLexer
 import impl.MatchProvider
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
 import lexer.interfaces.Lexer
 
 class LexerTest {
@@ -416,46 +414,6 @@ class LexerTest {
         assertEquals(2, tokens.size)
         assertEquals(expected, tokens[0].type)
     }
-
-    // Exception test
-
-    @Test
-    fun test047_exceptionTest() {
-        assertFailsWith<LexerException>(
-            block = {
-                lexer.lex(StringContent(src_047))
-            }
-        )
-    }
-
-    @Test
-    fun test048_exceptionTest() {
-        assertFailsWith<LexerException>(
-            block = {
-                lexer.lex(StringContent(src_048))
-            }
-        )
-    }
-
-    @Test
-    fun test049_exceptionTest() {
-        assertFailsWith<LexerException>(
-            block = {
-                lexer.lex(StringContent(src_049))
-            }
-        )
-    }
-
-    @Test
-    fun test050_exceptionTest() {
-        assertFailsWith<LexerException>(
-            block = {
-                lexer.lex(StringContent(src_050))
-            }
-        )
-    }
-
-    // v1.1 tokens test
 
     @Test
     fun test051_constTokenTest() {

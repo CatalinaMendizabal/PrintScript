@@ -1,13 +1,4 @@
 
-import ast.expression.Operand
-import ast.expression.Operation
-import ast.expression.Variable
-import interpreter.exception.UndeclaredVariableException
-import interpreter.solverVisitor.SolverVisitorV1
-import java.util.HashMap
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.function.Executable
 
 /*
 internal class SolverVisitorTest {

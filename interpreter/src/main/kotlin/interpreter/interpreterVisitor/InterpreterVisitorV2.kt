@@ -33,11 +33,15 @@ class InterpreterVisitorV2(inputProvider: IInputProvider, printEmitter: IPrintEm
     override fun visit(ifBlock: IfBlock) {
         ifBlock.condition.accept(solverVisitor)
         val result = solverVisitor.result
-        if (result == "true") {
-            ifBlock.ifCodeBlock.accept(this)
-        } else if (result == "false" && ifBlock.elseCodeBlock != null) {
-            ifBlock.elseCodeBlock.accept(this)
-        } else throw NodeException("If block condition is not boolean")
+        when (result) {
+            "true" -> {
+                ifBlock.ifCodeBlock.accept(this)
+            }
+            "false" -> {
+                ifBlock.elseCodeBlock.accept(this)
+            }
+            else -> throw NodeException("If block condition is not boolean")
+        }
     }
 
     override fun visit(readInput: ReadInput) {
