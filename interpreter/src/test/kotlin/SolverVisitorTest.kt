@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.function.Executable
 
+/*
 internal class SolverVisitorTest {
     @Test
     fun test001_WhenReceivingSimpleAdditionShouldReturnCorrectResult() {
@@ -166,3 +167,4 @@ internal class SolverVisitorTest {
         Assertions.assertThrows(UndeclaredVariableException::class.java, Executable { input.accept(visitor) })
     }
 }
+*/
