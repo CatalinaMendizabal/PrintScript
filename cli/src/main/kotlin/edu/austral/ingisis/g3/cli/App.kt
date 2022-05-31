@@ -2,26 +2,21 @@ package edu.austral.ingisis.g3.cli
 
 import PrintScript.lexer.inputContent.FileContent
 import com.github.ajalt.clikt.core.CliktCommand
-import edu.austral.ingsis.g3.interpreter.Interpreter
-import edu.austral.ingsis.g3.interpreter.InterpreterConsole
-import edu.austral.ingsis.g3.lexer.DefaultRegexLexer
-import edu.austral.ingsis.g3.lexer.Lexer
-import edu.austral.ingsis.g3.lexer.lexerEnums.Version
-import edu.austral.ingsis.g3.lexer.matcher.MatchProvider
-import edu.austral.ingsis.g3.parser.Parser
-import edu.austral.ingsis.g3.parser.ParserImplementation
+import enums.PrintScriptVersion
+import impl.DefaultRegexLexer
+import impl.MatchProvider
 import java.io.File
 import java.util.Scanner
-import node.Node
 import org.austral.ingsis.printscript.common.Token
-import org.austral.ingsis.printscript.parser.TokenIterator
 
 class CLI : CliktCommand() {
 
     var file = File("")
+    private val printScript = PrintScript(File("ideas"), "1.1")
 
     override fun run() {
-        val fileName: String = askForFile()
+        printScript.run()
+       /* val fileName: String = askForFile()
         file = getFile(fileName)
         val version: String = askForVersion()
         if (Version.getVariableType(version) == null) {
@@ -35,13 +30,13 @@ class CLI : CliktCommand() {
             println("Lexing...")
             val tokens = executeLexerTask(selectedVersion)
             println("Parsing...")
-            val root = executeParserTask(tokens)
+            val root = executeParserTask(tokens, version)
             println("Interpreting...")
             val consoleInt = executeInterpreterTask(root)
             println(consoleInt.readLine())
         } catch (e: Throwable) {
             println("Error: " + e.message)
-        }
+        }*/
     }
 
     private fun askForFile(): String {
@@ -64,21 +59,26 @@ class CLI : CliktCommand() {
         return file
     }
 
-    private fun executeLexerTask(version: Version): List<Token> {
-        val lexer: Lexer = DefaultRegexLexer(MatchProvider.getMatchers(version))
-        return lexer.lex(FileContent(file))
+    private fun executeLexerTask(version: PrintScriptVersion, src: File): List<Token> {
+        val matchers = MatchProvider.getMatchers(version)
+        val lexer = DefaultRegexLexer(matchers)
+        return lexer.lex(FileContent(src))
+
+      /*  val lexer: Lexer = DefaultRegexLexer(MatchProvider.getMatchers(version), version)
+        return lexer.lex(FileContent(file))*/
     }
 
-    private fun executeParserTask(tokens: List<Token>): Node {
+   /* private fun executeParserTask(tokens: List<Token>, version: String): Node {
         val parser: Parser<Node> =
-            ParserImplementation(TokenIterator.create(FileContent(file).convertContent(), tokens))
+            if (version == "1.0") ParserImplementatonV1(TokenIterator.create(FileContent(file).convertContent(), tokens))
+            else ParserImplementatonV2(TokenIterator.create(FileContent(file).convertContent(), tokens))
         return parser.parse()
     }
 
     private fun executeInterpreterTask(ast: Node): InterpreterConsole {
         val interpreter = Interpreter()
         return interpreter.interpret(ast)
-    }
+    }*/
 }
 
 fun main(args: Array<String>) = CLI().main(args)
