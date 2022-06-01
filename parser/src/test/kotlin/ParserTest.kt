@@ -179,15 +179,15 @@ internal class ParserTest {
     fun defaultParserTestForSimpleCodeBlockTest() {
         val parser: Parser<Node> = ProgramParserV1(create(src_007, token_007))
         val codeBlock = CodeBlock()
-        codeBlock.addChild(Declaration("a", "number", false,  Variable("8")))
-        codeBlock.addChild( Declaration("b", "string", false,  Variable("'8'")))
+        codeBlock.addChild(Declaration("a", "number", false, Variable("8")))
+        codeBlock.addChild(Declaration("b", "string", false, Variable("'8'")))
         codeBlock.addChild(
-             Assignment(
+            Assignment(
                 "a",
-             Operation( Variable("a"), Operand.SUM,  Variable("b"))
+                Operation(Variable("a"), Operand.SUM, Variable("b"))
+            )
         )
-        )
-        codeBlock.addChild( Print( Variable("a")))
+        codeBlock.addChild(Print(Variable("a")))
         assertEquals(codeBlock.toString(), parser.parse().toString())
     }
 
