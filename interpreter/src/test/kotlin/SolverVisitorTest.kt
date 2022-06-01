@@ -13,7 +13,7 @@ internal class SolverVisitorTest {
     @Test
     fun test001_WhenReceivingSimpleAdditionShouldReturnCorrectResult() {
         val input = Operation(Variable("1"), Operand.SUM, Variable("2"))
-        val expected = "3"
+        val expected = "3.0"
         val visitor = SolverVisitorV1()
         input.accept(visitor)
         val actual: String = visitor.result
@@ -27,7 +27,7 @@ internal class SolverVisitorTest {
             Operand.SUM,
             Operation(Variable("2"), Operand.MUL, Variable("3"))
         )
-        val expected = "7"
+        val expected = "7.0"
         val visitor = SolverVisitorV1()
         input.accept(visitor)
         val actual: String = visitor.result
@@ -55,7 +55,7 @@ internal class SolverVisitorTest {
     @Test
     fun test004_WhenReceivingSimpleNumberAndVariableOperationShouldReturnCorrectResult() {
         val input = Operation(Variable("aNumber"), Operand.SUM, Variable("2"))
-        val expected = "7"
+        val expected = "7.0"
         val variables = HashMap<String, String>()
         variables["aNumber"] = "5"
         val visitor = SolverVisitorV1(variables)
@@ -88,7 +88,7 @@ internal class SolverVisitorTest {
     @Test
     fun test006_WhenReceivingStringConcatenationShouldReturnCorrectResult() {
         val input = Operation(Variable("'Hello'"), Operand.SUM, Variable("\" world!\""))
-        val expected = "\"Hello world!\""
+        val expected = "Hello world!"
         val visitor = SolverVisitorV1()
         input.accept(visitor)
         val actual: String = visitor.result
