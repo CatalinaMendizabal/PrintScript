@@ -13,7 +13,7 @@ abstract class AbstractSolverVisitor : ExpressionVisitor {
 
     var result: String = ""
     protected var variables: MutableMap<String?, String?> = HashMap()
-    protected val stringRegex = Regex("\"[\\s\\S][^\"]*\"|'[\\s\\S][^']*'|\".*\"|'.*'|.*\"|[\\s\\S]")
+    protected val stringRegex = Regex("\"[\\s\\S][^\"]*\"|'[\\s\\S][^']*'")
     protected val numberRegex = Regex("-?[0-9]{1,9}(\\.[0-9]*)?")
 
     constructor()
@@ -46,7 +46,7 @@ abstract class AbstractSolverVisitor : ExpressionVisitor {
 
     private fun isString(leftResult: String?, rightResult: String?): Boolean {
         if (stringRegex.matches(leftResult!!) && stringRegex.matches(rightResult!!)) return true
-        if (stringRegex.matches(leftResult) && numberRegex.matches(rightResult!!)) return true
+        if (stringRegex.matches(leftResult!!) && numberRegex.matches(rightResult!!)) return true
         if (stringRegex.matches(rightResult!!) && numberRegex.matches(leftResult)) return true
         return false
     }
@@ -54,20 +54,20 @@ abstract class AbstractSolverVisitor : ExpressionVisitor {
     private fun operateOverString(leftResult: String?, rightResult: String?, operand: Operand?): String {
         if (operand !== Operand.SUM) throw InvalidOperationException(leftResult!!, rightResult!!, operand!!)
         else {
-            return leftResult?.replace(Regex("^\"|\"|^'|'"), "") + rightResult?.replace(Regex("^\"|\"|^\'|\'"), "")
+            val left = leftResult!!.replace(Regex("^\"|\"|^'|'"), "")
+            val right = rightResult!!.replace(Regex("^\"|\"|^'|'"), "")
+            return "\"" + left + right + "\""
+           // return leftResult?.replace(Regex("^\"|\"|^'|'"), "") + rightResult?.replace(Regex("^\"|\"|^\'|\'"), "")
         }
-/*        val left = leftResult!!.replace("[\"']".toRegex(), "")
-        val right = rightResult!!.replace("[\"']".toRegex(), "")
-        return "\"" + left + right + "\""*/
     }
 
     private fun operateOverNumber(leftResult: String?, rightResult: String?, operand: Operand?): String {
-        var result = when (operand) {
+        val result = when (operand) {
             Operand.SUM -> (leftResult!!.toDouble() + rightResult!!.toDouble()).toString()
             Operand.SUB -> (leftResult!!.toDouble() - rightResult!!.toDouble()).toString()
             Operand.MUL -> (leftResult!!.toDouble() * rightResult!!.toDouble()).toString()
             Operand.DIV -> (leftResult!!.toDouble() / rightResult!!.toDouble()).toString()
-            else -> { "" }
+            else -> {""}
         }
         return result
         /*var result = ""

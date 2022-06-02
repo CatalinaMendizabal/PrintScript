@@ -1,5 +1,6 @@
 println("Hoal");
+const name: string;
 if(true){
-  const name: string = readInput("Name:");
-  println("Hello " + name + "!");
+  name = readInput("Name:");
 };
+println("hello" + " world" );

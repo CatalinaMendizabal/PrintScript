@@ -78,17 +78,12 @@ class SolverVisitorV2 : AbstractSolverVisitor {
     }
 
     override fun visitReadInput(readInput: ReadInput) {
-        readInput.prompt.accept(this)
-        val res = this.result
-        if (res.matches(stringRegex)) {
-            result = inputProvider.getInput(res)
-        } else throw IllegalArgumentException("Input should be string")
-    /* val visitor = SolverVisitorV2(variables, inputProvider, printEmitter)
+     val visitor = SolverVisitorV2(variables, inputProvider, printEmitter)
         readInput.prompt.accept(visitor)
         val prompt = visitor.result
         result = if (prompt.matches(stringRegex)) {
             printEmitter.print(prompt.replace("\"".toRegex(), ""))
             "\"" + inputProvider.getInput(prompt.replace("[\"']".toRegex(), "")) + "\""
-        } else throw IllegalArgumentException("Prompt must be a string")*/
+        } else throw IllegalArgumentException("Prompt must be a string")
     }
 }
