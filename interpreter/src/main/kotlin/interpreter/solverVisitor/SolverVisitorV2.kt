@@ -78,7 +78,7 @@ class SolverVisitorV2 : AbstractSolverVisitor {
     }
 
     override fun visitReadInput(readInput: ReadInput) {
-     val visitor = SolverVisitorV2(variables, inputProvider, printEmitter)
+        val visitor = SolverVisitorV2(variables, inputProvider, printEmitter)
         readInput.prompt.accept(visitor)
         val prompt = visitor.result
         result = if (prompt.matches(stringRegex)) {

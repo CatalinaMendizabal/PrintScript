@@ -1,8 +1,10 @@
 import ast.expression.Operand
 import ast.expression.Operation
 import ast.expression.Variable
+import interpreter.exception.UndeclaredVariableException
 import interpreter.solverVisitor.SolverVisitorV1
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import org.junit.jupiter.api.Test
 
 class SolverVisitorTest {
@@ -84,7 +86,7 @@ class SolverVisitorTest {
     @Test
     fun test006_WhenReceivingStringConcatenationShouldReturnCorrectResult() {
         val input = Operation(Variable("'Hello'"), Operand.SUM, Variable("\" world!\""))
-        val expected = "Hello world!"
+        val expected = "\"Hello world!\""
         val visitor = SolverVisitorV1()
         input.accept(visitor)
         val actual: String = visitor.result
@@ -142,26 +144,30 @@ class SolverVisitorTest {
         val actual: String = visitor.result
         assertEquals(expected, actual)
     }
-/*
     @Test
     fun test010_WhenReceivingUndeclaredVariableShouldThrowException() {
         val input = Operation(Variable("aVariable"), Operand.SUM, Variable("\"2\""))
         val visitor = SolverVisitorV1()
-        Assertions.assertThrows(UndeclaredVariableException::class.java, Executable { input.accept(visitor) })
+        assertFailsWith<UndeclaredVariableException> {
+            input.accept(visitor)
+        }
     }
 
     @Test
     fun test011_WhenReceivingUndeclaredVariableShouldThrowException() {
         val input = Operation(Variable("aVariable"), Operand.SUM, Variable("2"))
         val visitor = SolverVisitorV1()
-        Assertions.assertThrows(UndeclaredVariableException::class.java, Executable { input.accept(visitor) })
+        assertFailsWith<UndeclaredVariableException> {
+            input.accept(visitor)
+        }
     }
 
     @Test
     fun test012_WhenReceivingUndeclaredVariablesShouldThrowException() {
         val input = Operation(Variable("aVariable"), Operand.SUM, Variable("anotherVariable"))
         val visitor = SolverVisitorV1()
-        Assertions.assertThrows(UndeclaredVariableException::class.java, Executable { input.accept(visitor) })
-    }*/
+        assertFailsWith<UndeclaredVariableException> {
+            input.accept(visitor)
+        }
+    }
 }
-

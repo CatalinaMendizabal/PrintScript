@@ -55,30 +55,4 @@ internal class InterpreterVisitorTest {
         program.accept(visitor)
         assertEquals("4526.0Hello world!", visitor.result.read())
     }
-
-  /* @Test
-    fun test005_WhenReceivingFullCodeBlockThenPrintStatementsShouldBeWrittenToResultV1_1() {
-        val visitor = InterpreterVisitorV2(inputProvider = "hola",  );
-
-        val program = CodeBlock()
-        program.addChild(Print(Variable("45")))
-        program.addChild(Declaration("x", "number", false, Variable("2")))
-        program.addChild(Print(Variable("x")))
-        program.addChild(Declaration("y", "number"))
-        program.addChild(Assignment("y", Operation(Variable("x"), Operand.MUL, Variable("3"))))
-        program.addChild(Print(Variable("y")))
-        program.addChild(
-            Declaration("string", "string", false, ReadInput(Variable("\"Enter a string: \"")))
-        )
-        program.addChild(Print(Operation(Variable("string"), Operand.SUM, Variable("\" world!\""))))
-        val ifBlock = CodeBlock()
-        ifBlock.addChild(Print(Variable("\" Entered if! \"")))
-        program.addChild(IfBlock(Variable("true"), ifBlock, CodeBlock()))
-        program.addChild(Declaration("aBoolean", "boolean", true, Variable("false")))
-        val elseBlock = CodeBlock()
-        elseBlock.addChild(Print(Variable("\" Entered else! \"")))
-        program.addChild(IfBlock(Variable("aBoolean"), CodeBlock(), elseBlock))
-        program.accept(visitor)
-        assertEquals("4526Hello world! Entered if!  Entered else! ", visitor.result.read())
-    }*/
 }

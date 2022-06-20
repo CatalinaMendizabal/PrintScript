@@ -66,11 +66,9 @@ abstract class AbstractInterpreterVisitor : NodeVisitor {
     }
 
     override fun visit(print: Print) {
-       // print.content.accept(solverVisitor)
-        //result.write(solverVisitor.result)
-         print.content.accept(solverVisitor)
-         val result: String = solverVisitor.result.replace("[\"']", "")
-         this.result.write(result)
+        print.content.accept(solverVisitor)
+        val result: String = solverVisitor.result.replace("\"", "")
+        this.result.write(result)
     }
 
     override fun visit(ifBlock: IfBlock) {}
