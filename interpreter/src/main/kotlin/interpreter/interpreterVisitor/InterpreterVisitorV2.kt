@@ -49,8 +49,13 @@ class InterpreterVisitorV2(inputProvider: IInputProvider, printEmitter: IPrintEm
 
     override fun visit(print: Print) {
         print.content.accept(solverVisitor)
+        val newResult = solverVisitor.result.replace("[\"']", "")
+        result.write(newResult)
+        printEmitter.print(newResult)
+      /*  print.content.accept(solverVisitor)
         result.write(solverVisitor.result)
-        printEmitter.print(solverVisitor.result)
+        printEmitter.print(solverVisitor.result)*/
+
      /*   print.content.accept(solverVisitor)
         val result: String = solverVisitor.result.replace("^\"|\"|^\'|\'", "")
         this.result.write(result)

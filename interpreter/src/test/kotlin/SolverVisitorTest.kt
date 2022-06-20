@@ -1,15 +1,21 @@
+import ast.expression.Operand
+import ast.expression.Operation
+import ast.expression.Variable
+import interpreter.exception.UndeclaredVariableException
+import interpreter.solverVisitor.SolverVisitorV1
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import org.junit.jupiter.api.Test
 
-
-/*
-internal class SolverVisitorTest {
+class SolverVisitorTest {
     @Test
     fun test001_WhenReceivingSimpleAdditionShouldReturnCorrectResult() {
         val input = Operation(Variable("1"), Operand.SUM, Variable("2"))
-        val expected = "3"
+        val expected = "3.0"
         val visitor = SolverVisitorV1()
         input.accept(visitor)
         val actual: String = visitor.result
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -19,11 +25,11 @@ internal class SolverVisitorTest {
             Operand.SUM,
             Operation(Variable("2"), Operand.MUL, Variable("3"))
         )
-        val expected = "7"
+        val expected = "7.0"
         val visitor = SolverVisitorV1()
         input.accept(visitor)
         val actual: String = visitor.result
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -41,19 +47,19 @@ internal class SolverVisitorTest {
         val visitor = SolverVisitorV1()
         input.accept(visitor)
         val actual: String = visitor.result
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
     fun test004_WhenReceivingSimpleNumberAndVariableOperationShouldReturnCorrectResult() {
         val input = Operation(Variable("aNumber"), Operand.SUM, Variable("2"))
-        val expected = "7"
-        val variables = HashMap<String, String>()
+        val expected = "7.0"
+        val variables = HashMap<String?, String?>()
         variables["aNumber"] = "5"
         val visitor = SolverVisitorV1(variables)
         input.accept(visitor)
         val actual: String = visitor.result
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -68,13 +74,13 @@ internal class SolverVisitorTest {
             )
         )
         val expected = "0.5"
-        val variables = HashMap<String, String>()
+        val variables = HashMap<String?, String?>()
         variables["aNumber"] = "5"
         variables["anotherNumber"] = "3"
         val visitor = SolverVisitorV1(variables)
         input.accept(visitor)
         val actual: String = visitor.result
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -84,7 +90,9 @@ internal class SolverVisitorTest {
         val visitor = SolverVisitorV1()
         input.accept(visitor)
         val actual: String = visitor.result
-        Assertions.assertEquals(expected, actual)
+        println(expected)
+        println(actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -95,12 +103,12 @@ internal class SolverVisitorTest {
             Operation(Variable("aString"), Operand.SUM, Variable("\"!!!\""))
         )
         val expected = "\"Hello world!!!\""
-        val variables = HashMap<String, String>()
+        val variables = HashMap<String?, String?>()
         variables["aString"] = "\" world\""
         val visitor = SolverVisitorV1(variables)
         input.accept(visitor)
         val actual: String = visitor.result
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -114,7 +122,7 @@ internal class SolverVisitorTest {
         val visitor = SolverVisitorV1()
         input.accept(visitor)
         val actual: String = visitor.result
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -128,34 +136,38 @@ internal class SolverVisitorTest {
                 Variable("aString")
             )
         )
-        val expected = "\"Hello world!11!!!\""
-        val variables = HashMap<String, String>()
+        val expected = "\"Hello world!11.0!!!\""
+        val variables = HashMap<String?, String?>()
         variables["aString"] = "\"!!!\""
         val visitor = SolverVisitorV1(variables)
         input.accept(visitor)
         val actual: String = visitor.result
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
-
     @Test
     fun test010_WhenReceivingUndeclaredVariableShouldThrowException() {
         val input = Operation(Variable("aVariable"), Operand.SUM, Variable("\"2\""))
         val visitor = SolverVisitorV1()
-        Assertions.assertThrows(UndeclaredVariableException::class.java, Executable { input.accept(visitor) })
+        assertFailsWith<UndeclaredVariableException> {
+            input.accept(visitor)
+        }
     }
 
     @Test
     fun test011_WhenReceivingUndeclaredVariableShouldThrowException() {
         val input = Operation(Variable("aVariable"), Operand.SUM, Variable("2"))
         val visitor = SolverVisitorV1()
-        Assertions.assertThrows(UndeclaredVariableException::class.java, Executable { input.accept(visitor) })
+        assertFailsWith<UndeclaredVariableException> {
+            input.accept(visitor)
+        }
     }
 
     @Test
     fun test012_WhenReceivingUndeclaredVariablesShouldThrowException() {
         val input = Operation(Variable("aVariable"), Operand.SUM, Variable("anotherVariable"))
         val visitor = SolverVisitorV1()
-        Assertions.assertThrows(UndeclaredVariableException::class.java, Executable { input.accept(visitor) })
+        assertFailsWith<UndeclaredVariableException> {
+            input.accept(visitor)
+        }
     }
 }
-*/
