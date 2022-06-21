@@ -14,10 +14,10 @@ import parser.ProgramParserV2
 
 class PrintScriptTck(private val file: File, private val version: String) {
 
-   fun run(): Node {
-       val tokens = executeLexerTask()
-       return executeParserTask(tokens)
-   }
+    fun run(): Node {
+        val tokens = executeLexerTask()
+        return executeParserTask(tokens)
+    }
 
     private fun executeLexerTask(): List<Token> {
         val matchers = MatchProvider.getMatchers(PrintScriptVersion.V1_0)
@@ -31,5 +31,4 @@ class PrintScriptTck(private val file: File, private val version: String) {
         else ProgramParserV2(TokenIterator.create(FileContent(file).convertContent(), tokens))
         return parser.parse()
     }
-
 }
